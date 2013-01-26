@@ -18,5 +18,5 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency('capistrano', ['>= 2.5.13'])
-  gem.add_dependency('OptionParser', ['>= 0.5.1'])
+  gem.add_dependency('thor', ['>= 0.17.0'])
 end
