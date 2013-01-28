@@ -50,6 +50,15 @@ class App < Thor
         say "\nREPOSITORIES".foreground(:yellow)
         menu.prompt = "Please choose your repository?".bright()
 
+        # find local remote from git repo
+        if File.directory?(".git")
+          local_repo = %x(git remote -v | grep origin | grep push | awk '{print $2}').gsub(/\n/,"")
+          menu.choice("#{local_repo}".bright() + " //from local repo") do |command|
+            say("Using #{command}")
+            data[:repo] = command;
+          end
+        end
+
         config[:repo].each do |val|
           repo_url = "#{val}/#{data[:application_name]}.git"
           unless repo_url == local_repo
