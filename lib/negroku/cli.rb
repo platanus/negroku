@@ -14,6 +14,23 @@ class App < Thor
   method_option :local_recipes, :type => :boolean, :aliases => "-l"
   method_option :path, :type => :string, :aliases => "-p"
   def create(name=nil)
+    # Get configuration
+    config = getConfig
+
+    # Test for config
+    if config.empty?
+      say "Warning".foreground(:red)
+      say "It's recommended that you add some default settings to negroku before you create your app deployment\n\n"
+      say "For example you can add your most common git urls using:\n"
+      say "negroku repo add git@github.com:yourusername.git\n".foreground(:yellow)
+      say "Also you can add your deployment servers urls using:\n"
+      say "negroku target add my.deployment.com".foreground(:yellow)
+      say "negroku target add 104.284.3.1\n".foreground(:yellow)
+      unless yes? "Do you want to continue without adding default settings? [y/N]"
+        exit
+      end
+    end
+
     say "We're about to create your application deploy setup\n".foreground(:green)
 
     # Hash to hold the app info
@@ -27,43 +44,56 @@ class App < Thor
     end
 
     # The application code repository
-    config = YAML.load_file(CONFIG_FILE) || {}
-    choose do |menu|
+    if config[:repo]
+      choose do |menu|
 
-      say "\nREPOSITORIES".foreground(:yellow)
-      menu.prompt = "Please choose your repository?".bright()
+        say "\nREPOSITORIES".foreground(:yellow)
+        menu.prompt = "Please choose your repository?".bright()
 
-      config["repo"].each do |val|
-        menu.choice(val) do |command|
-          say("Using #{command}/#{data[:application_name]}.git")
-          data[:repo] = command;
+        config[:repo].each do |val|
+          repo_url = "#{val}/#{data[:application_name]}.git"
+          unless repo_url == local_repo
+            menu.choice(repo_url) do |command|
+              say("Using #{command}/#{data[:application_name]}.git")
+              data[:repo] = command;
+            end
+          end
         end
-      end
 
-      menu.choice(:other) {
-        data[:repo] = ask "Type the url and username e.g. git@github.com:username".bright()
-      }
+        menu.choice(:other) {
+          data[:repo] = ask "Type the url and username e.g. git@github.com:username".bright()
+        }
+      end
+    else
+      data[:repo] = ask "Type the url and username e.g. git@github.com:username".bright()
     end
 
     # The application target deploy server
-    choose do |menu|
+    if config[:repo]
+      choose do |menu|
 
-      say "\nTARGET SERVERS".foreground(:yellow)
-      menu.prompt = "Please choose your deployment server?".bright()
+        say "\nTARGET SERVERS".foreground(:yellow)
+        menu.prompt = "Please choose your deployment server?".bright()
 
-      config["target"].each do |val|
-        menu.choice(val) do |command|
-          say("Using #{command}")
-          data[:target_server] = command;
+        config[:target].each do |val|
+          menu.choice(val) do |command|
+            say("Using #{command}")
+            data[:target_server] = command;
+          end
         end
-      end
 
-      menu.choice(:other) {
-        data[:target_server] = ask "Type the hostname or ip of the server to deploy to".bright()
-      }
+        menu.choice(:other) {
+          data[:target_server] = ask "Type the hostname or ip of the server to deploy to".bright()
+        }
+      end
+    else
+      data[:target_server] = ask "Type the hostname or ip of the server to deploy to".bright()
     end
 
     init(".", data)
+
+    say "\n\nWhat to do next?\n".bright()
+    say "you can try with     cap -T    to see the available tasks"
   end
 
   desc "deploy", "Deploy the application"
@@ -79,7 +109,7 @@ class Repo < Thor
     if url.nil?
       url = ask("Type the url and username e.g.  git@github.com:username")
     end
-    saveConfig("add", "repo", url)
+    saveConfig(:add, :repo, url)
   end
 
   desc "remove", "remove some repo"
@@ -99,7 +129,7 @@ class Target < Thor
     if host.nil?
       host = ask("Type the host or ip for the target machine")
     end
-    saveConfig("add", "target", host)
+    saveConfig(:add, :target, host)
   end
 
   desc "remove", "remove some target"
@@ -110,21 +140,6 @@ class Target < Thor
   desc "list", "show the targets"
   def list
     puts "I will list the target servers"
-  end
-end
-
-class Hosts < Thor
-  desc "add", "add new default target server"
-  def add(host=nil)
-    if host.nil?
-      host = ask("Type the host or ip for the target machine")
-    end
-    saveConfig("add", "target", host)
-  end
-
-  desc "remove", "remove some target"
-  def remove
-    puts "I will remove a target"
   end
 end
 
@@ -143,7 +158,6 @@ module Negroku
     register(App, 'app', 'app [COMMAND]', 'Application')
     register(Repo, 'repo', 'repo [COMMAND]', 'Repositories')
     register(Target, 'target', 'target [COMMAND]', 'Target servers')
-    register(Hosts, 'host', 'host [COMMAND]', 'Hosts')
     register(Konfig, 'config', 'config [COMMAND]', 'Configuration')
   end
 end

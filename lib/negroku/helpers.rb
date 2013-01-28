@@ -52,7 +52,7 @@ end
 
 def showConfig()
   # Load the yaml file
-  config = YAML.load_file(CONFIG_FILE) || {}
+  config = getConfig
   puts config
 end
 
