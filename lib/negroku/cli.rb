@@ -2,6 +2,8 @@ require 'thor'
 require 'rainbow'
 require 'highline/import'
 
+trap('INT') { exit }
+
 class App < Thor
 
   say "\n\n#############################################".bright()
