@@ -2,6 +2,8 @@
 
 require 'rubygems'
 require 'capistrano'
+require 'negroku/config'
+require 'negroku/helpers'
 require 'negroku/cli'
 
 Negroku::CLI.start

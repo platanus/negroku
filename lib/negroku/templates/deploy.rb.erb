@@ -1,0 +1,17 @@
+# Servers and their roles.
+server "<%= data[:target_server] %>", :web, :app, :db, primary: true
+
+# Server-side information.
+set :application, "<%= data[:application_name] %>"
+set :user,        "deploy"
+set :deploy_to,   "/home/#{user}/applications/#{application}"
+
+# Repository (if any) configuration.
+set :deploy_via, :remote_cache
+set :repository, "<%= data[:repo] %>/#{application}.git"
+set :branch,     "production"   # Optional, defaults to master
+# set :remote,   "negroku"      # Optional, defaults to origin
+
+# Use the bundler capistrano task to deploy to the shared folder
+require "bundler/capistrano"
+set :bundle_flags,    "--deployment --binstubs"

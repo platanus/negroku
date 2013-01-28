@@ -1,8 +1,3 @@
-require 'yaml'
-
-# the yaml file where we'll write the settings
-CONFIG_FILE = File.join(ENV['HOME'], ".negroku", "config.yaml")
-
 def init(target=".", data)
   puts target
   # Create the cap file if not found
@@ -37,7 +32,7 @@ def init(target=".", data)
 
   # Create the new deploy
   puts "[Negroku] => Writing new deploy.rb."
-  erb = File.read(File.join(File.dirname(__FILE__), '../lib', 'negroku', 'deploy.rb.erb'))
+  erb = File.read(File.join(File.dirname(__FILE__), 'templates', 'deploy.rb.erb'))
   File.open(File.join(path, 'config', 'deploy.rb'), 'w') do |f|
     f.write ERB.new(erb).result(binding)
   end
@@ -55,40 +50,14 @@ def init(target=".", data)
   end
 end
 
-def saveConfig(action, type, data)
-  # create the ~/.negroku folder
-  unless File.directory?(File.join(ENV['HOME'], ".negroku"))
-    puts "[Negroku] => Creating config file in #{ENV['HOME']}/.negroku"
-    %x(mkdir #{File.join(ENV['HOME'], ".negroku")})
-  end
-
-  # create an empty config.yaml file
-  unless File.exist?(CONFIG_FILE)
-    %x(touch #{CONFIG_FILE})
-  end
-
-  # Load the yaml file
-  config = YAML.load_file(CONFIG_FILE) || {}
-
-  # If I need to add some multiple values
-  if action == "add"
-    newData = config[type] || []
-    newData.push(data)
-    newData.uniq!
-    config = config.merge({ type => newData })
-  elsif action == "remove"
-    #..
-  elsif action == "replace"
-    #..
-  end
-
-  File.open(CONFIG_FILE, 'w') do |f|
-    f.write config.to_yaml
-  end
-end
-
 def showConfig()
   # Load the yaml file
   config = YAML.load_file(CONFIG_FILE) || {}
   puts config
+end
+
+##
+# Helper Method that assists in loading in tasks from the tasks folder
+def load_tasks(tasks)
+  load File.join(File.dirname(__FILE__), 'tasks', "#{tasks}.rb")
 end
