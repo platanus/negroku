@@ -61,3 +61,9 @@ end
 def load_tasks(tasks)
   load File.join(File.dirname(__FILE__), 'tasks', "#{tasks}.rb")
 end
+
+##
+# Returns the RAILS_ENV=production string to reduce overhead
+def env
+  "RAILS_ENV=production"
+end

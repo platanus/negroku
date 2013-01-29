@@ -25,5 +25,6 @@ default_run_options[:pty]   = true
 # Load Deployment Tasks
 load_tasks('base')
 load_tasks('log')
+load_tasks('rbenv')
 load_tasks('nginx')
 load_tasks('unicorn')

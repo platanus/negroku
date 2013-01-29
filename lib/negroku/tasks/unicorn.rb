@@ -44,7 +44,6 @@ namespace :unicorn do
    task :setup, roles: :app do
     template "unicorn.erb", "/tmp/unicorn.rb"
     run "#{sudo} mv /tmp/unicorn.rb #{shared_path}/config/"
-    start
   end
 
   after "deploy", "unicorn:restart"

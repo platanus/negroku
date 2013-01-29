@@ -183,11 +183,53 @@ class Konfig < Thor
   end
 end
 
+class RemoteEnv < Thor
+  namespace "env"
+
+  desc "show", "Show the current remote variables"
+  def show
+    `cap rbenv:vars:show`
+  end
+
+  desc "add", "Adds env variables to the remote server"
+  method_option :local, :type => :boolean, :aliases => "-l"
+  def add(key=nil, value=nil)
+
+    # Check if the paramenter were sent in the call
+    # Ask for the value if only the key was sent
+    if !key.nil? && value.nil?
+      value = ask("Please enter the value for #{key}:")
+    # If nothing was sent
+    elsif key.nil? && value.nil?
+      # Check if the .rbenv-vars file exists and offer get the info from there
+      if File.exist?(".rbenv-vars") && (yes? "Do you want to add variables from your local .rbenv-vars file  [y/N]")
+        choose do |menu|
+          menu.prompt = "Please choose variable you want to add?".bright()
+          menu.select_by = :index
+
+          File.readlines(".rbenv-vars").each do |line|
+            menu.choice(line.gsub("\n","")) do |command|
+              key = command.split("=")[0]
+              value = command.split("=")[1]
+            end
+          end
+        end
+      else
+        key = ask("Please enter the variable key:")
+        value = ask("Please enter the value for #{key}:")
+      end
+    end
+
+    `cap rbenv:vars:add -s key=#{key} -s value=#{value}`
+  end
+end
+
 module Negroku
   class CLI < Thor
     register(App, 'app', 'app [COMMAND]', 'Application')
     register(Repo, 'repo', 'repo [COMMAND]', 'Repositories')
     register(Target, 'target', 'target [COMMAND]', 'Target servers')
     register(Konfig, 'config', 'config [COMMAND]', 'Configuration')
+    register(RemoteEnv, 'env', 'env [COMMAND]', 'Remote environmental variables')
   end
 end
