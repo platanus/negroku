@@ -11,7 +11,7 @@ upstream <%= fetch(:application) %>-app-server {
 
 # HTTP Server
 server {
-  listen      80 deferred;
+  listen      80;
   server_name <%= fetch(:domains) %>;
   root        <%= fetch(:deploy_to) %>/current/<%= fetch(:static_dir) %>;
 
