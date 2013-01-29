@@ -19,7 +19,7 @@ class App < Thor
 
     # Test for config
     if config.empty?
-      say "Warning".foreground(:red)
+      say "[WARNING]".foreground(:red)
       say "It's recommended that you add some default settings to negroku before you create your app deployment\n\n"
       say "For example you can add your most common git urls using:\n"
       say "negroku repo add git@github.com:yourusername.git\n".foreground(:yellow)
@@ -44,23 +44,28 @@ class App < Thor
     end
 
     # The application code repository
-    if config[:repo]
-      choose do |menu|
+    choose do |menu|
 
-        say "\nREPOSITORIES".foreground(:yellow)
-        menu.prompt = "Please choose your repository?".bright()
+      say "\nREPOSITORIES"
+      say "============"
+      menu.prompt = "Please choose your repository?".bright()
+      menu.select_by = :index
 
-        # find local remote from git repo
-        if File.directory?(".git")
-          local_repo = %x(git remote -v | grep origin | grep push | awk '{print $2}').gsub(/\n/,"")
-          menu.choice("#{local_repo}".bright() + " //from local repo") do |command|
-            say("Using #{command}")
-            data[:repo] = command;
-          end
+      # find local remote from git repo
+      if File.directory?(".git")
+        say "[INFO] The first repo was taken from the local git checkout remotes".color(:yellow)
+        local_repo = %x(git remote -v | grep origin | grep push | awk '{print $2}').gsub(/\n/,"")
+        menu.choice("#{local_repo}") do |command|
+          say("Using #{command}")
+          data[:repo] = command;
         end
+      end
 
+      # adds the repos in the config file if there is one
+      if config[:repo]
         config[:repo].each do |val|
           repo_url = "#{val}/#{data[:application_name]}.git"
+          # skip if the repo url is the same as the local one
           unless repo_url == local_repo
             menu.choice(repo_url) do |command|
               say("Using #{command}/#{data[:application_name]}.git")
@@ -68,35 +73,39 @@ class App < Thor
             end
           end
         end
-
-        menu.choice(:other) {
-          data[:repo] = ask "Type the url and username e.g. git@github.com:username".bright()
-        }
+      else
+        say "[INFO] There are no repos in the default settings".color(:yellow)
       end
-    else
-      data[:repo] = ask "Type the url and username e.g. git@github.com:username".bright()
+
+      # add other repo choice
+      menu.choice(:other) {
+        data[:repo] = ask "Type the url and username e.g. git@github.com:username: ".bright()
+      }
     end
 
     # The application target deploy server
-    if config[:repo]
-      choose do |menu|
+    choose do |menu|
 
-        say "\nTARGET SERVERS".foreground(:yellow)
-        menu.prompt = "Please choose your deployment server?".bright()
+      say "\nTARGET SERVERS"
+      say "=============="
+      menu.prompt = "Please choose your deployment server?".bright()
+      menu.select_by = :index
 
+      # Adds the targets in the config file if there is one
+      if config[:repo]
         config[:target].each do |val|
           menu.choice(val) do |command|
             say("Using #{command}")
             data[:target_server] = command;
           end
         end
-
-        menu.choice(:other) {
-          data[:target_server] = ask "Type the hostname or ip of the server to deploy to".bright()
-        }
+      else
+        say "[INFO] There are no target urls in the default settings".color(:yellow)
       end
-    else
-      data[:target_server] = ask "Type the hostname or ip of the server to deploy to".bright()
+
+      menu.choice(:other) {
+        data[:target_server] = ask "Type the hostname or ip of the server to deploy to:".bright()
+      }
     end
 
     init(".", data)
