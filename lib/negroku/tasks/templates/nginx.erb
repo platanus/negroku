@@ -12,7 +12,7 @@ upstream <%= fetch(:application) %>-app-server {
 # HTTP Server
 server {
   listen      80 deferred;
-  server_name <%= fetch(:domains, ["platan.us", "www.platan.us"]).join(" ") %>;
+  server_name <%= fetch(:domains %>;
   root        <%= fetch(:deploy_to) %>/current/<%= fetch(:static_dir) %>;
 
   access_log /home/<%= fetch(:user) %>/log/<%= fetch(:application) %>-nginx-access.log;

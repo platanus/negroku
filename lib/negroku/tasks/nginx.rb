@@ -6,7 +6,7 @@
 # Feel free to further modify the template to your needs as it doesn't cover every use-case of course,
 # but tries to get all the common requirements out of the way to lessen research time (if any).
 
-set_default :domains, ["empty.platan.us"]
+set_default :domains, ["your.domain.com"]
 set_default :static_dir, "public"
 
 set_default :app_server, true

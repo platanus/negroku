@@ -13,6 +13,9 @@ set :branch,     "production"   # Optional, defaults to master
 # set :remote,   "negroku"      # Optional, defaults to origin
 # set :git_enable_submodules, 1
 
+# Web server configuration
+set :domains, "<%= data[:domains] %>"
+
 # Use the bundler capistrano task to deploy to the shared folder
 require "bundler/capistrano"
 set :bundle_flags,    "--deployment --binstubs"

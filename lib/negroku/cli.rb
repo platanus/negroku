@@ -108,6 +108,16 @@ class App < Thor
       }
     end
 
+    # Add custom domain
+    say "\nCUSTOM DOMAIN"
+    say "============="
+    if yes? "Do you want to use  #{data[:target_server].gsub(/^([a-z\d]*)/, data[:application_name])}? [Y/n]"
+      data[:domains] = data[:target_server].gsub(/^([a-z\d]*)/, data[:application_name])
+    else
+      data[:domains] = ask "Please enter the domains separated by spaces"
+    end
+
+
     init(".", data)
 
     say "\n\nWhat to do next?\n".bright()
