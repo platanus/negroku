@@ -8,9 +8,10 @@ set :deploy_to,   "/home/#{user}/applications/#{application}"
 
 # Repository (if any) configuration.
 set :deploy_via, :remote_cache
-set :repository, "<%= data[:repo] %>/#{application}.git"
+set :repository, "<%= data[:repo] %>"
 set :branch,     "production"   # Optional, defaults to master
 # set :remote,   "negroku"      # Optional, defaults to origin
+# set :git_enable_submodules, 1
 
 # Use the bundler capistrano task to deploy to the shared folder
 require "bundler/capistrano"
