@@ -121,7 +121,9 @@ class App < Thor
     init(".", data)
 
     say "\n\nWhat to do next?\n".bright()
-    say "you can try with     cap -T    to see the available tasks"
+    say "You can try with     cap -T    to see the available tasks"
+    say "Also you can check the config/deploy.rb file, you may want to change some things there"
+    say "\n HAPPY DEPLOY".foreground(:green)
   end
 
   desc "deploy", "Deploy the application"
