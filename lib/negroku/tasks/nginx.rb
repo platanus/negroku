@@ -11,7 +11,7 @@ set_default :static_dir, "public"
 
 set_default :app_server, true
 #set_default :app_server_port, 8080
-set_default :app_server_socket, "/home/#{fetch(:user)}/tmp/platanus.#{fetch(:application)}.sock"
+set_default :app_server_socket, "/home/#{fetch(:user)}/tmp/negroku.#{fetch(:application)}.sock"
 
 # set_default :use_ssl, true
 # set_default :ssl_key, "/path/to/local/ssh.key"
