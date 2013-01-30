@@ -16,6 +16,3 @@ set :branch,     "production"   # Optional, defaults to master
 # Web server configuration
 set :domains, "<%= data[:domains] %>"
 
-# Use the bundler capistrano task to deploy to the shared folder
-require "bundler/capistrano"
-set :bundle_flags,    "--deployment --binstubs"

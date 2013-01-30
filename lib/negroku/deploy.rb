@@ -21,6 +21,10 @@ ssh_options[:forward_agent] = true
 ssh_options[:port]          = 22
 default_run_options[:pty]   = true
 
+# Use the bundler capistrano task to deploy to the shared folder
+require "bundler/capistrano"
+set :bundle_flags,    "--deployment --binstubs"
+
 ##
 # Load Deployment Tasks
 load_tasks('base')
