@@ -106,9 +106,11 @@ class App < Thor
 
     puts "[Negroku] => Running capistrano task deploy:setup"
     `cap deploy:setup`
+
     say "\n\nWhat to do next?\n".bright()
-    say "You can try with     cap -T    to see the available tasks"
-    say "Also you can check the config/deploy.rb file, you may want to change some things there"
+    say "You can try with " + "cap -T".color(:yellow) +" to see the available tasks"
+    say "Also you can check the " + "config/deploy.rb".color(:yellow) + " file, you may want to change some things there"
+    say "NOTE: If this is the first time the app is deployed, use the task " + "cap deploy:cold task".color(:yellow)
     say "\n HAPPY DEPLOY".foreground(:green)
   end
 
