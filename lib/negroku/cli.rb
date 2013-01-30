@@ -160,6 +160,7 @@ class Target < Thor
       host = ask("Type the host or ip for the target machine")
     end
     saveConfig(:add, :target, host)
+    say "[Negroku] Added #{host}"
   end
 
   desc "remove", "remove some target"
