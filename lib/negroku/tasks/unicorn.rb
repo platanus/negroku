@@ -1,7 +1,7 @@
 # Number of workers (Rule of thumb is 2 per CPU)
 # Just be aware that every worker needs to cache all classes and thus eat some
 # of your RAM.
-set_default :unicorn_workers, 2
+set_default :unicorn_workers, 1
 
 # Workers timeout in the amount of seconds below, when the master kills it and
 # forks another one.
