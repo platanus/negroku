@@ -104,6 +104,8 @@ class App < Thor
 
     init(".", data)
 
+    puts "[Negroku] => Running capistrano task deploy:setup"
+    `cap deploy:setup`
     say "\n\nWhat to do next?\n".bright()
     say "You can try with     cap -T    to see the available tasks"
     say "Also you can check the config/deploy.rb file, you may want to change some things there"
