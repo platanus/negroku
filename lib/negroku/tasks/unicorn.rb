@@ -47,6 +47,7 @@ namespace :unicorn do
   end
 
   after "deploy", "unicorn:restart"
+  after "deploy:cold", "unicorn:start"
 end
 
 
