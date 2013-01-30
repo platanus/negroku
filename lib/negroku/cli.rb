@@ -20,13 +20,12 @@ class App < Thor
     # Test for config
     if config.empty?
       say "[WARNING]".foreground(:red)
-      say "It's recommended that you add some default settings to negroku before you create your app deployment\n\n"
-      say "For example you can add your most common git urls using:\n"
-      say "negroku repo add git@github.com:yourusername.git\n".foreground(:yellow)
-      say "Also you can add your deployment servers urls using:\n"
+      say "It's recommended that you add some custom settings to negroku before you create your app deployment\n\n"
+      say "You can add your deployment servers urls using:\n"
       say "negroku target add my.deployment.com".foreground(:yellow)
       say "negroku target add 104.284.3.1\n".foreground(:yellow)
-      unless yes? "Do you want to continue without adding default settings? [y/N]"
+      unless agree "You have not added custom settings! Do you want to continue? [y/n]", true
+        say "Goodbye"
         exit
       end
     end
@@ -53,33 +52,18 @@ class App < Thor
 
       # find local remote from git repo
       if File.directory?(".git")
-        say "[INFO] The first repo was taken from the local git checkout remotes".color(:yellow)
-        local_repo = %x(git remote -v | grep origin | grep push | awk '{print $2}').gsub(/\n/,"")
-        menu.choice("#{local_repo}") do |command|
-          say("Using #{command}")
-          data[:repo] = command;
-        end
-      end
-
-      # adds the repos in the config file if there is one
-      if config[:repo]
-        config[:repo].each do |val|
-          repo_url = "#{val}/#{data[:application_name]}.git"
-          # skip if the repo url is the same as the local one
-          unless repo_url == local_repo
-            menu.choice(repo_url) do |command|
-              say("Using #{command}/#{data[:application_name]}.git")
-              data[:repo] = command;
-            end
+        local_repos = %x(git remote -v | awk '{print $2}' | uniq).split("\n")
+        local_repos.each do |url|
+          menu.choice(url) do |command|
+            say("Using #{command}")
+            data[:repo] = command;
           end
         end
-      else
-        say "[INFO] There are no repos in the default settings".color(:yellow)
       end
 
       # add other repo choice
       menu.choice(:other) {
-        data[:repo] = ask "Type the url and username e.g. git@github.com:username: ".bright()
+        data[:repo] = ask "Type the url and username e.g. git@github.com:username/app-name.git: ".bright()
       }
     end
 
@@ -111,7 +95,7 @@ class App < Thor
     # Add custom domain
     say "\nCUSTOM DOMAIN"
     say "============="
-    if yes? "Do you want to use  #{data[:target_server].gsub(/^([a-z\d]*)/, data[:application_name])}? [Y/n]"
+    if agree "Do you want to use  #{data[:target_server].gsub(/^([a-z\d]*)/, data[:application_name])}? [y/n]", true
       data[:domains] = data[:target_server].gsub(/^([a-z\d]*)/, data[:application_name])
     else
       data[:domains] = ask "Please enter the domains separated by spaces"
@@ -129,27 +113,6 @@ class App < Thor
   desc "deploy", "Deploy the application"
   def deploy
     put "I will deploy"
-  end
-end
-
-class Repo < Thor
-
-  desc "add", "add new default repositories"
-  def add(url=nil)
-    if url.nil?
-      url = ask("Type the url and username e.g.  git@github.com:username")
-    end
-    saveConfig(:add, :repo, url)
-  end
-
-  desc "remove", "remove some repo"
-  def remove
-    puts "I will remove a repo"
-  end
-
-  desc "list", "show the repost"
-  def list
-    puts "I will list the target servers"
   end
 end
 
@@ -203,7 +166,7 @@ class RemoteEnv < Thor
     # If nothing was sent
     elsif key.nil? && value.nil?
       # Check if the .rbenv-vars file exists and offer get the info from there
-      if File.exist?(".rbenv-vars") && (yes? "Do you want to add variables from your local .rbenv-vars file  [y/N]")
+      if File.exist?(".rbenv-vars") && (agree "Do you want to add variables from your local .rbenv-vars file [y/n]", true)
         choose do |menu|
           menu.prompt = "Please choose variable you want to add?".bright()
           menu.select_by = :index
@@ -228,7 +191,6 @@ end
 module Negroku
   class CLI < Thor
     register(App, 'app', 'app [COMMAND]', 'Application')
-    register(Repo, 'repo', 'repo [COMMAND]', 'Repositories')
     register(Target, 'target', 'target [COMMAND]', 'Target servers')
     register(Konfig, 'config', 'config [COMMAND]', 'Configuration')
     register(RemoteEnv, 'env', 'env [COMMAND]', 'Remote environmental variables')
