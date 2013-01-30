@@ -92,7 +92,7 @@ class App < Thor
       menu.select_by = :index
 
       # Adds the targets in the config file if there is one
-      if config[:repo]
+      if config[:target]
         config[:target].each do |val|
           menu.choice(val) do |command|
             say("Using #{command}")
