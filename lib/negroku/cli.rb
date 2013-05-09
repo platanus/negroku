@@ -111,11 +111,6 @@ class App < Thor
     say "NOTE: If this is the first time the app is deployed, use the task " + "cap deploy:cold".color(:yellow)
     say "\n HAPPY DEPLOY".foreground(:green)
   end
-
-  desc "deploy", "Deploy the application"
-  def deploy
-    put "I will deploy"
-  end
 end
 
 class Target < Thor
