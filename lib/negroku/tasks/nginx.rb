@@ -40,7 +40,8 @@ namespace :nginx do
   desc "Setup nginx configuration for this application."
   task :setup, roles: :web do
     template "nginx.erb", "/tmp/nginx.conf"
-    run "#{sudo} mv /tmp/nginx.conf /etc/nginx/sites-enabled/#{fetch(:application)}"
+    run "#{sudo} mv /tmp/nginx.conf /etc/nginx/sites-available/#{fetch(:application)}"
+    run "#{sudo} ln -s /etc/nginx/sites-available/#{fetch(:application)} /etc/nginx/sites-enabled/#{fetch(:application)}"
     run "mkdir -p /home/#{fetch(:user)}/log"
     reload
   end
