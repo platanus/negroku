@@ -43,6 +43,7 @@ def init(target=".", data)
     File.open(File.join(path, 'Capfile'), "a") do |cfile|
   cfile << <<-capfile
   \n
+  load 'deploy/assets'
   require "negroku"
   load negroku
   capfile

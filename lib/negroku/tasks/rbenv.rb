@@ -1,7 +1,4 @@
-# RBEnv
-#------------------------------------------------------------------------------
-#
-set_default :ruby_version, "1.9.3-p125"
+# rbenv vars tasks
 
 namespace :rbenv do
   namespace :vars do
@@ -15,6 +12,12 @@ namespace :rbenv do
     desc "Add rbenv vars"
     task :add, :roles => :app do
       run "echo '#{key}=#{value}' >> #{shared_path}/.rbenv-vars"
+    end
+
+    after "deploy:finalize_update", "rbenv:vars:symlink"
+    desc "Symlink rbenv-vars file into the current release"
+    task :symlink, :roles => :app do
+      run "ln -nfs '#{shared_path}/.rbenv-vars' '#{release_path}/.rbenv-vars'"
     end
   end
 end

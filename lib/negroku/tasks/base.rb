@@ -17,7 +17,6 @@ namespace :deploy do
   task :post do
     symlinks
     migrate
-    assets
   end
 
   desc "Performs an Active Record migration."
@@ -25,15 +24,10 @@ namespace :deploy do
     run "cd '#{release_path}' && #{env} rake db:migrate"
   end
 
-  desc "Precompiles assets from Rails' asset pipeline."
-  task :assets do
-    run "cd '#{release_path}' && #{env} rake assets:precompile"
-  end
-
   desc "Sets up additional symlinks after deploy."
   task :symlinks do
     # Exmaple:
-    run "ln -nfs '#{shared_path}/.rbenv-vars' '#{release_path}/.rbenv-vars'"
+    # run "ln -nfs '#{shared_path}/yourfile' '#{release_path}/yourfile'"
   end
 
   after "deploy:setup", "deploy:setup_shared"
