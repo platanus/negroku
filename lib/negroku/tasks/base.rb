@@ -21,7 +21,7 @@ namespace :deploy do
 
   desc "Performs an Active Record migration."
   task :migrate do
-    run "cd '#{release_path}' && #{env} rake db:migrate"
+    run "cd '#{release_path}' && RAILS_ENV=#{rails_env} rake db:migrate"
   end
 
   desc "Sets up additional symlinks after deploy."

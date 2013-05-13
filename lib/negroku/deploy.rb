@@ -11,6 +11,9 @@ set   :use_sudo,            false
 set :remote, 'origin' unless respond_to?(:remote)
 set :branch, 'master' unless respond_to?(:branch)
 
+# Default environment
+set :rails_env, 'production' unless respond_to?(:rails_env)
+
 ## Default path
 set :default_environment, {
   'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
