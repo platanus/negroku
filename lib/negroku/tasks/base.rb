@@ -15,31 +15,12 @@ namespace :deploy do
   after "deploy:update_code", "deploy:post"
   desc "Performs the post-deploy tasks."
   task :post do
-    symlinks
     migrate
-  end
-
-  desc "Performs an Active Record migration."
-  task :migrate do
-    run "cd '#{release_path}' && RAILS_ENV=#{rails_env} bin/rake db:migrate"
-  end
-
-  desc "Sets up additional symlinks after deploy."
-  task :symlinks do
-    # Exmaple:
-    # run "ln -nfs '#{shared_path}/yourfile' '#{release_path}/yourfile'"
   end
 
   after "deploy:setup", "deploy:setup_shared"
   desc "Sets up additional folders/files after deploy:setup."
   task :setup_shared do
     run "mkdir -p '#{shared_path}/config'"
-  end
-
-  desc "Restarts the app server."
-  task :restart do
-    # Example:
-    # restart_torquebox_app
-    # restart_upstart_app
   end
 end
