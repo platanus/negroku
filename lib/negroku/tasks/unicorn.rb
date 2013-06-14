@@ -10,7 +10,7 @@ set_default  :unicorn_workers_timeout, 30
 
 # Workers are started with this user
 # By default we get the user/group set in capistrano.
-set_default  :unicorn_user, user
+set_default  :unicorn_user, nil
 
 # The wrapped bin to start unicorn
 set_default  :unicorn_bin, 'bin/unicorn'
