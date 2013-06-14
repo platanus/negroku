@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["jidonoso@gmail.com"]
   gem.description   = ["To deploy application"]
   gem.summary       = ["Capistrano Wrapper"]
-  gem.homepage      = ""
+  gem.homepage      = "http://github.com/platanus-repos/negroku"
 
   gem.files         = Dir['{bin,lib,setup}/**/*', 'README.md', 'LICENSE']
   gem.executables   = ['negroku']
@@ -18,6 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency('capistrano', ['>= 2.5.13'])
+  gem.add_dependency('capistrano-unicorn', ['>= 0.1.9'])
   gem.add_dependency('rainbow', ['>= 1.1.4'])
   gem.add_dependency('highline', ['>= 1.6.15'])
   gem.add_dependency('thor', ['>= 0.17.0'])
