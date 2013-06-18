@@ -12,11 +12,7 @@ end
 
 # Review and modify the tasks below on a per-app/language/framework basis.
 namespace :deploy do
-  after "deploy:update_code", "deploy:post"
-  desc "Performs the post-deploy tasks."
-  task :post do
-    migrate
-  end
+  after "deploy:update_code", "deploy:migrate"
 
   after "deploy:setup", "deploy:setup_shared"
   desc "Sets up additional folders/files after deploy:setup."

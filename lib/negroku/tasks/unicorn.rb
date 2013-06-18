@@ -37,7 +37,6 @@ namespace :unicorn do
     run "#{sudo} mv /tmp/unicorn.rb #{shared_path}/config/"
   end
 
-  after "deploy", "unicorn:restart"
   after "deploy:cold", "unicorn:start"
   after 'deploy:restart', 'unicorn:restart'
 end
