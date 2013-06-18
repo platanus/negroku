@@ -54,9 +54,9 @@ class App < Thor
       if File.directory?(".git")
         local_repos = %x(git remote -v | awk '{print $2}' | uniq).split("\n")
         local_repos.each do |url|
-          menu.choice(url) do |command|
-            say("Using #{command}")
-            data[:repo] = command;
+          menu.choice(url) do |server|
+            say("Using #{server}")
+            data[:repo] = server;
           end
         end
       end
@@ -68,48 +68,59 @@ class App < Thor
     end
 
     # The application target deploy server
-    choose do |menu|
+    say "\nTARGET SERVERS"
+    say "==============\n"
+    %w(staging production).each do |stage|
 
-      say "\nTARGET SERVERS"
-      say "=============="
-      menu.prompt = "Please choose your deployment server?".bright()
-      menu.select_by = :index
+      # Stage title
+      puts "\n#{stage.upcase}".foreground(:green)
 
-      # Adds the targets in the config file if there is one
-      if config[:target]
-        config[:target].each do |val|
-          menu.choice(val) do |command|
-            say("Using #{command}")
-            data[:target_server] = command;
+      # Ask server
+      choose do |menu|
+        menu.prompt = "Please choose your #{stage} deployment server?".bright()
+        menu.select_by = :index
+
+        # Adds the targets in the config file if there is one
+        if config[:target]
+          config[:target].each do |val|
+            menu.choice(val) do |server|
+              say("Using #{server} for #{stage}")
+              data[:"#{stage}_server"] = server;
+            end
           end
+        else
+          say "[INFO] There are no target urls in the default settings".color(:yellow)
         end
-      else
-        say "[INFO] There are no target urls in the default settings".color(:yellow)
+
+        menu.choice(:other) {
+          data[:"#{stage}_server"] = ask "Type the hostname or ip of the #{stage} server to deploy to:".bright()
+        }
       end
 
-      menu.choice(:other) {
-        data[:target_server] = ask "Type the hostname or ip of the server to deploy to:".bright()
-      }
+      # Add custom domain
+      case stage
+      when "staging"
+        domain = data[:"#{stage}_server"].gsub(/^([a-z\d]*)/, data[:application_name])
+      when "production"
+        domain = "www.#{data[:application_name]}.com"
+      end
+      if agree "Do you want to use #{domain}? [y/n]", true
+        data[:"#{stage}_domains"] = domain
+      else
+        data[:"#{stage}_domains"] = ask "Please enter the domains separated by spaces"
+      end
     end
-
-    # Add custom domain
-    say "\nCUSTOM DOMAIN"
-    say "============="
-    if agree "Do you want to use  #{data[:target_server].gsub(/^([a-z\d]*)/, data[:application_name])}? [y/n]", true
-      data[:domains] = data[:target_server].gsub(/^([a-z\d]*)/, data[:application_name])
-    else
-      data[:domains] = ask "Please enter the domains separated by spaces"
-    end
-
 
     init(".", data)
 
     say "\n\nWhat to do next?\n".bright()
-    say "Setup your app running " + "cap deploy:setup".color(:yellow)
+    say "Setup your app running " + "cap deploy:setup".color(:yellow) + " then " + "cap deploy:cold".color(:yellow)
     say "You can try with " + "cap -T".color(:yellow) +" to see the available tasks"
-    say "Also you can check the " + "config/deploy.rb".color(:yellow) + " file, you may want to change some things there"
-    say "NOTE: If this is the first time the app is deployed, use the task " + "cap deploy:cold".color(:yellow)
-    say "\n HAPPY DEPLOY".foreground(:green)
+    say "Also you can check the following files, you may want to change some things there"
+    say "config/deploy.rb".color(:yellow)
+    say "config/deploy/staging.rb".color(:yellow)
+    say "config/deploy/production.rb".color(:yellow)
+    say "\nHAPPY DEPLOY".foreground(:green)
   end
 end
 

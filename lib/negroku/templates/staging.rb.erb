@@ -1,0 +1,14 @@
+## STAGING CONFIGURATION
+
+# Servers and their roles.
+server "<%= data[:staging_server] %>", :web, :app, :db, primary: true
+
+# Web server configuration
+set :domains, 		"<%= data[:staging_domains] %>"
+
+# Source
+set :branch,     	"production"		# Optional, defaults to master
+# set :remote,   	"origin"			# Optional, defaults to origin
+
+# Rails
+# set :rails_env, 	"staging"		# Optional, defaults to production

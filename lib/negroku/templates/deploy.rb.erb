@@ -1,5 +1,7 @@
-# Servers and their roles.
-server "<%= data[:target_server] %>", :web, :app, :db, primary: true
+# Set server stages
+set :stages, %w(production staging)
+set :default_stage, "staging"
+require 'capistrano/ext/multistage'
 
 # Server-side information.
 set :application, "<%= data[:application_name] %>"
@@ -9,15 +11,7 @@ set :deploy_to,   "/home/#{user}/applications/#{application}"
 # Repository (if any) configuration.
 set :deploy_via, :remote_cache
 set :repository, "<%= data[:repo] %>"
-set :branch,     "production"   # Optional, defaults to master
-# set :remote,   "negroku"      # Optional, defaults to origin
 # set :git_enable_submodules, 1
-
-# Web server configuration
-set :domains, "<%= data[:domains] %>"
-
-# Rails
-# set :rails_env, 		"production"
 
 # Database
 # set :migrate_env,    "migration"

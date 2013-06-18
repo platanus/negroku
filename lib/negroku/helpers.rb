@@ -1,46 +1,70 @@
 def init(target=".", data)
-  puts target
+
+  # Main locations
+  target_path    = File.expand_path(target)
+  config_path = File.join(target_path, "config")
+  deploy_path = File.join(target_path, "config", "deploy")
+  capfile = File.join(target_path, "Capfile")
+  deployfile = File.join(config_path, "deploy.rb")
+  stagingfile = File.join(deploy_path, "staging.rb")
+  productionfile = File.join(deploy_path, "production.rb")
+
   # Create the cap file if not found
-  if Dir.entries(target).include?("Capfile")
+  if Dir.entries(target_path).include?("Capfile")
     puts "[Negroku] => Found Capfile!"
   else
     puts "[Negroku] => Capifying!"
-    `capify #{File.expand_path(target)}`
+    `capify #{target_path}`
+    `rm `
   end
-  path    = File.expand_path(target)
-  capfile = File.expand_path(File.join(target, "Capfile"))
 
   # Find or create config folder
-  unless File.directory?(File.join(path, "config"))
+  unless File.directory?(config_path)
     puts "[Negroku] => Could not find the \"config\" folder. Creating it now!"
-    %x(mkdir #{File.join(path, 'config')})
+    %x(mkdir #{config_path})
+  end
+
+  # Find or create deploy folder
+  unless File.directory?(deploy_path)
+    puts "[Negroku] => Could not find the \"deploy\" folder. Creating it now!"
+    %x(mkdir #{deploy_path})
   end
 
   # replace and rename older deploy.rb
-  if File.exist?(File.join(path, "config", "deploy.rb"))
+  if File.exist?(deployfile)
     puts "[Negroku] => Backing up deploy.rb"
-    old_versions = Dir.entries(File.join(path, 'config')).map {|entree| entree if entree =~ /deploy\.old\.(\d+)\.rb$/}.compact!
+    old_versions = Dir.entries(config_path).map {|entree| entree if entree =~ /deploy\.old\.(\d+)\.rb$/}.compact!
     if old_versions.empty?
-      %x(mv #{File.join(path, 'config', 'deploy.rb')} #{File.join(path, 'config', 'deploy.old.1.rb')})
+      %x(mv #{deployfile} #{File.join(config_path, 'deploy.old.1.rb')})
     else
       version = old_versions.last.match('^deploy\.old\.(\d+)\.rb$')[1].to_i + 1
-      %x(mv #{File.join(path, 'config', 'deploy.rb')} #{File.join(path, 'config', "deploy.old.#{version}.rb")})
+      %x(mv #{deployfile} #{File.join(config_path, "deploy.old.#{version}.rb")})
     end
-  else
-    puts "[Negroku] => Could not find deploy.rb. Creating a new one!"
   end
 
   # Create the new deploy
   puts "[Negroku] => Writing new deploy.rb."
   erb = File.read(File.join(File.dirname(__FILE__), 'templates', 'deploy.rb.erb'))
-  File.open(File.join(path, 'config', 'deploy.rb'), 'w') do |f|
+  File.open(deployfile, 'w') do |f|
+    f.write ERB.new(erb).result(binding)
+  end
+
+  # Create the new configuration stages
+  puts "[Negroku] => Writing new deploy/staging.rb"
+  erb = File.read(File.join(File.dirname(__FILE__), 'templates', 'staging.rb.erb'))
+  File.open(stagingfile, 'w') do |f|
+    f.write ERB.new(erb).result(binding)
+  end
+  puts "[Negroku] => Writing new deploy/production.rb"
+  erb = File.read(File.join(File.dirname(__FILE__), 'templates', 'production.rb.erb'))
+  File.open(productionfile, 'w') do |f|
     f.write ERB.new(erb).result(binding)
   end
 
   # checks for both require "negroku" and require "negroku/initializer"
   unless File.open(File.join('Capfile'), 'r').read.include?('require "negroku"')
-    puts "[Negroku] => Adding Negroku Loader inside #{path}/Capfile."
-    File.open(File.join(path, 'Capfile'), "a") do |cfile|
+    puts "[Negroku] => Adding Negroku Loader inside #{capfile}."
+    File.open(capfile, "a") do |cfile|
   cfile << <<-capfile
   \n
   load 'deploy/assets'
