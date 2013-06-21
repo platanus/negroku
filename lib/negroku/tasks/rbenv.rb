@@ -4,9 +4,7 @@ namespace :rbenv do
   namespace :vars do
     desc "Show current rbenv vars"
     task :show, :roles => :app do
-      run "sh -c 'cd #{shared_path} && cat .rbenv-vars'"  do |channel, stream, data|
-        puts data
-      end
+      run "sh -c 'cd #{shared_path} && cat .rbenv-vars'"
     end
 
     desc "Add rbenv vars"

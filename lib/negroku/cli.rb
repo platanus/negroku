@@ -161,7 +161,7 @@ class RemoteEnv < Thor
 
   desc "show", "Show the current remote variables"
   def show
-    `cap rbenv:vars:show`
+    %x(cap rbenv:vars:show)
   end
 
   desc "add", "Adds env variables to the remote server"
@@ -193,7 +193,7 @@ class RemoteEnv < Thor
       end
     end
 
-    `cap rbenv:vars:add -s key=#{key} -s value=#{value}`
+    %x(cap rbenv:vars:add -s key=#{key} -s value=#{value})
   end
 end
 
