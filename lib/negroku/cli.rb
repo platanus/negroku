@@ -158,10 +158,11 @@ end
 
 class RemoteEnv < Thor
   namespace "env"
+  class_option :stage, :type => :string, :default => "staging", :aliases => "-s", :desc => "Set the capistrano stage to be used", :banner => "STAGE"
 
   desc "show", "Show the current remote variables"
   def show
-    %x(cap rbenv:vars:show)
+    %x(cap #{options[:stage]} rbenv:vars:show)
   end
 
   desc "add", "Adds env variables to the remote server"
@@ -193,7 +194,7 @@ class RemoteEnv < Thor
       end
     end
 
-    %x(cap rbenv:vars:add -s key=#{key} -s value=#{value})
+    %x(cap #{options[:stage]} rbenv:vars:add -s key=#{key} -s value=#{value})
   end
 end
 
