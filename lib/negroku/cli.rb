@@ -1,6 +1,7 @@
 require 'thor'
 require 'rainbow'
 require 'highline/import'
+require 'negroku'
 
 trap('INT') { exit }
 
@@ -198,6 +199,18 @@ end
 
 module Negroku
   class CLI < Thor
+    class_option :version, :type => :boolean, :aliases => "-v"
+
+    def initialize(*)
+      super
+
+      # Show the version
+      if options[:version]
+        puts Negroku::VERSION
+        exit 0
+      end
+    end
+
     register(App, 'app', 'app [COMMAND]', 'Application')
     register(Target, 'target', 'target [COMMAND]', 'Target servers')
     register(Konfig, 'config', 'config [COMMAND]', 'Configuration')
