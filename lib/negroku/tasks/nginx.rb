@@ -39,9 +39,15 @@ namespace :nginx do
   after "deploy:setup", "nginx:setup"
   desc "Setup nginx configuration for this application."
   task :setup, roles: :web do
-    template "nginx.erb", "/tmp/nginx.conf"
+    config_file = "config/deploy/nginx.conf.erb"
+    if File.exists?(config_file)
+        config = ERB.new(File.read(config_file)).result(binding)
+        put config, "/tmp/nginx.conf"
+    else
+      template "nginx.erb", "/tmp/nginx.conf"
+    end
     run "#{sudo} mv /tmp/nginx.conf /etc/nginx/sites-available/#{fetch(:application)}"
-    run "#{sudo} ln -s /etc/nginx/sites-available/#{fetch(:application)} /etc/nginx/sites-enabled/#{fetch(:application)}"
+    run "#{sudo} ln -nfs /etc/nginx/sites-available/#{fetch(:application)} /etc/nginx/sites-enabled/#{fetch(:application)}"
     run "mkdir -p /home/#{fetch(:user)}/log"
     reload
   end
