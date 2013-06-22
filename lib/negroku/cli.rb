@@ -165,7 +165,7 @@ class RemoteEnv < Thor
     %x(cap #{options[:stage]} rbenv:vars:show)
   end
 
-  desc "add", "Adds env variables to the remote server"
+  desc "add", "Adds or updates env variables to the remote server"
   method_option :local, :type => :boolean, :aliases => "-l"
   def add(key=nil, value=nil)
 

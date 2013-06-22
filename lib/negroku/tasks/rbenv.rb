@@ -9,7 +9,7 @@ namespace :rbenv do
 
     desc "Add rbenv vars"
     task :add, :roles => :app do
-      run "echo '#{key}=#{value}' >> #{shared_path}/.rbenv-vars"
+      run "if awk < #{shared_path}/.rbenv-vars -F= '{print $1}' | grep --quiet #{key}; then sed -i 's/^#{key}=.*/#{key}=#{value}/g' #{shared_path}/.rbenv-vars; else echo '#{key}=#{value}' >> #{shared_path}/.rbenv-vars; fi"
     end
 
     after "deploy:finalize_update", "rbenv:vars:symlink"
