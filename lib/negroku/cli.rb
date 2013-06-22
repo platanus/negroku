@@ -52,13 +52,10 @@ class App < Thor
       menu.select_by = :index
 
       # find local remote from git repo
-      if File.directory?(".git")
-        local_repos = %x(git remote -v | awk '{print $2}' | uniq).split("\n")
-        local_repos.each do |url|
-          menu.choice(url) do |server|
-            say("Using #{server}")
-            data[:repo] = server;
-          end
+      %x(git remote -v 2> /dev/null | awk '{print $2}' | uniq).split("\n").each do |url|
+        menu.choice(url) do |server|
+          say("Using #{server}")
+          data[:repo] = server;
         end
       end
 
