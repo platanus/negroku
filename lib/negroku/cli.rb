@@ -155,7 +155,7 @@ end
 
 class RemoteEnv < Thor
   namespace "env"
-  class_option :stage, :type => :string, :default => "staging", :aliases => "-s", :desc => "Set the capistrano stage to be used", :banner => "STAGE"
+  class_option :stage, :type => :string, :aliases => "-s", :desc => "Set the capistrano stage to be used", :banner => "STAGE"
 
   desc "show", "Show the current remote variables"
   def show
