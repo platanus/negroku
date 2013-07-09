@@ -1,7 +1,7 @@
 Negroku
 =======
 
-Negroku is a opinionated collection of recipes for capistrano.
+Negroku is an opinionated collection of recipes for capistrano.
 
 The goal is to be able to deploy **ruby on rails applications** and **static websites** without the hassle of configure and define all the stuff involved in an application deployment.
 
