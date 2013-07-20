@@ -4,6 +4,7 @@ require 'rubygems'
 require 'capistrano'
 require 'negroku/config'
 require 'negroku/helpers'
+require 'negroku/capfile'
 require 'negroku/cli'
 
 Negroku::CLI.start

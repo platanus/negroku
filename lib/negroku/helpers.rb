@@ -15,7 +15,6 @@ def init(target=".", data)
   else
     puts "[Negroku] => Capifying!"
     `capify #{target_path}`
-    `rm `
   end
 
   # Find or create config folder
@@ -61,18 +60,13 @@ def init(target=".", data)
     f.write ERB.new(erb).result(binding)
   end
 
-  # checks for both require "negroku" and require "negroku/initializer"
-  unless File.open(File.join('Capfile'), 'r').read.include?('require "negroku"')
-    puts "[Negroku] => Adding Negroku Loader inside #{capfile}."
-    File.open(capfile, "a") do |cfile|
-  cfile << <<-capfile
-  \n
-  load 'deploy/assets'
-  require "negroku"
-  load negroku
-  capfile
-    end
-  end
+  # Prepares the Capfile for negroku
+  cfile = Capfile.new(capfile)
+  cfile.assets()
+  puts "[Negroku] => Enabling assets tasks."
+  cfile.negroku()
+  puts "[Negroku] => Adding Negroku Loader inside #{capfile}."
+
 end
 
 def showConfig()
