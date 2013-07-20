@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency('capistrano', ['>= 2.5.13'])
+  gem.add_dependency('capistrano', ['>= 2.5.14'])
   gem.add_dependency('capistrano-unicorn', ['>= 0.1.9'])
   gem.add_dependency('rainbow', ['>= 1.1.4'])
   gem.add_dependency('highline', ['>= 1.6.15'])

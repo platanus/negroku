@@ -12,19 +12,54 @@ Installation
 
 Just install negroku as a global gem.
 
-	gem install negroku
+    gem install negroku
 
 ## Getting started
 
-### Ruby on rails applications
-
 1. Bootpstrapp your app (behind the scene it runs `capify .` plus some customizations)
 
-		negroku app create <appname>
+    It will add this files to your proyect, this is the same structure that capistrano expect when using multistage extensions
+
+    ```
+    project_root
+     |--- Capfile                       # Capistrano load file
+     +--- config
+           |--- deploy.rb               # Global setting for all environments
+           +--- deploy
+                 |--- production.rb     # Specific settings for production server
+                 +--- staging.rb        # Specific settings for staging server
+    ```
+
+    It will also add to your Gemfile two gems
+
+    ```ruby
+    group :assets do
+        gem 'therubyracer', :platforms => :ruby
+    end
+
+    group :production do
+        gem 'unicron'
+    end
+    ```
+
+1. Configure your specific settings in the files created above
+
+1. Prepare your server for your application with `cap deploy:setup` task
+
+1. Deploy you application with `cap deploy` task
+
+### Type of applications supported
+
+You can bootstrap with negroku two type of applications, ruby on rails applications with native capistrano support and static web sites with specific recipes.
+
+
+        negroku app create <appname>
+
+    Follow the in-screen instructions and questions.
 
 2.
 
-### Static websites
+#Static websites
 
 The CLI
 -------
