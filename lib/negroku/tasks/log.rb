@@ -1,16 +1,8 @@
-# Conventient tasks for remotely tail'ing log files.
-# Available logs that can be streamed out of the box:
-#
-#  * production.log (your application's production log)
-#  * torquebox.log (your torquebox log)
-#  * <application>-nginx-access.log (the nginx access log specific to <application> only.)
-#  * <application>-nginx-error.log (the nginx error log specific to <application> only.)
-
 namespace :log do
-  desc "Stream (tail) the application's production log."
+  desc "Stream (tail) the application's log."
   task :app do
     trap("INT") { puts 'Exit'; exit 0; }
-    stream "tail -f '#{shared_path}/log/production.log'"
+    stream "tail -f '#{shared_path}/log/#{fetch(:rails_env)}.log'"
   end
 
   desc "Stream (tail) the nginx access log."
