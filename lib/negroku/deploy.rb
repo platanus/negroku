@@ -17,7 +17,7 @@ set :rails_env, 'production' unless respond_to?(:rails_env)
 
 ## Default path
 set :default_environment, {
-  'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
+  'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$HOME/.nodenv/shims:$HOME/.nodenv/bin:$PATH"
 }
 
 # Run on Linux: `$ ssh-add` or on OSX: `$ ssh-add -K` for "forward_agent".
@@ -34,5 +34,6 @@ set :bundle_flags,    "--deployment --binstubs"
 load_tasks('base')
 load_tasks('log')
 load_tasks('rbenv')
+load_tasks('bower')
 load_tasks('nginx')
 load_tasks('unicorn')
