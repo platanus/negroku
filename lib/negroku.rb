@@ -1,0 +1,2 @@
+module Negroku
+end
