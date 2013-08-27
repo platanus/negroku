@@ -12,13 +12,13 @@ Installation
 
 Install negroku as a global gem.
 
-```
+```shell
 $ gem install negroku
 ```
 
 Add the negroku gem to your `Gemfile` development group to lock the version your are going to use.
 
-```
+```ruby
 group :development do
     gem 'negroku', '1.1.4'
 end
@@ -26,7 +26,7 @@ end
 
 You will need to add to your Gemfile this to gems
 
-```
+```ruby
 group :assets do
     gem 'therubyracer', :platforms => :ruby
 end
@@ -38,7 +38,7 @@ end
 
 Then execute
 
-```
+```shell
 $ bundle install
 ```
 
