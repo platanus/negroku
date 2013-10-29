@@ -43,19 +43,19 @@ def init(target=".", data)
 
   # Create the new deploy
   puts "[Negroku] => Writing new deploy.rb."
-  erb = File.read(File.join(File.dirname(__FILE__), 'templates', 'deploy.rb.erb'))
+  erb = getTemplate 'deploy.rb.erb'
   File.open(deployfile, 'w') do |f|
     f.write ERB.new(erb).result(binding)
   end
 
   # Create the new configuration stages
   puts "[Negroku] => Writing new deploy/staging.rb"
-  erb = File.read(File.join(File.dirname(__FILE__), 'templates', 'staging.rb.erb'))
+  erb = getTemplate 'staging.rb.erb'
   File.open(stagingfile, 'w') do |f|
     f.write ERB.new(erb).result(binding)
   end
   puts "[Negroku] => Writing new deploy/production.rb"
-  erb = File.read(File.join(File.dirname(__FILE__), 'templates', 'production.rb.erb'))
+  erb = getTemplate 'production.rb.erb'
   File.open(productionfile, 'w') do |f|
     f.write ERB.new(erb).result(binding)
   end
@@ -73,6 +73,10 @@ def showConfig()
   # Load the yaml file
   config = getConfig
   puts config
+end
+
+def getTemplate(template)
+  File.read(File.join(File.dirname(__FILE__), 'templates', template))
 end
 
 ##
