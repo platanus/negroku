@@ -17,12 +17,12 @@ set_default  :unicorn_bin, 'bin/unicorn'
 set_default  :unicorn_socket, fetch(:app_server_socket)
 
 # Defines where the unicorn pid will live.
-set_default  :unicorn_pid, File.join(current_path, "tmp", "pids", "unicorn.pid")
+set_default(:unicorn_pid) { File.join(current_path, "tmp", "pids", "unicorn.pid") }
 
 # Preload app for fast worker spawn
 set_default :unicorn_preload, true
 
-set_default :unicorn_config_path, "#{shared_path}/config"
+set_default(:unicorn_config_path) { "#{shared_path}/config" }
 
 # Unicorn
 #------------------------------------------------------------------------------
