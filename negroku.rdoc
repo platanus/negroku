@@ -1,0 +1,5 @@
+= negroku
+
+Generate this with
+    negroku rdoc
+After you have described your command line interface

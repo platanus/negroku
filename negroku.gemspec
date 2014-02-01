@@ -1,24 +1,28 @@
-# -*- encoding: utf-8 -*-
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'negroku/version'
+# Ensure we require the local version and not one we might have installed already
+require File.join([File.dirname(__FILE__),'lib','negroku','version.rb'])
+spec = Gem::Specification.new do |s|
+  s.name = 'negroku'
+  s.version = Negroku::VERSION
+  s.author = 'Juan Ignacio Donoso'
+  s.email = 'jidonoso@gmail.com'
+  s.homepage = 'http://github.com/platanus/negroku'
+  s.platform = Gem::Platform::RUBY
+  s.summary = 'Capistrano receipes collection'
 
-Gem::Specification.new do |gem|
-  gem.name          = "negroku"
-  gem.version       = Negroku::VERSION
-  gem.authors       = ["Juan Ignacio Donoso"]
-  gem.email         = ["jidonoso@gmail.com"]
-  gem.description   = ["To deploy application"]
-  gem.summary       = ["Capistrano Wrapper"]
-  gem.homepage      = "http://github.com/platanus-repos/negroku"
+  s.files = `git ls-files`.split($/)
+  s.require_paths << 'lib'
+  s.has_rdoc = true
+  s.extra_rdoc_files = ['README.rdoc','negroku.rdoc']
+  s.rdoc_options << '--title' << 'negroku' << '--main' << 'README.rdoc' << '-ri'
+  s.bindir = 'bin'
+  s.executables << 'negroku'
 
-  gem.files         = `git ls-files`.split($/)
-  gem.executables   = ['negroku']
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.require_paths = ["lib"]
+  s.add_development_dependency('rake')
+  s.add_development_dependency('rdoc')
+  s.add_development_dependency('aruba')
 
-  gem.add_dependency('capistrano', ['>= 3.0.0.pre13'])
-  gem.add_dependency('rainbow', ['>= 1.1.4'])
-  gem.add_dependency('highline', ['>= 1.6.15'])
-  gem.add_dependency('thor', ['>= 0.17.0'])
+  s.add_runtime_dependency('gli','2.9.0')
+  s.add_runtime_dependency('capistrano','3.1.0')
+  s.add_runtime_dependency('rainbow','2.0.0')
+  s.add_runtime_dependency('highline','1.6.20')
 end

@@ -1,0 +1,6 @@
+= negroku
+
+Describe your project here
+
+:include:negroku.rdoc
+
