@@ -18,3 +18,7 @@ set :repository, "<%= data[:repo] %>"
 
 # Unicorn
 set :unicorn_workers, 1
+
+# Cleanup after deploy
+set :keep_releases, 3
+after "deploy", "deploy:cleanup"
