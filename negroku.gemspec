@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency('capistrano', ['~> 2.15.4'])
   gem.add_dependency('capistrano-unicorn', ['~> 0.1.9'])
-  gem.add_dependency('rainbow', ['>= 1.1.4'])
+  gem.add_dependency('rainbow', ['1.1.4'])
   gem.add_dependency('highline', ['>= 1.6.15'])
   gem.add_dependency('thor', ['>= 0.17.0'])
 end
