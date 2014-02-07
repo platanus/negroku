@@ -21,8 +21,12 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba')
 
-  s.add_runtime_dependency('gli','2.9.0')
   s.add_runtime_dependency('capistrano','3.1.0')
+  s.add_runtime_dependency('capistrano-rbenv', '2.0.2')
+  s.add_runtime_dependency('capistrano-rails', '1.1.1')
+  s.add_runtime_dependency('capistrano-bundler', '1.1.1')
+
+  s.add_runtime_dependency('gli','2.9.0')
   s.add_runtime_dependency('rainbow','2.0.0')
   s.add_runtime_dependency('highline','1.6.20')
 end
