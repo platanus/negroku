@@ -34,7 +34,7 @@ namespace :unicorn do
   desc "Setup unicorn configuration for this application."
    task :setup, roles: :app do
     template "unicorn.erb", "/tmp/unicorn.rb"
-    run "#{sudo} mv /tmp/unicorn.rb #{shared_path}/config/"
+    run "mv /tmp/unicorn.rb #{shared_path}/config/"
   end
 
   after "deploy:cold", "unicorn:start"
