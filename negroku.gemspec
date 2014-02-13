@@ -8,9 +8,9 @@ Gem::Specification.new do |gem|
   gem.version       = Negroku::VERSION
   gem.authors       = ["Juan Ignacio Donoso"]
   gem.email         = ["jidonoso@gmail.com"]
-  gem.description   = ["To deploy application"]
-  gem.summary       = ["Capistrano Wrapper"]
-  gem.homepage      = "http://github.com/platanus-repos/negroku"
+  gem.description   = ["Negroku is an opinionated collection of recipes for capistrano, blended with a handy CLI"]
+  gem.summary       = ["The goal is to be able to deploy ruby on rails applications and static websites without the hassle of configuring and defining all the stuff involved in an application deployment."]
+  gem.homepage      = "http://github.com/platanus/negroku"
 
   gem.files         = Dir['{bin,lib,setup}/**/*', 'README.md', 'LICENSE']
   gem.executables   = ['negroku']
