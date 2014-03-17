@@ -25,6 +25,7 @@ spec = Gem::Specification.new do |s|
   s.add_runtime_dependency('capistrano-rbenv', '2.0.2')
   s.add_runtime_dependency('capistrano-rails', '1.1.1')
   s.add_runtime_dependency('capistrano-bundler', '1.1.1')
+  s.add_runtime_dependency('capistrano-nc', '0.1.3')
 
   s.add_runtime_dependency('gli','2.9.0')
   s.add_runtime_dependency('rainbow','2.0.0')
