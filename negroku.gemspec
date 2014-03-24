@@ -28,6 +28,7 @@ spec = Gem::Specification.new do |s|
   s.add_runtime_dependency('capistrano-nc', '0.1.3')
 
   s.add_runtime_dependency('capistrano-nodenv', '1.0.0')
+  s.add_runtime_dependency('capistrano-bower', '1.0.0')
   s.add_runtime_dependency('capistrano3-nginx', '1.0.0')
 
   s.add_runtime_dependency('gli','2.9.0')
