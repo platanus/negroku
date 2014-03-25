@@ -13,7 +13,7 @@ namespace :load do
     ## capistrano3/unicorn variables
 
     # Defines where the unicorn pid will live.
-    set :unicorn_pid, -> { "#{shared_path}/pids/unicorn.pid" }
+    set :unicorn_pid, -> { "#{shared_path}/tmp/pids/unicorn.pid" }
 
     set :unicorn_config_path, -> { "#{shared_path}/config/unicorn.rb" }
 
@@ -37,7 +37,7 @@ namespace :load do
     set :unicorn_workers_timeout, -> { 30 }
 
     # The location of the unicorn socket
-    set :unicorn_socket, -> { "#{shared_path}/sockets/unicorn.sock" }
+    set :unicorn_socket, -> { "#{shared_path}/tmp/sockets/unicorn.sock" }
 
     # Preload app for fast worker spawn
     set :unicorn_preload, -> { true }
@@ -81,8 +81,8 @@ namespace :negroku do
     after 'deploy:check', 'deploy:check:directories' do
       on release_roles fetch(:unicorn_roles) do
         execute :mkdir, '-pv', "#{shared_path}/config"
-        execute :mkdir, '-pv', "#{shared_path}/sockets"
-        execute :mkdir, '-pv', "#{shared_path}/pids"
+        execute :mkdir, '-pv', "#{shared_path}/tmp/sockets"
+        execute :mkdir, '-pv', "#{shared_path}/tmp/pids"
       end
     end
 
