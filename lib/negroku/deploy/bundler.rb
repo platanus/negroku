@@ -2,5 +2,11 @@
 #
 # Adds capistrano/bundler specific properties and tasks
 
-# Set bundler to run with the --deployment flag
-set :bundle_flags, '--deployment'
+namespace :load do
+  task :defaults do
+
+    # Set bundler to run with the --deployment flag
+    set :bundle_flags, '--deployment'
+
+  end
+end
