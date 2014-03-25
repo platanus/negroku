@@ -5,7 +5,7 @@ set :scm, :git
 # set :log_level, :debug
 set :pty, true
 
-set :keep_releases, 5 unless respond_to?(:keep_releases)
+set :keep_releases, 5
 
 # Ensure the folders needed exist
 namespace :negroku do
