@@ -21,10 +21,10 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba')
 
-  s.add_runtime_dependency('capistrano','3.1.0')
+  s.add_runtime_dependency('capistrano','3.2.0')
   s.add_runtime_dependency('capistrano-rbenv', '2.0.2')
   s.add_runtime_dependency('capistrano-rails', '1.1.1')
-  s.add_runtime_dependency('capistrano-bundler', '1.1.1')
+  s.add_runtime_dependency('capistrano-bundler', '1.1.2')
   s.add_runtime_dependency('capistrano-nc', '0.1.3')
 
   s.add_runtime_dependency('capistrano-nodenv', '1.0.0')
