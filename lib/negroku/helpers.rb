@@ -4,6 +4,6 @@ def was_required?(file)
   $LOADED_FEATURES.find { |f| f =~ rex }
 end
 
-def load_deploy(name)
-  load File.join(File.dirname(__FILE__), 'deploy', "#{name}.rb")
+def load_task(name)
+  load File.join(File.dirname(__FILE__), 'tasks', "#{name}.rake")
 end
