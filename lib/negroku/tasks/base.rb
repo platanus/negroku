@@ -24,5 +24,6 @@ namespace :deploy do
   desc "Sets up additional folders/files after deploy:setup."
   task :setup_shared do
     run "mkdir -p '#{shared_path}/config'"
+    run "mkdir -p '#{shared_path}/tmp/cache'"
   end
 end
