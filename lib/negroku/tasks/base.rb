@@ -14,6 +14,12 @@ end
 namespace :deploy do
   after "deploy:update_code", "deploy:migrate"
 
+  after "deploy:finalize_update", "deploy:symlink_cache"
+  desc "Symlink temporary cache from shared to the release"
+  task :symlink_cache, :roles => :app do
+    run "ln -nfs '#{shared_path}/tmp/cache' '#{release_path}/tmp/cache'"
+  end
+
   after "deploy:setup", "deploy:setup_shared"
   desc "Sets up additional folders/files after deploy:setup."
   task :setup_shared do
