@@ -7,7 +7,8 @@ spec = Gem::Specification.new do |s|
   s.email = 'jidonoso@gmail.com'
   s.homepage = 'http://github.com/platanus/negroku'
   s.platform = Gem::Platform::RUBY
-  s.summary = 'Capistrano receipes collection'
+  s.summary = 'Capistrano recipes collection'
+  s.description = 'Deploy applications right out of the box using nginx, unicorn, bower, rails, etc'
 
   s.files = `git ls-files`.split($/)
   s.require_paths << 'lib'
