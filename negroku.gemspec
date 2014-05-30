@@ -38,4 +38,5 @@ spec = Gem::Specification.new do |s|
   s.add_runtime_dependency('gli','2.10.0')
   s.add_runtime_dependency('rainbow','2.0.0')
   s.add_runtime_dependency('highline','1.6.20')
+  s.add_runtime_dependency('inquirer','0.2.0')
 end
