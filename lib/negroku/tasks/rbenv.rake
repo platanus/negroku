@@ -7,7 +7,7 @@ namespace :load do
 
     # Set the ruby version using the .ruby-version file
     # Looks for the file in the project root
-    set :rbenv_ruby, File.read('.ruby-version').strip
+    set :rbenv_ruby, File.read('.ruby-version').strip if File.exist?('.ruby-version')
 
     # Link .rbenv-vars file
     set :linked_files, fetch(:linked_files, []) << '.rbenv-vars'
