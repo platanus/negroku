@@ -34,7 +34,11 @@ namespace :rbenv do
           unless test "[ ! -f .rbenv-vars ]"
             execute :touch, ".rbenv-vars"
           end
-          execute "if awk < #{shared_path}/.rbenv-vars -F= '{print $1}' | grep --quiet ^#{key}$; then sed -i 's/^#{key}=.*/#{key}=#{value}/g' #{shared_path}/.rbenv-vars; else echo '#{key}=#{value}' >> #{shared_path}/.rbenv-vars; fi"
+          cmd = "if awk < #{shared_path}/.rbenv-vars -F= '{print $1}' | grep --quiet -w #{key}; then "
+          cmd += "sed -i 's/^#{key}=.*/#{key}=#{value.gsub("\/", "\\/")}/g' #{shared_path}/.rbenv-vars;"
+          cmd += "else echo '#{key}=#{value}' >> #{shared_path}/.rbenv-vars;"
+          cmd += "fi"
+          execute cmd
         end
       end
     end
