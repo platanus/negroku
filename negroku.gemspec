@@ -32,6 +32,7 @@ spec = Gem::Specification.new do |s|
   s.add_runtime_dependency('capistrano3-nginx', '2.0.2')
   s.add_runtime_dependency('capistrano3-unicorn', '0.1.1')
   s.add_runtime_dependency('capistrano-grunt', '0.0.4')
+  s.add_runtime_dependency('capistrano-npm', '1.0.0')
 
   s.add_runtime_dependency('gli','2.9.0')
   s.add_runtime_dependency('rainbow','2.0.0')
