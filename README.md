@@ -1,4 +1,4 @@
-Negroku
+Negroku [![Stories in Ready](https://badge.waffle.io/platanus/negroku.svg)](http://waffle.io/platanus/negroku)
 =======
 
 Negroku is an opinionated collection of recipes for capistrano.
