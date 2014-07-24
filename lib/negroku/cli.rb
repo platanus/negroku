@@ -191,7 +191,7 @@ class RemoteEnv < Thor
       end
     end
 
-    %x(cap #{options[:stage]} rbenv:vars:add -s key=#{key} -s value=#{value})
+    %x(cap #{options[:stage]} rbenv:vars:add -s key="#{key}" -s value="#{value}")
   end
 end
 
