@@ -12,7 +12,7 @@ namespace :rbenv do
     desc "Add rbenv vars"
     task :add, :roles => lambda { rbenv_roles } do
       cmd = "if awk < #{shared_path}/.rbenv-vars -F= '{print $1}' | grep --quiet -w #{key}; then "
-      cmd += "sed -i 's/^#{key}=.*/#{key}=#{value.gsub("\/", "\\/")}/g' #{shared_path}/.rbenv-vars;"
+      cmd += "sed -i 's/^#{key}=.*/#{key}=#{value.to_s.gsub("\/", "\\/")}/g' #{shared_path}/.rbenv-vars;"
       cmd += "else echo '#{key}=#{value}' >> #{shared_path}/.rbenv-vars;"
       cmd += "fi"
       run cmd
