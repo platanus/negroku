@@ -1,6 +1,8 @@
 require 'gli'
 require 'inquirer'
+require 'negroku/i18n'
 require 'negroku/version'
+require 'negroku/cli/bootstrap'
 
 module Negroku::CLI
 

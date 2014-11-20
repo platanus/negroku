@@ -8,6 +8,7 @@ set :pty, true
 set :keep_releases, 5
 
 require 'negroku/helpers'
+load_task "negroku"
 load_task "rbenv"     if was_required? 'capistrano/rbenv'
 load_task "nodenv"    if was_required? 'capistrano/nodenv'
 load_task "bower"     if was_required? 'capistrano/bower'

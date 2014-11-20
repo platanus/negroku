@@ -1,0 +1,13 @@
+# <%= stage.upcase %> CONFIGURATION
+
+# Servers and their roles.
+server '<%= data[:staging_server] %>', user: 'deploy', roles: %w{web app db}, my_property: :my_value
+
+# Web server configuration
+set :nginx_domains, '<%= data[:staging_domains] %>'
+
+# Source
+set :branch,        'production'    # Optional, defaults to master
+
+# Rails configuration
+# set :rails_env,   'production'

@@ -1,0 +1,29 @@
+# CAPISTRANO
+# Load DSL and Setup Up Stages
+require 'capistrano/setup'
+
+# Includes default deployment tasks
+require 'capistrano/deploy'
+
+# Ruby
+require 'capistrano/rbenv'
+require 'capistrano/bundler'
+require 'capistrano/rails/assets'
+require 'capistrano/rails/migrations'
+require 'capistrano-nc/nc'
+
+# Node
+require 'capistrano/nodenv'
+require 'capistrano/bower'
+
+# App server
+require 'capistrano3/unicorn'
+
+# Static server
+require 'capistrano/nginx'
+
+# NEGROKU
+require 'negroku/deploy'
+
+# Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
+Dir.glob('lib/capistrano/tasks/*.cap').each { |r| import r }
