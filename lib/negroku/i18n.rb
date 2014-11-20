@@ -1,4 +1,5 @@
 require 'i18n'
+require 'set'
 
 en = {
   capified:                    'Capified',
