@@ -10,7 +10,7 @@ namespace :load do
     set :rbenv_ruby, File.read('.ruby-version').strip if File.exist?('.ruby-version')
 
     # Link .rbenv-vars file
-    set :linked_files, fetch(:linked_files, []) << '.rbenv-vars' if File.exist?('.rbenv-vars')
+    set :linked_files, fetch(:linked_files, []) << '.rbenv-vars'
   end
 end
 
