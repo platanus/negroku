@@ -45,7 +45,7 @@ namespace :load do
     ###################################
     ## capistrano3/nginx variables
 
-    # # Add bower to :nodenv_map_bins
+    # Set the app server socket if nginx is being used
     set :app_server_socket, -> { fetch(:unicorn_socket) } if was_required? 'capistrano/nginx'
 
   end
