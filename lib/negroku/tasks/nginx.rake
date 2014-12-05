@@ -19,6 +19,11 @@ namespace :negroku do
           invoke 'nginx:site:enable'
           invoke 'nginx:reload'
         end
+
+        define_logs(:nginx, {
+          error: 'nginx-error.log',
+          access: 'nginx-access.log'
+        })
     end
 end
 

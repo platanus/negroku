@@ -87,6 +87,11 @@ namespace :negroku do
       end
     end
 
+    define_logs(:unicorn, {
+      error: 'unicorn-error.log',
+      out: 'unicorn-out.log'
+    })
+
   end
 
 end

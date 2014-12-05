@@ -7,3 +7,12 @@ end
 def load_task(name)
   load File.join(File.dirname(__FILE__), 'tasks', "#{name}.rake")
 end
+
+# Define los
+def define_logs(namespace, hash)
+  logs = fetch(:negroku_logs, {})
+
+  logs[namespace] = hash
+
+  set :negroku_logs, logs
+end
