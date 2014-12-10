@@ -1,13 +1,20 @@
-# Base configuration
-set :scm, :git
-
-# set :format, :pretty
-# set :log_level, :debug
-set :pty, true
-
-set :keep_releases, 5
-
 require 'negroku/helpers'
+
+# Base configuration
+namespace :load do
+  task :defaults do
+
+    set :scm, :git
+
+    set :format, :simple
+    set :log_level, :info
+    set :pty, true
+
+    set :keep_releases, 5
+  end
+end
+
+# Load Negroku tasks
 load_task "negroku"
 load_task "rbenv"     if was_required? 'capistrano/rbenv'
 load_task "nodenv"    if was_required? 'capistrano/nodenv'
