@@ -3,7 +3,7 @@
 # Dynamically adds log task based on log definitions
 namespace :log do
 
-  fetch(:negroku_logs).each do |namespace, log|
+  fetch(:negroku_logs, {}).each do |namespace, log|
 
     namespace namespace do
 
