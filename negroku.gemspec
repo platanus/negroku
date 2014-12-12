@@ -18,26 +18,24 @@ spec = Gem::Specification.new do |s|
   s.bindir = 'bin'
   s.executables << 'negroku'
 
-  s.add_development_dependency('rake')
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba')
 
-  s.add_runtime_dependency('capistrano','3.2.1')
-  s.add_runtime_dependency('capistrano-rbenv', '2.0.2')
-  s.add_runtime_dependency('capistrano-rails', '1.1.1')
-  s.add_runtime_dependency('capistrano-bundler', '1.1.2')
-  s.add_runtime_dependency('capistrano-nc', '0.1.4')
+  s.add_runtime_dependency('rake', '~> 10.1.0')
+  s.add_runtime_dependency('capistrano','~> 3.3.0')
+  s.add_runtime_dependency('capistrano-rbenv', '~> 2.0.0')
+  s.add_runtime_dependency('capistrano-rails', '~> 1.1.0')
+  s.add_runtime_dependency('capistrano-bundler', '~> 1.1.0')
+  s.add_runtime_dependency('capistrano-nc', '~> 0.1.0')
 
-  s.add_runtime_dependency('capistrano-nodenv', '1.0.0')
-  s.add_runtime_dependency('capistrano-bower', '1.0.0')
-  s.add_runtime_dependency('capistrano3-nginx', '2.0.2')
-  s.add_runtime_dependency('capistrano3-unicorn', '0.1.1')
-  s.add_runtime_dependency('capistrano-grunt', '0.0.4')
-  s.add_runtime_dependency('capistrano-npm', '1.0.0')
+  s.add_runtime_dependency('capistrano-nodenv', '~> 1.0.0')
+  s.add_runtime_dependency('capistrano-bower', '~> 1.0.0')
+  s.add_runtime_dependency('capistrano3-nginx', '~> 2.0.0')
+  s.add_runtime_dependency('capistrano3-unicorn', '~> 0.1.0')
+  s.add_runtime_dependency('capistrano-npm', '~> 1.0.0')
 
-  s.add_runtime_dependency('gli','2.10.0')
-  s.add_runtime_dependency('rainbow','2.0.0')
-  s.add_runtime_dependency('highline','1.6.20')
-  s.add_runtime_dependency('inquirer','0.2.0')
-  s.add_runtime_dependency('i18n','0.6.11')
+  s.add_runtime_dependency('gli','~> 2.12.0')
+  s.add_runtime_dependency('rainbow','~> 2.0.0')
+  s.add_runtime_dependency('inquirer','~> 0.2.0')
+  s.add_runtime_dependency('i18n','~> 0.6.11')
 end
