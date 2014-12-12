@@ -19,7 +19,6 @@ spec = Gem::Specification.new do |s|
   s.executables << 'negroku'
 
   s.add_development_dependency('rdoc')
-  s.add_development_dependency('aruba')
 
   s.add_runtime_dependency('rake', '~> 10.1.0')
   s.add_runtime_dependency('capistrano','~> 3.3.0')
