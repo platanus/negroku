@@ -23,5 +23,6 @@ load_task "bundler"   if was_required? 'capistrano/bundler'
 load_task "rails"     if was_required? 'capistrano/rails'
 load_task "nginx"     if was_required? 'capistrano/nginx'
 load_task "unicorn"   if was_required? 'capistrano3/unicorn'
+load_task "delayed_job"   if was_required? 'capistrano/delayed-job'
 
 load_task "log"
