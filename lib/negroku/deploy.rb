@@ -6,8 +6,8 @@ namespace :load do
 
     set :scm, :git
 
-    set :format, :simple
-    set :log_level, :info
+    set :format, :pretty
+    set :log_level, :debug
     set :pty, true
 
     set :keep_releases, 5
