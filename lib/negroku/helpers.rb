@@ -16,3 +16,13 @@ def define_logs(namespace, hash)
 
   set :negroku_logs, logs
 end
+
+# helper to build the add VAR cmd
+def build_add_var_cmd(vars_file, key, value)
+  puts "#{vars_file} #{key} #{value}"
+  cmd = "if awk < #{vars_file} -F= '{print $1}' | grep --quiet -w #{key}; then "
+  cmd += "sed -i 's/^#{key}=.*/#{key}=#{value.gsub("\/", "\\/")}/g' #{vars_file};"
+  cmd += "else echo '#{key}=#{value}' >> #{vars_file};"
+  cmd += "fi"
+  cmd
+end
