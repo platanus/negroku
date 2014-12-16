@@ -25,22 +25,24 @@ namespace :rbenv do
       end
     end
 
-    desc "Add environmental variable"
-    task :add, [:key, :value] do |t, args|
-      key = args[:key]
-      value = args[:value]
+    desc "Add environmental variables in the form VAR=value"
+    task :add, :variable do |t, args|
+
+      vars = [args.variable] + args.extras
+
       on release_roles :app do
         within shared_path do
           unless test "[ ! -f .rbenv-vars ]"
             execute :touch, ".rbenv-vars"
           end
-          cmd = "if awk < #{shared_path}/.rbenv-vars -F= '{print $1}' | grep --quiet -w #{key}; then "
-          cmd += "sed -i 's/^#{key}=.*/#{key}=#{value.gsub("\/", "\\/")}/g' #{shared_path}/.rbenv-vars;"
-          cmd += "else echo '#{key}=#{value}' >> #{shared_path}/.rbenv-vars;"
-          cmd += "fi"
-          execute cmd
+          vars.compact.each do |var|
+            key, value = var.split('=')
+            cmd = build_add_var_cmd("#{shared_path}/.rbenv-vars", key, value)
+            execute cmd
+          end
         end
       end
+
     end
 
     desc "Remove environmental variable"
