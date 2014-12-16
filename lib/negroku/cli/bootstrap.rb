@@ -14,41 +14,6 @@ module Negroku::Bootstrap
 
   end
 
-  def add_stage(stage=nil)
-
-    if stage.nil?
-      name = ask_stage
-    end
-
-    custom_stage(name)
-
-  end
-
-  def remove_stage(stage=nil)
-
-    current_stages = Dir[File.join(@deploy_dir, '*.rb')].map(){|f| File.basename(f)}
-
-    if stage.nil?
-      selections = Ask.checkbox "What stages you want to remove", current_stages
-      stages_to_delete = selections.map.with_index { |v, i| current_stages[i] if v}.compact
-    else
-      stages_to_delete = ["#{stage}.rb"]
-    end
-
-    if stages_to_delete.count > 0
-      stages_to_delete.each do |s|
-        path_to_delete = File.join(@deploy_dir, s)
-        begin
-          FileUtils.rm(path_to_delete)
-        rescue
-          puts "The stage '#{s}' doesn't exist"
-        end
-      end
-    else
-      puts "Nothing to do"
-    end
-
-  end
 
   private
 
@@ -91,20 +56,10 @@ module Negroku::Bootstrap
 
   end
 
-  def custom_stage(stage, data={})
-
-  end
-
   # Ask the application name
   def ask_name
     question = I18n.t :application_name, scope: :negroku
     Ask.input question, default: File.basename(Dir.getwd)
-  end
-
-  # Ask the stage name
-  def ask_stage
-    question = I18n.t :ask_stage_name, scope: :negroku
-    Ask.input question
   end
 
   # Get git remotes from current git and ask to select one
