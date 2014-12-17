@@ -16,3 +16,4 @@ en:
     select_branch:                "Select the branch to use"
     ask_domains:                  "Type the domains to use"
     ask_server_url:               "Type the server url to deploy to"
+    ask_add_vars:                 "Do you want to add rbenv-vars to the server now?"

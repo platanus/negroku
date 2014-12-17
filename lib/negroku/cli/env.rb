@@ -1,5 +1,3 @@
-require 'capistrano/rbenv'
-
 module Negroku::Env
   extend self
 

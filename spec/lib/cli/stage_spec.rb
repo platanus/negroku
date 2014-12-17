@@ -11,6 +11,18 @@ describe "stage cli" do
       expect{Negroku::Stage.add}.to raise_error(/required/)
     end
 
+    it "calls negroku env bulk if chosen" do
+      allow(Negroku::Stage).to receive(:ask_stage).and_return("deleteme")
+      allow(Negroku::Stage).to receive(:select_branch).and_return("master")
+      allow(Negroku::Stage).to receive(:ask_domains).and_return("www")
+      allow(Negroku::Stage).to receive(:ask_server_url).and_return("server_url")
+      allow(Negroku::Stage).to receive(:add_stage_file)
+
+      expect(Negroku::Stage).to receive(:ask_add_vars).and_return(true)
+      expect(Negroku::Env).to receive(:bulk)
+      expect{Negroku::Stage.add}.not_to raise_error
+    end
+
     it "creates the stage file" do
       config = {
         stage_name: "new_stage",
