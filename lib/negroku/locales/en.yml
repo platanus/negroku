@@ -12,3 +12,7 @@ en:
     ask_variables_message:        "Give the variables values, if empty, it will be ignored"
     rbenv_vars_not_found:         ".rbenv-vars does not exists"
     no_stages_found:              "There are no stages available"
+    ask_stage_name:               "Stage name"
+    select_branch:                "Select the branch to use"
+    ask_domains:                  "Type the domains to use"
+    ask_server_url:               "Type the server url to deploy to"

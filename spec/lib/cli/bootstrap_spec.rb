@@ -9,6 +9,7 @@ describe "bootstrap cli" do
       before(:each) do
         FakeFS::FileSystem.clear
         FakeFS::FileSystem.clone(File.join('lib','negroku','templates'))
+        FakeFS::FileSystem.clone(File.join('lib','negroku','locales'))
         FakeFS.activate!
 
         Dir.mkdir("config")
