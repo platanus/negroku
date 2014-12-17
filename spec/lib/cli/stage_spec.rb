@@ -18,6 +18,7 @@ describe "stage cli" do
         domains: "test.platan.us",
         server_url: "server.url"
       }
+      FakeFS::FileSystem.clear
       FakeFS::FileSystem.clone(File.join('lib','negroku','templates'))
       FakeFS.activate!
       Dir.mkdir("config")

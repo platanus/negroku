@@ -17,6 +17,9 @@ module Negroku::Bootstrap
   # This code was exatracted from capistrano to be used with our own templates
   # https://github.com/capistrano/capistrano/blob/68e7632c5f16823a09c324d556a208e096abee62/lib/capistrano/tasks/install.rake
   def custom_capify(stages, data={})
+    # defaults
+    data[:server_url] = ""
+    data[:branch] = "master"
 
     FileUtils.mkdir_p AppDirectory.deploy
 
@@ -24,6 +27,7 @@ module Negroku::Bootstrap
     Templates.buildTemplate("deploy.rb.erb", file, binding)
 
     stages.each do |stage|
+      data[:stage_name] = stage
       file = AppDirectory.deploy.join("#{stage}.rb")
       Templates.buildTemplate("stage.rb.erb", file, binding)
     end
