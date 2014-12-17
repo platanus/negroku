@@ -4,6 +4,7 @@ require 'negroku/i18n'
 require 'negroku/version'
 require 'negroku/cli/bootstrap'
 require 'negroku/cli/stage'
+require 'negroku/helpers/app_directory'
 
 module Negroku::CLI
 

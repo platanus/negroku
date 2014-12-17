@@ -1,5 +1,4 @@
 require 'erb'
-require 'pathname'
 
 module Negroku::Bootstrap
   extend self
@@ -17,10 +16,6 @@ module Negroku::Bootstrap
 
   private
 
-  @tasks_dir = Pathname.new('lib/capistrano/tasks')
-  @config_dir = Pathname.new('config')
-  @deploy_dir = @config_dir.join('deploy')
-
   @deploy_rb = File.expand_path("../../templates/negroku/deploy.rb.erb", __FILE__)
   @stage_rb = File.expand_path("../../templates/negroku/stage.rb.erb", __FILE__)
   @capfile = File.expand_path("../../templates/negroku/Capfile.erb", __FILE__)
@@ -29,10 +24,10 @@ module Negroku::Bootstrap
   # https://github.com/capistrano/capistrano/blob/68e7632c5f16823a09c324d556a208e096abee62/lib/capistrano/tasks/install.rake
   def custom_capify(stages, data={})
 
-    FileUtils.mkdir_p @deploy_dir
+    FileUtils.mkdir_p AppDirectory.deploy
 
     template = File.read(@deploy_rb)
-    file = @config_dir.join('deploy.rb')
+    file = AppDirectory.config.join('deploy.rb')
     File.open(file, 'w+') do |f|
       f.write(ERB.new(template).result(binding))
       puts I18n.t(:written_file, scope: :negroku, file: file)
@@ -40,14 +35,14 @@ module Negroku::Bootstrap
 
     template = File.read(@stage_rb)
     stages.each do |stage|
-      file = @deploy_dir.join("#{stage}.rb")
+      file = AppDirectory.deploy.join("#{stage}.rb")
       File.open(file, 'w+') do |f|
         f.write(ERB.new(template).result(binding))
         puts I18n.t(:written_file, scope: :negroku, file: file)
       end
     end
 
-    FileUtils.mkdir_p @tasks_dir
+    FileUtils.mkdir_p AppDirectory.tasks
 
     FileUtils.cp(@capfile, 'Capfile')
 

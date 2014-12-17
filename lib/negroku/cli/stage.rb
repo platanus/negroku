@@ -21,12 +21,6 @@ module Negroku::Stage
     end
   end
 
-  # TODO: Move to shared helper
-  def deploy_dir
-    @config_dir = Pathname.new('config')
-    @config_dir.join('deploy')
-  end
-
   def getTemplateFile(filename)
     File.read(File.expand_path("../../templates/negroku/#{filename}", __FILE__))
   end
@@ -34,7 +28,7 @@ module Negroku::Stage
 
   def add_stage_file(data)
     template = getTemplateFile("stage.rb.erb")
-    destination = deploy_dir.join("#{data[:stage_name]}.rb")
+    destination = AppDirectory.deploy.join("#{data[:stage_name]}.rb")
 
     buildTemplate(template, destination, binding)
   end
