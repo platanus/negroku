@@ -6,7 +6,7 @@ module Templates
 
   def buildTemplate(filename, destination, binding)
     template_file = getTemplateFile(filename)
-    File.open(destination, 'w+') do |f|
+    File.open(destination.to_s, 'w+') do |f|
       f.write(ERB.new(template_file).result(binding))
       puts I18n.t(:written_file, scope: :negroku, file: destination)
     end

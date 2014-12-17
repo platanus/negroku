@@ -12,8 +12,6 @@ module Negroku::Stage
     add_stage_file config
   end
 
-  private
-
   def add_stage_file(data)
     destination = AppDirectory.deploy.join("#{data[:stage_name]}.rb")
 
