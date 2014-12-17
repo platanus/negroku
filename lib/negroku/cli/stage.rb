@@ -14,23 +14,10 @@ module Negroku::Stage
 
   private
 
-  # TODO: Move to shared helper
-  def buildTemplate(template, destination, binding)
-    File.open(destination, 'w+') do |f|
-      f.write(ERB.new(template).result(binding))
-    end
-  end
-
-  def getTemplateFile(filename)
-    File.read(File.expand_path("../../templates/negroku/#{filename}", __FILE__))
-  end
-
-
   def add_stage_file(data)
-    template = getTemplateFile("stage.rb.erb")
     destination = AppDirectory.deploy.join("#{data[:stage_name]}.rb")
 
-    buildTemplate(template, destination, binding)
+    Templates.buildTemplate("stage.rb.erb", destination, binding)
   end
 
   def ask_server_url
@@ -64,7 +51,9 @@ module Negroku::Stage
   # Ask the stage name
   def ask_stage
     question = I18n.t :ask_stage_name, scope: :negroku
-    Ask.input question
+    stage_name = Ask.input question
+    raise "Stage name required" if stage_name.empty?
+    stage_name
   end
 
   def remove_stage(stage=nil)

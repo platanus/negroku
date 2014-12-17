@@ -7,6 +7,10 @@ module AppDirectory
     @config ||= Pathname.new('config')
   end
 
+  def root
+    @root ||= Pathname.new('')
+  end
+
   def deploy
     config.join('deploy')
   end
