@@ -1,8 +1,23 @@
+require 'capistrano/all'
+require 'capistrano/setup'
+require 'capistrano/deploy'
+
+# Load applications deploy config if it exists
+require './config/deploy' if File.exists? "./config/deploy"
+
 require 'gli'
 require 'inquirer'
 require 'negroku/i18n'
 require 'negroku/version'
 require 'negroku/cli/bootstrap'
+require 'negroku/cli/stage'
+require 'negroku/cli/env'
+require 'negroku/helpers/app_directory'
+require 'negroku/helpers/templates'
+
+require 'capistrano/rbenv'
+require 'negroku/deploy'
+
 
 module Negroku::CLI
 

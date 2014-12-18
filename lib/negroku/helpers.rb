@@ -26,3 +26,4 @@ def build_add_var_cmd(vars_file, key, value)
   cmd += "fi"
   cmd
 end
+
