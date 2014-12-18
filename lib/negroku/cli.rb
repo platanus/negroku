@@ -15,6 +15,7 @@ require 'negroku/cli/env'
 require 'negroku/helpers/app_directory'
 require 'negroku/helpers/templates'
 
+require 'capistrano/rbenv'
 require 'negroku/deploy'
 
 
