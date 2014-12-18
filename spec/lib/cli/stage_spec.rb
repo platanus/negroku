@@ -19,7 +19,8 @@ describe "stage cli" do
       allow(Negroku::Stage).to receive(:add_stage_file)
 
       expect(Negroku::Stage).to receive(:ask_add_vars).and_return(true)
-      expect(Negroku::Env).to receive(:bulk)
+      expect(Negroku::Env).to receive(:bulk).with("deleteme")
+
       expect{Negroku::Stage.add}.not_to raise_error
     end
 

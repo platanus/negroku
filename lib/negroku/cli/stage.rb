@@ -10,7 +10,7 @@ module Negroku::Stage
     }
 
     add_stage_file config
-    Negroku::Env.bulk if ask_add_vars
+    Negroku::Env.bulk(config[:stage_name]) if ask_add_vars
   end
 
   def ask_add_vars
