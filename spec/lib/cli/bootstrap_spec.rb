@@ -5,7 +5,9 @@ module Ask;end
 describe "bootstrap cli" do
 
   describe "install cmd" do
-    context "stage files" do
+
+    context "bootstrap app" do
+
       before(:each) do
         FakeFS::FileSystem.clear
         FakeFS::FileSystem.clone(File.join('lib','negroku','templates'))
@@ -17,7 +19,6 @@ describe "bootstrap cli" do
 
         expect(Negroku::Bootstrap).to receive(:select_repo).and_return("git.repo.url")
         expect(Negroku::Bootstrap).to receive(:ask_name).and_return("NewApp")
-        expect(Negroku::Bootstrap).to receive(:select_stages).and_return(%w(alpha beta))
 
       end
 
@@ -40,18 +41,6 @@ describe "bootstrap cli" do
         expect(File).to exist("Capfile")
       end
 
-
-      it "creates the stage files" do
-        Negroku::Bootstrap.install
-
-        expect(File).to exist("config/deploy/alpha.rb")
-        expect(File).to exist("config/deploy/beta.rb")
-        content = File.read("config/deploy/alpha.rb")
-        expect(content).to match(/ALPHA CONFIGURATION/)
-        expect(content).to match(/server ''/)
-        expect(content).to match(/set :branch,\s+'master'/)
-        expect(content).to match(/set :nginx_domains,\s+''/)
-      end
     end
   end
 end
