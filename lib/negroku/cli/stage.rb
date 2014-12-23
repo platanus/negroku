@@ -21,7 +21,7 @@ module Negroku::Stage
   def add_stage_file(data)
     destination = AppDirectory.deploy.join("#{data[:stage_name]}.rb")
 
-    Templates.buildTemplate("stage.rb.erb", destination, binding)
+    buildTemplate("negroku/stage.rb.erb", destination, binding)
   end
 
   def ask_server_url

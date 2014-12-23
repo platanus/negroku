@@ -1,21 +1,26 @@
 require "erb"
-module Templates
-  extend self
 
-  TEMPLATE_DIR = "../../templates/negroku/"
+def buildTemplate(filename, destination, binding)
+  template_file = getTemplateFile(filename)
 
-  def buildTemplate(filename, destination, binding)
-    template_file = getTemplateFile(filename)
+  result = ERB.new(template_file, nil, '-').result(binding)
+
+  if destination
     File.open(destination.to_s, 'w+') do |f|
-      f.write(ERB.new(template_file).result(binding))
-      puts I18n.t(:written_file, scope: :negroku, file: destination)
+      f.write(result)
     end
+
+    puts I18n.t(:written_file, scope: :negroku, file: destination)
+  else
+    return StringIO.new(result)
   end
+end
 
-  private
+def partial(filename, binding)
+  template_file = getTemplateFile(filename)
+  ERB.new(template_file, nil, '-', '_erbout2').result(binding)
+end
 
-  def getTemplateFile(filename)
-    File.read(File.expand_path("#{TEMPLATE_DIR}#{filename}", __FILE__))
-  end
-
+def getTemplateFile(filename)
+  File.read(File.expand_path("../../templates/#{filename}", __FILE__))
 end

@@ -1,3 +1,4 @@
+require 'negroku/helpers/templates'
 require 'negroku/helpers/logs'
 require 'negroku/helpers/env'
 
