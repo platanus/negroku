@@ -25,8 +25,8 @@ module Negroku::Bootstrap
 
     deploy_rb = AppDirectory.config.join('deploy.rb')
     capfile = AppDirectory.root.join('Capfile')
-    buildTemplate("negroku/deploy.rb.erb", deploy_rb, binding)
-    buildTemplate('negroku/Capfile.erb', capfile, binding)
+    build_template("negroku/deploy.rb.erb", deploy_rb, binding)
+    build_template('negroku/Capfile.erb', capfile, binding)
 
     FileUtils.mkdir_p AppDirectory.tasks
 

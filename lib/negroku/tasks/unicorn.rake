@@ -67,7 +67,7 @@ namespace :negroku do
             template_path = "tasks/unicorn_#{fetch(:unicorn_template_type)}.rb.erb"
           end
 
-          config = buildTemplate(template_path, nil, binding)
+          config = build_template(template_path, nil, binding)
           upload! config, '/tmp/unicorn.rb'
 
           execute :mv, '/tmp/unicorn.rb', 'unicorn.rb'
