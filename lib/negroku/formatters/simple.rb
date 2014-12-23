@@ -1,4 +1,3 @@
-require 'pry'
 module SSHKit
 
   module Formatter
@@ -6,7 +5,6 @@ module SSHKit
     class Simple < Abstract
 
       def write(obj)
-        binding.pry
         original_output << "Deploying..."
         return if obj.verbosity < SSHKit.config.output_verbosity
         case obj
