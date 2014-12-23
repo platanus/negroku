@@ -60,12 +60,15 @@ namespace :negroku do
     task :setup do
       on release_roles fetch(:unicorn_roles) do
         within "#{shared_path}/config" do
-          config_file = fetch(:unicorn_template)
-          unless File.exists?(config_file)
-            config_file = File.expand_path("../../templates/tasks/unicorn_#{fetch(:unicorn_template_type)}.rb.erb", __FILE__)
+          template_path = fetch(:unicorn_template)
+
+          # user a build in template if the template doesn't exists in the project
+          unless File.exists?(template_path)
+            template_path = "tasks/unicorn_#{fetch(:unicorn_template_type)}.rb.erb"
           end
-          config = ERB.new(File.read(config_file)).result(binding)
-          upload! StringIO.new(config), '/tmp/unicorn.rb'
+
+          config = buildTemplate(template_path, nil, binding)
+          upload! config, '/tmp/unicorn.rb'
 
           execute :mv, '/tmp/unicorn.rb', 'unicorn.rb'
         end
