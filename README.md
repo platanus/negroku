@@ -1,5 +1,9 @@
-Negroku [![Stories in Ready](https://badge.waffle.io/platanus/negroku.svg)](http://waffle.io/platanus/negroku)
+Negroku [![Stories in Ready][ready]][waffle] [![Build Status][travis-badge]][travis]
 =======
+[waffle]: http://waffle.io/platanus/negroku
+[ready]: https://badge.waffle.io/platanus/negroku.svg?label=ready&title=ready
+[travis]: https://travis-ci.org/platanus/negroku
+[travis-badge]: https://travis-ci.org/platanus/negroku.svg?branch=master
 
 Negroku is an opinionated collection of recipes for capistrano.
 
