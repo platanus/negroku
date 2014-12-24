@@ -29,5 +29,6 @@ load_task "nginx"     if was_required? 'capistrano/nginx'
 load_task "unicorn"   if was_required? 'capistrano3/unicorn'
 load_task "delayed_job"   if was_required? 'capistrano/delayed-job'
 load_task "whenever"  if was_required? 'whenever/capistrano'
+load_task "eye"       if was_required? 'negroku/eye'
 
 load_task "log"

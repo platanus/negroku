@@ -15,6 +15,8 @@ namespace :load do
     # Defines where the unicorn pid will live.
     set :unicorn_pid, -> { "#{shared_path}/tmp/pids/unicorn.pid" }
 
+    set :unicorn_log, -> { "#{shared_path}/log/unicorn.log" }
+
     set :unicorn_config_path, -> { "#{shared_path}/config/unicorn.rb" }
 
     ###################################
