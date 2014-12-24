@@ -17,7 +17,7 @@ Add the negroku gem to your `Gemfile` development group to lock the version your
 
 ```ruby
 group :development do
-    gem 'negroku', '~> 2.0.0.pre1'
+    gem 'negroku', '~> 2.0.0.pre3'
 end
 ```
 
