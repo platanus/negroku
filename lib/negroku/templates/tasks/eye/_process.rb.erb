@@ -1,0 +1,10 @@
+  process '<%= process %>' do
+    pid_file '<%= options[:pid_file]%>'
+    start_command '<%= options[:start_command]%>'
+    stop_command 'kill -9 {PID}'
+
+  <% options[:check].each do |check, values| -%>
+  <%= "check :#{check}, #{values}" %>
+  <% end -%>
+
+  end

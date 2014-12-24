@@ -76,10 +76,10 @@ namespace :negroku do
     end
 
     # Reload or restart unicorn after the application is published
-    after 'deploy:publishing', 'restart' do
-      invoke 'negroku:unicorn:setup'
-      invoke fetch(:unicorn_preload)? 'unicorn:restart' : 'unicorn:reload'
-    end
+    # after 'deploy:publishing', 'restart' do
+    #   invoke 'negroku:unicorn:setup'
+    #   invoke fetch(:unicorn_preload)? 'unicorn:restart' : 'unicorn:reload'
+    # end
 
     # Ensure the folders needed exist
     after 'deploy:check', 'deploy:check:directories' do
@@ -93,6 +93,18 @@ namespace :negroku do
     define_logs(:unicorn, {
       error: 'unicorn-error.log',
       out: 'unicorn-out.log'
+    })
+
+    watch_process(:test, fetch(:unicorn_roles), {
+      pid_file: "#{fetch(:unicorn_pid)}",
+      stdall: "#{fetch(:shared_path)}/log/unicorn.log",
+      start_command: "~/.rbenv/bin/rbenv exec bundle exec unicorn -c #{fetch(:shared_path)}/config/unicorn.rb -E deployment -D",
+      stop_command: "",
+      restart_command: "kill -USR2 #{fetch(:unicorn_pid)}",
+      check: {
+        cpu: "every: 10.seconds, below: 100, times: 3",
+        memory: "every: 20.seconds, below: 700.megabytes, times: 3"
+      }
     })
 
   end
