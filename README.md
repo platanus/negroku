@@ -54,7 +54,7 @@ $ bundle install
 
         Some files and folders will be added to your project.
 
-        ```
+        ```ruby
         project_root
          |--- Capfile                  # Capistrano load file
          +--- config
@@ -90,7 +90,7 @@ $ bundle install
 
     The `stage add` command will create the stage configuration file and run the `rbenv:vars:add` capistrano task if you chosen to add environmental variables to the applicatin
 
-    ```
+    ```ruby
     project_root
       +--- config
             +--- deploy
@@ -137,10 +137,9 @@ $ bundle install
 
 ## Deploy you application
 
-    To deploy your application you just need to run capistrano task to do so.
+To deploy your application you just need to run capistrano task to do so.
 
-    ```shell
-    $ cap staging deploy  # to deploy to the staging stage
-    ```
-
+```shell
+$ cap staging deploy  # to deploy to the staging stage
+```
 
