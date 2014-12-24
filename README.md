@@ -47,11 +47,6 @@ $ bundle install
 
         If you have already initializated your git repository for the project, you'll be offered to choose the remotes of the current repo.
 
-    1. **Select the stages you are going to use**
-
-        Negroku will create the stage configuration files for the stages you choose in this step
-
-
     The `app create` command will bootpstrap your app (behind the scenes it will run the `cap install` command and add some customizations)
 
         Some files and folders will be added to your project.
