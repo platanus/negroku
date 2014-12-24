@@ -34,6 +34,8 @@ $ bundle install
     ```shell
     $ negroku app create
     ```
+    
+    [![App Create](http://g.recordit.co/CllZX9ruB8.gif)]
 
     1. **Give your application a name**
 
@@ -66,6 +68,8 @@ $ bundle install
     ```shell
     $negroku stage add
     ```
+
+    [![stage add](http://g.recordit.co/pNYbqZ4kD8.gif)]
 
     1. **Stage Name**
 
