@@ -12,9 +12,6 @@ spec = Gem::Specification.new do |s|
 
   s.files = `git ls-files`.split($/)
   s.require_paths << 'lib'
-  s.has_rdoc = true
-  s.extra_rdoc_files = ['README.rdoc','negroku.rdoc']
-  s.rdoc_options << '--title' << 'negroku' << '--main' << 'README.rdoc' << '-ri'
   s.bindir = 'bin'
   s.executables << 'negroku'
 
