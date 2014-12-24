@@ -20,13 +20,11 @@ set :application,   '<%= data[:application_name] %>'
 set :repo_url,      '<%= data[:repo_url] %>'
 set :deploy_to,     "/home/deploy/applications/#{fetch(:application)}"
 
-linked_files = Set.new(fetch(:linked_files, [])) # https://github.com/capistrano/rails/issues/52
-linked_files.merge(%w{caca})
-set :linked_files, linked_files.to_a
+# Default value for :linked_files is []
+# set :linked_files, fetch(:linked_files, []) + %w{}
 
-linked_dirs = Set.new(fetch(:linked_dirs, [])) # https://github.com/capistrano/rails/issues/52
-linked_dirs.merge(%w{bin log tmp/pids tmp/cache tmp/sockets public/system})
-set :linked_dirs, linked_dirs.to_a
+# Default value for linked_dirs is []
+# set :linked_dirs, fetch(:linked_dirs, []) + %w{bin log tmp/pids tmp/cache tmp/sockets public/system}
 
 ######################
 # Unicorn
