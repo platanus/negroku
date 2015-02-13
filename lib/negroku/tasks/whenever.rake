@@ -15,7 +15,7 @@ namespace :load do
         job_template: "bash -lc ':job'",
         output: "#{shared_path}/log/whenever-out.log"
       }
-      .map{|k,v| "#{k}=\\\"#{v}\\\""}.join("&").prepend("\"") << "\""
+      .map{|k,v| "#{k}=#{v}"}.join("&").prepend("\"") << "\""
     }
 
   end
