@@ -69,6 +69,23 @@ namespace :negroku do
       end
     end
 
+    before "eye:setup", "eye:setup:discovery" do 
+      if was_required? 'capistrano3/unicorn'
+            watch_process(:unicorn, fetch(:unicorn_roles), {
+              pid_file: fetch(:unicorn_pid),
+              stdall: fetch(:unicorn_log),
+              start_command: "bundle exec unicorn -c #{shared_path}/config/unicorn.rb -E #{fetch(:stage)} -D",
+              stop_command: "kill -QUIT #{fetch(:unicorn_pid)}",
+              restart_command: "kill -USR2 #{fetch(:unicorn_pid)}",
+              check: {
+                cpu: "every: 10.seconds, below: 100, times: 3",
+                memory: "every: 20.seconds, below: 700.megabytes, times: 3"
+      }
+    })
+
+      end
+    end
+
     define_logs(:eye, {
       app: 'production.log'
     })
