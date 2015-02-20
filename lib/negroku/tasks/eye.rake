@@ -24,7 +24,7 @@ namespace :eye do
     end
   end
 
-  [:start,:restart, :status, :stop].each do |cmd|
+  [:start,:restart, :info, :stop].each do |cmd|
       # Single process
     desc "Calls eye's #{cmd.to_s} on a process"
     task "#{cmd}:process", [:name] do |t, args|
