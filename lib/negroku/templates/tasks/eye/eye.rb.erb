@@ -9,9 +9,7 @@ Eye.application '<%= fetch(:application)%>' do
   # All options inherits down to the config leafs.
   # except `env`, which merging down
 
-  working_dir File.expand_path(File.join(File.dirname(__FILE__), %w[ processes ]))
-  stdall 'trash.log' # stdout,err logs for processes by default
-  env 'APP_ENV' => 'production' # global env for each processes
+  working_dir fetch(:current_path), %w[ processes ]))
   trigger :flapping, times: 10, within: 1.minute, retry_in: 10.minutes
   check :cpu, every: 10.seconds, below: 100, times: 3 # global check for all processes
 

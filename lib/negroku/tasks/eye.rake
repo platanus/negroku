@@ -15,30 +15,53 @@ end
 
 namespace :eye do
 
-  task :start, [:process] do
-
+  desc "Loads eye config and starts monitoring"
+  task :load do 
+    on release_roles fetch(:eye_roles) do
+  #      execute "mkdir -p #{shared_path}/config/processes"
+	within "#{current_path}" do
+	    execute :bundle, :exec, :eye, :load, "#{shared_path}/config/eye.rb"
+	end
+    end
   end
 
-  task :restart, [:process] do
-
+  desc "Starts monitoring"
+  task :start, [:process] do |t, args|
+    on release_roles fetch(:eye_roles) do
+	within "#{current_path}" do
+	    execute :bundle, :exec, :eye, :start, "#{args[:process]}"
+	end
+    end
   end
 
-  task :stop, [:process] do
-
+  desc "Restarts monitoring"
+  task :restart, [:process] do |t, args|
+    #i.e: eye r test:samples:sample1 (source: https://github.com/kostya/eye)
+    on release_roles fetch(:eye_roles) do
+        within "#{current_path}" do
+            execute :bundle, :exec, :eye, :restart, "#{args[:process]}"
+        end
+    end
   end
 
-  task :status do
+  desc "Stops monitoring"
+  task :stop, [:process] do |t, args|
+    on release_roles fetch(:eye_roles) do
+        within "#{current_path}" do
+            execute :bundle, :exec, :eye, :stop, "#{args[:process]}"
+        end
+    end
+  end
 
+  desc "Displays monitoring status"
+  task :status, [:process] do |t, args|
+    on release_roles fetch(:eye_roles) do 
+        within "#{current_path}" do
+            execute :bundle, :exec, :eye, :info, "#{args[:process]}"
+        end
+    end
   end
-  desc "test"
-  task :test do
-    # binding.pry
-        load_processes
-    # on release_roles fetch(:eye_roles) do
-    #   within "#{shared_path}/config" do
-    #   end
-    # end
-  end
+
 end
 
 
@@ -66,6 +89,23 @@ namespace :negroku do
 
           execute :mv, '/tmp/eye.rb', 'eye.rb'
         end
+      end
+    end
+
+    before "eye:setup", "eye:setup:discovery" do 
+      if was_required? 'capistrano3/unicorn'
+            watch_process(:unicorn, fetch(:unicorn_roles), {
+              pid_file: fetch(:unicorn_pid),
+              stdall: fetch(:unicorn_log),
+              start_command: "bundle exec unicorn -c #{shared_path}/config/unicorn.rb -E #{fetch(:stage)} -D",
+              stop_command: "kill -QUIT #{fetch(:unicorn_pid)}",
+              restart_command: "kill -USR2 #{fetch(:unicorn_pid)}",
+              check: {
+                cpu: "every: 10.seconds, below: 100, times: 3",
+                memory: "every: 20.seconds, below: 700.megabytes, times: 3"
+      }
+    })
+
       end
     end
 

@@ -15,6 +15,8 @@ namespace :load do
     # Defines where the unicorn pid will live.
     set :unicorn_pid, -> { "#{shared_path}/tmp/pids/unicorn.pid" }
 
+    set :unicorn_log, -> { "#{shared_path}/log/unicorn.log" }
+
     set :unicorn_config_path, -> { "#{shared_path}/config/unicorn.rb" }
 
     ###################################
@@ -93,18 +95,6 @@ namespace :negroku do
     define_logs(:unicorn, {
       error: 'unicorn-error.log',
       out: 'unicorn-out.log'
-    })
-
-    watch_process(:test, fetch(:unicorn_roles), {
-      pid_file: "#{fetch(:unicorn_pid)}",
-      stdall: "#{fetch(:shared_path)}/log/unicorn.log",
-      start_command: "~/.rbenv/bin/rbenv exec bundle exec unicorn -c #{fetch(:shared_path)}/config/unicorn.rb -E deployment -D",
-      stop_command: "",
-      restart_command: "kill -USR2 #{fetch(:unicorn_pid)}",
-      check: {
-        cpu: "every: 10.seconds, below: 100, times: 3",
-        memory: "every: 20.seconds, below: 700.megabytes, times: 3"
-      }
     })
 
   end
