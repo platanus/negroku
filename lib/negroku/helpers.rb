@@ -4,9 +4,15 @@ require 'negroku/helpers/logs'
 require 'negroku/helpers/env'
 
 # Find out if a specific library file was already required
-def was_required?(file)
+def required?(file)
   rex = Regexp.new("/#{Regexp.quote(file)}\.(so|o|sl|rb)?")
   $LOADED_FEATURES.find { |f| f =~ rex }
+end
+
+def any_required?(arr)
+  arr.each do |file|
+    return true if(required?(file))
+  end
 end
 
 def load_task(name)
