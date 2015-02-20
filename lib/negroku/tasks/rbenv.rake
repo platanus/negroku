@@ -26,15 +26,12 @@ namespace :rbenv do
     end
 
     desc "Add environmental variables in the form VAR=value"
-    task :add, :variable do |t, args|
+    task :add, [:variable] => 'deploy:check:linked_files' do |t, args|
 
       vars = [args.variable] + args.extras
 
       on release_roles :app do
         within shared_path do
-          unless test "[ ! -f .rbenv-vars ]"
-            execute :touch, ".rbenv-vars"
-          end
           vars.compact.each do |var|
             key, value = var.split('=')
             cmd = build_add_var_cmd("#{shared_path}/.rbenv-vars", key, value)
@@ -50,6 +47,15 @@ namespace :rbenv do
       on release_roles :app do
         within shared_path do
           execute :sed, "-i", "/^#{args[:key]}=/d", ".rbenv-vars"
+        end
+      end
+    end
+
+    # Ensure the rbenv-vars file exist
+    before 'deploy:check:linked_files', 'deploy:check:files' do
+      on release_roles fetch(:rbenv_roles) do
+        within shared_path do
+          execute :touch, ".rbenv-vars"
         end
       end
     end
