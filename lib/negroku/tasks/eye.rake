@@ -18,15 +18,19 @@ namespace :eye do
   desc "Loads eye config and starts monitoring"
   task :load do 
     on release_roles fetch(:eye_roles) do
-        execute "mkdir -p #{shared_path}/config/processes"
-        execute "cd #{current_path} && bundle exec eye load #{shared_path}/config/eye.rb"
+  #      execute "mkdir -p #{shared_path}/config/processes"
+	within "#{current_path}" do
+	    execute :bundle, :exec, :eye, :load, "#{shared_path}/config/eye.rb"
+	end
     end
   end
 
   desc "Starts monitoring"
   task :start, [:process] do |t, args|
     on release_roles fetch(:eye_roles) do
-        execute "cd #{current_path} && bundle exec eye start #{args[:process]}"
+	within "#{current_path}" do
+	    execute :bundle, :exec, :eye, :start, "#{args[:process]}"
+	end
     end
   end
 
@@ -34,22 +38,27 @@ namespace :eye do
   task :restart, [:process] do |t, args|
     #i.e: eye r test:samples:sample1 (source: https://github.com/kostya/eye)
     on release_roles fetch(:eye_roles) do
-        execute "cd #{current_path} && bundle exec eye restart #{args[:process]}"
+        within "#{current_path}" do
+            execute :bundle, :exec, :eye, :restart, "#{args[:process]}"
+        end
     end
   end
 
   desc "Stops monitoring"
   task :stop, [:process] do |t, args|
     on release_roles fetch(:eye_roles) do
-        execute "cd #{current_path} && bundle exec eye stop #{args[:process]}"
+        within "#{current_path}" do
+            execute :bundle, :exec, :eye, :stop, "#{args[:process]}"
+        end
     end
   end
 
   desc "Displays monitoring status"
   task :status, [:process] do |t, args|
     on release_roles fetch(:eye_roles) do 
-       puts shared_path
-       execute "cd #{current_path} && bundle exec eye info #{args[:process]}"
+        within "#{current_path}" do
+            execute :bundle, :exec, :eye, :info, "#{args[:process]}"
+        end
     end
   end
 
