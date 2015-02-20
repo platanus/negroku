@@ -1,6 +1,6 @@
   process '<%= process %>' do
     pid_file '<%= options[:pid_file]%>'
-    start_command '<%= options[:start_command]%>'
+    start_command '/home/deploy/.rbenv/bin/rbenv exec <%= options[:start_command]%>'
     stop_command '<%= options[:stop_command] || "kill -9 {PID}" %>'
 
   <% options[:check].each do |check, values| -%>

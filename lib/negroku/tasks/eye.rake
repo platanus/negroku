@@ -18,7 +18,7 @@ namespace :eye do
   desc "Loads eye config and starts monitoring"
   task :load do 
     on release_roles fetch(:eye_roles) do
-  #      execute "mkdir -p #{shared_path}/config/processes"
+        execute "mkdir -p #{shared_path}/processes"
 	within "#{current_path}" do
 	    execute :bundle, :exec, :eye, :load, "#{shared_path}/config/eye.rb"
 	end
@@ -92,6 +92,8 @@ namespace :negroku do
       end
     end
 
+    before "deploy:publishing", "negroku:eye:setup" 
+
     before "eye:setup", "eye:setup:discovery" do 
       if was_required? 'capistrano3/unicorn'
             watch_process(:unicorn, fetch(:unicorn_roles), {
@@ -105,6 +107,7 @@ namespace :negroku do
                 memory: "every: 20.seconds, below: 700.megabytes, times: 3"
       }
     })
+
 
       end
     end
