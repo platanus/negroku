@@ -19,7 +19,7 @@ namespace :eye do
   task :load do
     on release_roles fetch(:eye_roles) do
       within "#{current_path}" do
-       execute :bundle, :exec, :eye, :load, "#{shared_path}/config/eye.rb"
+       execute :eye, :load, "#{shared_path}/config/eye.rb"
       end
     end
   end
@@ -30,7 +30,7 @@ namespace :eye do
     task "#{cmd}:process", [:name] do |t, args|
       on release_roles fetch(:eye_roles) do
         within "#{current_path}" do
-          execute :bundle, :exec, :eye, cmd, "#{args[:name]}"
+          execute :eye, cmd, "#{args[:name]}"
         end
       end
     end
@@ -39,7 +39,7 @@ namespace :eye do
     task cmd do |t, args|
       on release_roles fetch(:eye_roles) do
         within "#{current_path}" do
-          execute :bundle, :exec, :eye, cmd, "#{fetch(:application)}"
+          execute :eye, cmd, "#{fetch(:application)}"
         end
       end
     end
