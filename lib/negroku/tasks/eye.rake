@@ -46,6 +46,16 @@ namespace :eye do
   end
 end
 
+namespace :unicorn do
+  ['start','restart','stop'].each do |cmd|
+    Rake::Task["unicorn:#{cmd}"].clear_actions
+    # Reload or restart unicorn after the application is published
+    desc "#{cmd} unicorn through eye"
+    task cmd do
+      invoke "eye:#{cmd}", 'unicorn'
+    end
+  end
+end
 
 # Adds some task on complement the capistrano3-unicorn tasks
 # This tasks are under the negroku namespace for easier identification

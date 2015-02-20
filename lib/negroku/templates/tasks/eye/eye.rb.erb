@@ -1,6 +1,6 @@
-# Eye self-configuration section
+# Setups Eye global conf if not already
 Eye.config do
-  logger '<%= fetch(:shared_path)%>/log/eye.log'
+  logger '/var/log/eye-global.log'
 end
 
 # Adding application
@@ -8,12 +8,14 @@ Eye.application '<%= fetch(:application)%>' do
 
   # All options inherits down to the config leafs.
   # except `env`, which merging down
-  env 'RBENV_ROOT' => '/home/deploy/.rbenv', 'RBENV_VERSION' => '2.0.0-p481'
+  env 'RBENV_ROOT' => '/home/deploy/.rbenv', 'RBENV_VERSION' => '2.0.0'
   working_dir '<%= current_path %>'
   trigger :flapping, times: 10, within: 1.minute, retry_in: 10.minutes
   check :cpu, every: 10.seconds, below: 100, times: 3 # global check for all processes
-  stdall '<%= fetch(:shared_path)%>/log/eye-all.log'
+  stdall '<%= shared_path %>/log/eye.log'
+
 <% processes.each do |process, options| -%>
 <%= partial 'tasks/eye/_process.rb.erb', binding %>
 <% end -%>
+
 end

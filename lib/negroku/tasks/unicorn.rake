@@ -80,7 +80,7 @@ namespace :negroku do
     # Reload or restart unicorn after the application is published
     after 'deploy:publishing', 'restart' do
       invoke 'negroku:unicorn:setup'
-      invoke fetch(:unicorn_preload)? 'unicorn:restart' : 'unicorn:reload'
+      invoke 'unicorn:restart'
     end
 
     # Ensure the folders needed exist
