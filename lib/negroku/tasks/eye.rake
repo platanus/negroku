@@ -16,52 +16,34 @@ end
 namespace :eye do
 
   desc "Loads eye config and starts monitoring"
-  task :load do 
+  task :load do
     on release_roles fetch(:eye_roles) do
-        execute "mkdir -p #{shared_path}/processes"
-	within "#{current_path}" do
-	    execute :bundle, :exec, :eye, :load, "#{shared_path}/config/eye.rb"
-	end
+      within "#{current_path}" do
+       execute :bundle, :exec, :eye, :load, "#{shared_path}/config/eye.rb"
+      end
     end
   end
 
-  desc "Starts monitoring"
-  task :start, [:process] do |t, args|
-    on release_roles fetch(:eye_roles) do
-	within "#{current_path}" do
-	    execute :bundle, :exec, :eye, :start, "#{args[:process]}"
-	end
-    end
-  end
-
-  desc "Restarts monitoring"
-  task :restart, [:process] do |t, args|
-    #i.e: eye r test:samples:sample1 (source: https://github.com/kostya/eye)
-    on release_roles fetch(:eye_roles) do
+  [:start,:restart, :status, :stop].each do |cmd|
+      # Single process
+    desc "Calls eye's #{cmd.to_s} on a process"
+    task "#{cmd}:process", [:name] do |t, args|
+      on release_roles fetch(:eye_roles) do
         within "#{current_path}" do
-            execute :bundle, :exec, :eye, :restart, "#{args[:process]}"
+          execute :bundle, :exec, :eye, cmd, "#{args[:name]}"
         end
+      end
     end
-  end
-
-  desc "Stops monitoring"
-  task :stop, [:process] do |t, args|
-    on release_roles fetch(:eye_roles) do
+    #
+    desc "Calls eye's #{cmd.to_s} on the whole app"
+    task cmd do |t, args|
+      on release_roles fetch(:eye_roles) do
         within "#{current_path}" do
-            execute :bundle, :exec, :eye, :stop, "#{args[:process]}"
+          execute :bundle, :exec, :eye, cmd, "#{fetch(:application)}"
         end
+      end
     end
   end
-
-  desc "Displays monitoring status"
-  task :status, [:process] do |t, args|
-    on release_roles fetch(:eye_roles) do 
-        within "#{current_path}" do
-            execute :bundle, :exec, :eye, :info, "#{args[:process]}"
-        end
-    end
-  end
-
 end
 
 
@@ -92,9 +74,10 @@ namespace :negroku do
       end
     end
 
-    before "deploy:publishing", "negroku:eye:setup" 
+    before "deploy:publishing", "negroku:eye:setup"
 
-    before "eye:setup", "eye:setup:discovery" do 
+    before "eye:setup", "eye:setup:discovery" do
+
       if was_required? 'capistrano3/unicorn'
             watch_process(:unicorn, fetch(:unicorn_roles), {
               pid_file: fetch(:unicorn_pid),
