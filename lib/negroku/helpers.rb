@@ -10,11 +10,17 @@ def required?(file)
 end
 
 def any_required?(arr)
-  arr.each do |file|
-    return true if(required?(file))
-  end
+  arr.any? { |file| required?(file) }
 end
 
-def load_task(name)
-  load File.join(File.dirname(__FILE__), 'tasks', "#{name}.rake")
+def all_required?(arr)
+  arr.all? { |file| required?(file) }
+end
+
+def load_task(name, dependencies = [])
+  if all_required? dependencies
+    load File.join(File.dirname(__FILE__), 'tasks', "#{name}.rake")
+  else
+    fail "To load #{name} you need to include #{dependencies.join ", "}"
+  end
 end

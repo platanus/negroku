@@ -1,1 +1,3 @@
-require 'negroku/helpers/templates'
+require 'negroku/helpers'
+
+load_task "eye"

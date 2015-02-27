@@ -1,0 +1,27 @@
+  RAILS_ENV="<%= fetch(:rails_env) %>"
+
+  process 'unicorn' do
+    env rbenv_root: "<%= fetch(:rbenv_path) %>", rbenv_version: "<%=fetch(:rbenv_ruby) %>"
+    pid_file "<%= fetch(:unicorn_pid) %>"
+    start_command "<%= fetch(:rbenv_prefix) %> bundle exec unicorn -Dc <%= fetch(:unicorn_config_path) %> -E #{RAILS_ENV}"
+    stdall "<%= fetch(:unicorn_log) %>"
+
+    # stop signals:
+    # http://unicorn.bogomips.org/SIGNALS.html
+    stop_signals [:TERM, 10.seconds]
+
+    # soft restart
+    restart_command "kill -USR2 {PID}"
+
+    check :cpu, :every => 30, :below => 80, :times => 3
+    check :memory, :every => 30, :below => 150.megabytes, :times => [3,5]
+
+    start_timeout 100.seconds
+    restart_grace 30.seconds
+
+    monitor_children do
+      stop_command "kill -QUIT {PID}"
+      check :cpu, :every => 30, :below => 80, :times => 3
+      check :memory, :every => 30, :below => 150.megabytes, :times => [3,5]
+    end
+  end

@@ -1,14 +1,16 @@
+require 'negroku/helpers/templates'
+
 ## eye.rb
 #
 # Adds eye variables and tasks
+
 namespace :load do
   task :defaults do
     ###################################
     ## eye template variables
 
     # Local path to look for custom config template
-    set :eye_template, -> { "config/deploy/#{fetch(:stage)}/eye.rb.erb" }
-
+    set :eye_application_template, -> { "config/deploy/#{fetch(:stage)}/eye.rb.erb" }
   end
 end
 
@@ -46,17 +48,6 @@ namespace :eye do
   end
 end
 
-namespace :unicorn do
-  ['start','restart','stop'].each do |cmd|
-    Rake::Task["unicorn:#{cmd}"].clear_actions
-    # Reload or restart unicorn after the application is published
-    desc "#{cmd} unicorn through eye"
-    task cmd do
-      invoke "eye:#{cmd}", 'unicorn'
-    end
-  end
-end
-
 # Adds some task on complement the capistrano3-unicorn tasks
 # This tasks are under the negroku namespace for easier identification
 namespace :negroku do
@@ -67,44 +58,28 @@ namespace :negroku do
     task :setup do
       on release_roles fetch(:eye_roles) do
         within "#{shared_path}/config" do
-          processes = fetch(:eye_processes, {})
+          processes = fetch(:eye_watched_processes, {})
 
-          template_path = fetch(:eye_template)
+          template_path = fetch(:eye_application_template)
 
-          # user a build in template if the template doesn't exists in the project
+          # use a build in template if the template doesn't exists in the project
           unless File.exists?(template_path)
-            template_path = "tasks/eye/eye.rb.erb"
+            template_path = "tasks/eye/application.eye.erb"
           end
 
           config = build_template(template_path, nil, binding)
-          upload! config, '/tmp/eye.rb'
+          upload! config, '/tmp/application.eye'
 
-          execute :mv, '/tmp/eye.rb', 'eye.rb'
+          execute :mv, '/tmp/application.eye', 'eye.rb'
         end
       end
     end
 
     before "deploy:publishing", "negroku:eye:setup"
-
-    before "eye:setup", "eye:setup:discovery" do
-      if required? 'capistrano3/unicorn'
-        watch_process(:unicorn, fetch(:unicorn_roles), {
-          pid_file: fetch(:unicorn_pid),
-          stdall: fetch(:unicorn_log),
-          start_command: "bundle exec unicorn -c #{shared_path}/config/unicorn.rb -E #{fetch(:stage)} -D",
-          restart_command: "kill -USR2 `cat #{fetch(:unicorn_pid)}`",
-          check: {
-            cpu: "every: 10.seconds, below: 100, times: 3",
-            memory: "every: 20.seconds, below: 700.megabytes, times: 3"
-        }
-    })
-
-
-      end
-    end
+    after "negroku:eye:setup", "eye:load"
 
     define_logs(:eye, {
-      app: 'production.log'
+      app: 'eye.log'
     })
 
   end

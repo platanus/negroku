@@ -28,6 +28,11 @@ require 'capistrano/nginx'
 require 'capistrano/delayed-job'
 require 'whenever/capistrano'
 
+# Eye monitoring
+require 'negroku/eye'
+require 'negroku/eye/unicorn'
+require 'negroku/eye/delayed-job'
+
 # NEGROKU
 # Includes negroku defaults and tasks
 require 'negroku/deploy'

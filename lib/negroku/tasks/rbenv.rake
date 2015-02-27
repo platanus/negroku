@@ -11,6 +11,9 @@ namespace :load do
 
     # Link .rbenv-vars file
     set :linked_files, fetch(:linked_files, []) << '.rbenv-vars'
+
+    # Set the path to rbenv
+    set :rbenv_path, "/home/deploy/.rbenv"
   end
 end
 

@@ -1,8 +1,9 @@
-def watch_process(name, roles, options={})
-  processes = fetch(:eye_processes, {})
+def watch_process(name, template = "tasks/eye/_#{name}.erb")
+  processes = fetch(:eye_watched_processes, {})
 
-  processes[name] = options
+  processes[name] = {
+    template: template
+  }
 
-  set :eye_processes, processes
+  set :eye_watched_processes, processes
 end
-

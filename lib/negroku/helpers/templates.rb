@@ -2,6 +2,7 @@ require "erb"
 
 # Build the template
 def build_template(template, destination, binding)
+
   template_file = get_template_file(template)
 
   result = ERB.new(template_file, nil, '-').result(binding)
