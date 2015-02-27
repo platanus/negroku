@@ -16,6 +16,8 @@ namespace :load do
 
     set :linked_files, fetch(:linked_files, []) + %w{}
   end
+
+  after "deploy", "deploy:cleanup"
 end
 
 # Load Negroku tasks
