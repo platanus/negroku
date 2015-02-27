@@ -3,7 +3,7 @@ require 'capistrano/setup'
 require 'capistrano/deploy'
 
 # Load applications deploy config if it exists
-require './config/deploy' if File.exists? "./config/deploy"
+require './config/deploy' if File.exists? "./config/deploy.rb"
 
 require 'gli'
 require 'inquirer'
