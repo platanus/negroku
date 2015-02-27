@@ -83,7 +83,7 @@ namespace :negroku do
       invoke 'unicorn:restart'
     end
 
-    before 'env:changed', 'hard-restart' do
+    after 'env:changed', 'hard-restart' do
       invoke 'unicorn:stop'
       sleep 5
       invoke 'unicorn:start'

@@ -17,6 +17,12 @@ namespace :load do
   end
 end
 
+namespace :env do
+  desc 'Env variables changed'
+  task :changed do
+  end
+end
+
 namespace :rbenv do
   namespace :vars do
     desc "Show current environmental variables"
@@ -63,14 +69,8 @@ namespace :rbenv do
       end
     end
 
-    before 'rbenv:vars:add', 'env:changed'
-    before 'rbenv:vars:remove', 'env:changed'
+    after 'rbenv:vars:add', 'env:changed'
+    after 'rbenv:vars:remove', 'env:changed'
 
-  end
-end
-
-namespace :env do
-  desc 'Env variables changed'
-  task :changed do
   end
 end
