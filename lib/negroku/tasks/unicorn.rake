@@ -78,7 +78,7 @@ namespace :negroku do
     end
 
     # Reload or restart unicorn after the application is published
-    after 'deploy:publishing', 'restart' do
+    after 'deploy:published', 'restart' do
       invoke 'negroku:unicorn:setup'
       invoke 'unicorn:restart'
     end

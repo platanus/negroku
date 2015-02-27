@@ -78,7 +78,7 @@ namespace :negroku do
       end
     end
 
-    after "deploy:published", "negroku:eye:setup"
+    before "deploy:published", "negroku:eye:setup"
     after "negroku:eye:setup", "eye:load"
 
     define_logs(:eye, {
