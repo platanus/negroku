@@ -11,6 +11,9 @@ namespace :load do
 
     # Local path to look for custom config template
     set :eye_application_template, -> { "config/deploy/#{fetch(:stage)}/eye.rb.erb" }
+
+    # Add eye to :rbenv_map_bins
+    fetch(:rbenv_map_bins) << 'eye'
   end
 end
 
@@ -75,7 +78,7 @@ namespace :negroku do
       end
     end
 
-    before "deploy:publishing", "negroku:eye:setup"
+    after "deploy:published", "negroku:eye:setup"
     after "negroku:eye:setup", "eye:load"
 
     define_logs(:eye, {
