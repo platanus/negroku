@@ -7,6 +7,8 @@ namespace :load do
     set :delayed_job_workers, 1
     set :delayed_job_queues, nil
     set :delayed_job_pool, nil
+
+    set :delayed_job_prefix, -> { "#{fetch(:application)}" }
   end
 end
 
