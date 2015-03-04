@@ -1,6 +1,7 @@
 # Adding application
 Eye.application '<%= fetch(:application)%>' do
   notify :<%= fetch(:eye_notification_contact) %>, :<%= fetch(:eye_notification_level) %>
+  notify :chat_room, :<%= fetch(:eye_notification_level) %>
 
   load_env '<%= shared_path %>/.rbenv-vars'
 
