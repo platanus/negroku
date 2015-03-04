@@ -1,11 +1,3 @@
-require 'eye-http'
-
-# Setups Eye global conf if not already
-Eye.config do
-  logger '/var/log/eye-global.log'
-  http :enable => true, :host => "0.0.0.0", :port => 12345
-end
-
 # Adding application
 Eye.application '<%= fetch(:application)%>' do
   load_env '<%= shared_path %>/.rbenv-vars'
