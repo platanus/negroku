@@ -23,7 +23,7 @@ namespace :eye do
   desc "Loads eye config and starts monitoring"
   task :load do
     on release_roles fetch(:eye_roles) do
-      within "#{current_path}" do
+      within current_path do
        execute :eye, :load, "#{shared_path}/config/eye.rb"
       end
     end
@@ -34,17 +34,19 @@ namespace :eye do
     desc "Calls eye's #{cmd.to_s} on a process"
     task "#{cmd}:process", [:name] do |t, args|
       on release_roles fetch(:eye_roles) do
-        within "#{current_path}" do
+        within current_path do
           execute :eye, cmd, "#{args[:name]}"
         end
       end
     end
     #
     desc "Calls eye's #{cmd.to_s} on the whole app"
-    task cmd do |t, args|
+    task cmd, [:mask] do |t, args|
       on release_roles fetch(:eye_roles) do
-        within "#{current_path}" do
-          execute :eye, cmd, "#{fetch(:application)}"
+        within current_path do
+            mask = fetch(:application)
+            mask +=  ":#{args[:mask]}" if args[:mask]
+            execute :eye, cmd, mask
         end
       end
     end
