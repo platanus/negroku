@@ -10,10 +10,7 @@
     (0 ... workers_count.to_i).each do |i|
 
     process "worker-#{i}" do
-
-      count_suffix = workers_count > 1 ? ".#{i}" : ''
-
-      pid_file "tmp/pids/delayed_job#{count_suffix}.pid"
+      pid_file "tmp/pids/delayed_job.#{i}.pid"
       start_command "<%= options[:start_command] %>"
       stop_command "<%= options[:stop_command] %>"
     end
