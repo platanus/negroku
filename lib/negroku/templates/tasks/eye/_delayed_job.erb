@@ -1,28 +1,27 @@
-cwd = File.expand_path(File.join(File.dirname(__FILE__), %w[ ../ ../ ]))
+  group 'delayed-jobs' do
+    env RBENV_ROOT: "<%= fetch(:rbenv_path) %>", RBENV_VERSION: "<%=fetch(:rbenv_ruby) %>"
+    env RAILS_ENV: "<%= fetch(:rails_env) %>"
 
-config_path = File.join(cwd, %w{ config dj.yml } )
+    chain grace: 10.seconds
 
-workers_count = if File.exists?(config_path)
-  YAML.load_file(config_path).try(:[], :workers) || 5
-else
-  5
-end
+    start_timeout 20.seconds
+    stop_timeout 20.seconds
+    restart_timeout 20.seconds
 
-Eye.application 'delayed_job' do
-  working_dir cwd
-  stop_on_delete true
+    workers_count = '<%= fetch(:delayed_job_workers || 1) %>'.to_i
 
-  group 'dj' do
-    chain grace: 5.seconds
+    (0 ... workers_count.to_i).each do |i|
 
-    (1 .. workers_count).each do |i|
-      process "dj-#{i}" do
-        pid_file "tmp/pids/delayed_job.#{i}.pid"
-        start_command "rake jobs:work"
-        daemonize true
-        stop_signals [:INT, 30.seconds, :TERM, 10.seconds, :KILL]
-        stdall "log/dj-#{i}.log"
-      end
+    process "worker-#{i}" do
+
+      count_suffix = workers_count > 1 ? ".#{i}" : ''
+
+      pid_file "tmp/pids/delayed_job#{count_suffix}.pid"
+      start_command "<%= options[:start_command] %>"
+      stop_command "<%= options[:stop_command] %>"
     end
+
+    end
+
   end
-end
+
