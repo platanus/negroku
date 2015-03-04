@@ -60,7 +60,7 @@ namespace :negroku do
   namespace :eye do
 
     desc "Upload eye configuration file"
-    task :setup do
+    task :setup => 'eye:watch_process' do
       on release_roles fetch(:eye_roles) do
         within "#{shared_path}/config" do
           processes = fetch(:eye_watched_processes, {})

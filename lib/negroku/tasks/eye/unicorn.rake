@@ -3,7 +3,13 @@
 #########
 
 # Watch the unicorn processes using the build in template
-watch_process(:unicorn);
+namespace :eye do
+  task :watch_process do
+
+    watch_process(:unicorn);
+
+  end
+end
 
 # Override start, restart and stop unicorn tasks to so they call
 # the eye equivalents
