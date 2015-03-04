@@ -21,14 +21,14 @@ spec = Gem::Specification.new do |s|
 
   s.add_runtime_dependency('rake', '~> 10.1')
   s.add_runtime_dependency('capistrano','~> 3.3.5')
-  s.add_runtime_dependency('capistrano-rbenv', '~> 2.0.2')
+  s.add_runtime_dependency('capistrano-rbenv', '~> 2.0.3')
   s.add_runtime_dependency('capistrano-rails', '~> 1.1.2')
-  s.add_runtime_dependency('capistrano-bundler', '~> 1.1.3')
+  s.add_runtime_dependency('capistrano-bundler', '~> 1.1.4')
   s.add_runtime_dependency('capistrano-npm', '~> 1.0.1')
   s.add_runtime_dependency('capistrano-nc', '~> 0.1.4')
 
   s.add_runtime_dependency('capistrano-nodenv', '~> 1.0.0')
-  s.add_runtime_dependency('capistrano-bower', '~> 1.0.0')
+  s.add_runtime_dependency('capistrano-bower', '~> 1.1.0')
   s.add_runtime_dependency('capistrano3-nginx', '~> 2.0.4')
   s.add_runtime_dependency('capistrano3-unicorn', '~> 0.2.1')
   s.add_runtime_dependency('capistrano3-delayed-job', '~> 1.3.0')
