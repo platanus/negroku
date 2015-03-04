@@ -30,16 +30,6 @@ namespace :eye do
   end
 
   [:start,:restart, :info, :stop].each do |cmd|
-      # Single process
-    desc "Calls eye's #{cmd.to_s} on a process"
-    task "#{cmd}:process", [:name] do |t, args|
-      on release_roles fetch(:eye_roles) do
-        within current_path do
-          execute :eye, cmd, "#{args[:name]}"
-        end
-      end
-    end
-    #
     desc "Calls eye's #{cmd.to_s} on the whole app"
     task cmd, [:mask] do |t, args|
       on release_roles fetch(:eye_roles) do
