@@ -12,6 +12,10 @@ namespace :load do
     # Local path to look for custom config template
     set :eye_application_template, -> { "config/deploy/#{fetch(:stage)}/eye.rb.erb" }
 
+    # Application level notifications
+    set :eye_notification_contact, -> { :monitor }
+    set :eye_notification_level, -> { :error }
+
     # Add eye to :rbenv_map_bins
     fetch(:rbenv_map_bins) << 'eye'
   end
