@@ -8,12 +8,16 @@ end
 
 # Adding application
 Eye.application '<%= fetch(:application)%>' do
+  load_env '<%= shared_path %>/.rbenv-vars'
+
+  env RBENV_ROOT: "<%= fetch(:rbenv_path) %>"
+  env RBENV_VERSION: "<%=fetch(:rbenv_ruby) %>"
+  env RAILS_ENV: "<%= fetch(:rails_env) %>"
 
   # All options inherits down to the config leafs.
   # except `env`, which merging down
-
-  stdall '<%= shared_path %>/log/eye.log'
   working_dir '<%= current_path %>'
+  stdall '<%= shared_path %>/log/eye.log'
 
   trigger :flapping, times: 10, within: 1.minute, retry_in: 10.minutes
 

@@ -1,7 +1,4 @@
   group 'delayed-jobs' do
-    env RBENV_ROOT: "<%= fetch(:rbenv_path) %>", RBENV_VERSION: "<%=fetch(:rbenv_ruby) %>"
-    env RAILS_ENV: "<%= fetch(:rails_env) %>"
-
     chain grace: 10.seconds
 
     start_timeout 20.seconds

@@ -1,10 +1,6 @@
-  rails_env="<%= fetch(:rails_env) %>"
-
   process 'unicorn' do
-    env RBENV_ROOT: "<%= fetch(:rbenv_path) %>", RBENV_VERSION: "<%=fetch(:rbenv_ruby) %>"
-    env RAILS_ENV: rails_env
     pid_file "<%= fetch(:unicorn_pid) %>"
-    start_command "<%= fetch(:rbenv_prefix) %> bundle exec unicorn -Dc <%= fetch(:unicorn_config_path) %> -E #{rails_env}"
+    start_command "<%= fetch(:rbenv_prefix) %> bundle exec unicorn -Dc <%= fetch(:unicorn_config_path) %> -E <%= fetch(:rails_env) %>"
     stdall "<%= fetch(:unicorn_log) %>"
 
     # stop signals:
