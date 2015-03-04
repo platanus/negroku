@@ -1,9 +1,9 @@
-def watch_process(name, template = "tasks/eye/_#{name}.erb")
+def watch_process(name, options = {})
   processes = fetch(:eye_watched_processes, {})
 
-  processes[name] = {
-    template: template
-  }
+  options[:template] ||= "tasks/eye/_#{name}.erb"
+
+  processes[name] = options
 
   set :eye_watched_processes, processes
 end
