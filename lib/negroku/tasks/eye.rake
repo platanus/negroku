@@ -38,9 +38,11 @@ namespace :eye do
     task cmd, [:mask] do |t, args|
       on release_roles fetch(:eye_roles) do
         within current_path do
-            mask = fetch(:application)
-            mask +=  ":#{args[:mask]}" if args[:mask]
-            execute :eye, cmd, mask
+          mask = fetch(:application)
+          mask +=  ":#{args[:mask]}" if args[:mask]
+          execute :eye, cmd, mask
+
+          Rake::Task["eye:#{cmd}"].reenable
         end
       end
     end
