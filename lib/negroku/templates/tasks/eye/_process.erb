@@ -1,0 +1,10 @@
+  process "<%= options[:name] %>" do
+    start_timeout <%= options[:start_timeout] %>
+    stop_timeout <%= options[:stop_timeout] %>
+    restart_timeout <%= options[:restart_timeout] %>
+
+    pid_file "<%= options[:pid_file] %>"
+    start_command "<%= options[:start_command] %>"
+    stop_command "<%= options[:stop_command] %>"
+  end
+
