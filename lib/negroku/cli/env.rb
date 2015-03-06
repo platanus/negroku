@@ -1,7 +1,7 @@
 module Negroku::Env
   extend self
 
-  ENV_FILE = ".rbenv-vars"
+  ENV_FILE = ".rbenv-vars.example"
 
   def bulk(selected_stage = nil)
     if stage = selected_stage || select_stage
