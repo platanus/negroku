@@ -35,7 +35,7 @@ namespace :rbenv do
     end
 
     desc "Add environmental variables in the form VAR=value"
-    task :add, [:variable] => 'deploy:check:linked_files' do |t, args|
+    task :add, [:variable] => 'deploy:check:directories' do |t, args|
 
       vars = [args.variable] + args.extras
 
@@ -61,7 +61,7 @@ namespace :rbenv do
     end
 
     # Ensure the rbenv-vars file exist
-    before 'deploy:check:linked_files', 'deploy:check:files' do
+    after 'deploy:check:directories', 'check:files' do
       on release_roles fetch(:rbenv_roles) do
         within shared_path do
           execute :touch, ".rbenv-vars"
