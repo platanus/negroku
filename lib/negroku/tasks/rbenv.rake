@@ -47,6 +47,10 @@ namespace :rbenv do
             execute cmd
           end
         end
+
+        if test "[ -d #{current_path} ]"
+          invoke 'env:changed'
+        end
       end
 
     end
@@ -56,6 +60,10 @@ namespace :rbenv do
       on release_roles :app do
         within shared_path do
           execute :sed, "-i", "/^#{args[:key]}=/d", ".rbenv-vars"
+        end
+
+        if test "[ -d #{current_path} ]"
+          invoke 'env:changed'
         end
       end
     end
@@ -68,9 +76,6 @@ namespace :rbenv do
         end
       end
     end
-
-    after 'rbenv:vars:add', 'env:changed'
-    after 'rbenv:vars:remove', 'env:changed'
 
   end
 end
