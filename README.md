@@ -35,10 +35,15 @@ $ bundle install
 
 1. Create your app executing the following command, and just follow the on-screen questions.
 
+    > Before you begin, if you're using Negroku 1.X, rename the following files with **.old** or **.bak** extension.
+    > * your_app/Capfile
+    > * your_app/config/deploy.rb
+    > * your_app/config/deploy/production.rb (and any other environment)
+
     ```shell
     $ negroku app create
     ```
-    
+
     ![App Create](http://g.recordit.co/CllZX9ruB8.gif)
 
     1. **Give your application a name**
