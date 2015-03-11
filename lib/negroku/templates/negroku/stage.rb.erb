@@ -5,6 +5,7 @@ server '<%= data[:server_url] %>', user: 'deploy', roles: %w{web app db}, my_pro
 
 # Web server configuration
 set :nginx_domains, '<%= data[:domains] %>'
+# set :nginx_redirected_domains, ""
 
 # Source
 set :branch,        '<%= data[:branch] %>'    # Optional, defaults to master
