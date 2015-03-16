@@ -18,7 +18,7 @@ timeout <%= fetch(:unicorn_workers_timeout) %>
 
 # use correct Gemfile on restarts
 before_exec do |server|
-  ENV['BUNDLE_GEMFILE'] = "#{app_path}/current/Gemfile"
+  ENV['BUNDLE_GEMFILE'] = "#{current_path}/Gemfile"
 end
 
 before_fork do |server, worker|
