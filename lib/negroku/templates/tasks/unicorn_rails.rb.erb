@@ -16,6 +16,11 @@ listen "<%= fetch(:unicorn_socket) %>"
 worker_processes <%= fetch(:unicorn_workers) %>
 timeout <%= fetch(:unicorn_workers_timeout) %>
 
+# use correct Gemfile on restarts
+before_exec do |server|
+  ENV['BUNDLE_GEMFILE'] = "#{app_path}/current/Gemfile"
+end
+
 before_fork do |server, worker|
   ##
   # When sent a USR2, Unicorn will suffix its pidfile with .oldbin and
