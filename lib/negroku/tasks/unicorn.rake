@@ -83,12 +83,6 @@ namespace :negroku do
       invoke 'unicorn:restart'
     end
 
-    after 'env:changed', 'hard-restart' do
-      invoke 'unicorn:stop'
-      sleep 5
-      invoke 'unicorn:start'
-    end
-
     # Ensure the folders needed exist
     after 'deploy:check', 'deploy:check:directories' do
       on release_roles fetch(:unicorn_roles) do

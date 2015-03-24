@@ -17,12 +17,6 @@ namespace :load do
   end
 end
 
-namespace :env do
-  desc 'Env variables changed'
-  task :changed do
-  end
-end
-
 namespace :rbenv do
   namespace :vars do
     desc "Show current environmental variables"

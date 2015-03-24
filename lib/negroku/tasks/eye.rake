@@ -1,5 +1,4 @@
 require 'negroku/helpers/templates'
-
 ## eye.rb
 #
 # Adds eye variables and tasks
@@ -21,6 +20,11 @@ namespace :load do
   end
 end
 
+namespace :env do
+  desc 'Env variables changed'
+  task :changed do
+  end
+end
 
 namespace :eye do
 
@@ -78,6 +82,12 @@ namespace :negroku do
 
     before "deploy:published", "negroku:eye:setup"
     after "negroku:eye:setup", "eye:load"
+
+    after 'env:changed', 'hard-restart' do
+      invoke 'eye:stop'
+      invoke 'eye:load'
+      invoke 'eye:start'
+    end
 
     define_logs(:eye, {
       app: 'eye.log'
