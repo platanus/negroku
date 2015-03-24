@@ -10,11 +10,11 @@ module Negroku::Stage
     }
 
     add_stage_file config
-    Negroku::Env.bulk(config[:stage_name]) if ask_add_vars
+    Negroku::Env.bulk(config[:stage_name]) if ask_set_vars
   end
 
-  def ask_add_vars
-    question = I18n.t :ask_add_vars, scope: :negroku
+  def ask_set_vars
+    question = I18n.t :ask_set_vars, scope: :negroku
     Ask.confirm question, default: false
   end
 

@@ -28,8 +28,8 @@ namespace :rbenv do
       end
     end
 
-    desc "Add environmental variables in the form VAR=value"
-    task :add, [:variable] => 'deploy:check:directories' do |t, args|
+    desc "Sets environmental variables in the form VAR=value"
+    task :set, [:variable] => 'deploy:check:directories' do |t, args|
 
       vars = [args.variable] + args.extras
 
@@ -37,7 +37,7 @@ namespace :rbenv do
         within shared_path do
           vars.compact.each do |var|
             key, value = var.split('=')
-            cmd = build_add_var_cmd("#{shared_path}/.rbenv-vars", key, value)
+            cmd = build_set_var_cmd("#{shared_path}/.rbenv-vars", key, value)
             execute cmd
           end
         end
@@ -49,8 +49,8 @@ namespace :rbenv do
 
     end
 
-    desc "Remove environmental variable"
-    task :remove, [:key] do |t, args|
+    desc "Unset environmental variable"
+    task :unset, [:key] do |t, args|
       on release_roles :app do
         within shared_path do
           execute :sed, "-i", "/^#{args[:key]}=/d", ".rbenv-vars"

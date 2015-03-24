@@ -7,19 +7,19 @@ module Negroku::Env
     if stage = selected_stage || select_stage
       variables = select_variables
       if variables.empty?
-        puts I18n.t(:no_variables_added, scope: :negroku)
+        puts I18n.t(:no_variables_setted, scope: :negroku)
       else
-        add_vars_to_stage(stage, variables)
+        set_vars_to_stage(stage, variables)
       end
     end
   end
 
-  # Adds the variables to the selected stage using cap rbenv add
-  def add_vars_to_stage(stage, variables)
+  # Sets the variables to the selected stage using cap rbenv set
+  def set_vars_to_stage(stage, variables)
     # convert to array using VAR=value
     vars_array = variables.map{|k,v| "#{k}=#{v}" }
     Capistrano::Application.invoke(stage)
-    Capistrano::Application.invoke("rbenv:vars:add", *vars_array)
+    Capistrano::Application.invoke("rbenv:vars:set", *vars_array)
   end
 
   # build a list of variables from ENV_FILE and yeilds it

@@ -7,8 +7,8 @@ en:
     choose_repo_url:             'Choose the repository url'
     type_repo_url:               'Type the url and username e.g. git@github.com:username/app-name.git'
     choose_stages:               'Select the stages you are going to use'
-    select_stages_question:      'Select stages you want to add variables to'
-    no_variables_added:           'No variables added'
+    select_stages_question:      'Select stages you want to set variables to'
+    no_variables_setted:           'No variables setted'
     ask_variables_message:        "Give the variables values, if empty, it will be ignored"
     rbenv_vars_not_found:         ".rbenv-vars does not exists"
     no_stages_found:              "There are no stages available"
@@ -16,4 +16,4 @@ en:
     select_branch:                "Select the branch to use"
     ask_domains:                  "Type the domains to use"
     ask_server_url:               "Type the server url to deploy to"
-    ask_add_vars:                 "Do you want to add rbenv-vars to the server now?"
+    ask_set_vars:                 "Do you want to set rbenv-vars to the server now?"
