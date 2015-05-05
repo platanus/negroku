@@ -15,6 +15,8 @@ namespace :load do
     set :eye_notification_contact, -> { :monitor }
     set :eye_notification_level, -> { :error }
 
+    set :eye_ruby_version, -> { '2.1' }
+
     # Add eye to :rbenv_map_bins
     fetch(:rbenv_map_bins) << 'eye'
   end
@@ -31,8 +33,10 @@ namespace :eye do
   desc "Loads eye config and starts monitoring"
   task :load do
     on release_roles fetch(:eye_roles) do
-      within current_path do
-       execute :eye, :load, "#{shared_path}/config/eye.rb"
+      with rbenv_version: fetch(:eye_ruby_version) do
+        within current_path do
+         execute :eye, :load, "#{shared_path}/config/eye.rb"
+        end
       end
     end
   end
@@ -41,12 +45,14 @@ namespace :eye do
     desc "Calls eye's #{cmd.to_s} on the whole app"
     task cmd, [:mask] do |t, args|
       on release_roles fetch(:eye_roles) do
-        within current_path do
-          mask = fetch(:application)
-          mask +=  ":#{args[:mask]}" if args[:mask]
-          execute :eye, cmd, mask
+        with rbenv_version: fetch(:eye_ruby_version) do
+          within current_path do
+            mask = fetch(:application)
+            mask +=  ":#{args[:mask]}" if args[:mask]
+            execute :eye, cmd, mask
 
-          Rake::Task["eye:#{cmd}"].reenable
+            Rake::Task["eye:#{cmd}"].reenable
+          end
         end
       end
     end
