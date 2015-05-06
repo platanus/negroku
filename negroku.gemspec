@@ -26,6 +26,7 @@ spec = Gem::Specification.new do |s|
   s.add_runtime_dependency('capistrano-bundler', '~> 1.1.4')
   s.add_runtime_dependency('capistrano-npm', '~> 1.0.1')
   s.add_runtime_dependency('capistrano-nc', '~> 0.1.4')
+  s.add_runtime_dependency('capistrano-github', '~> 0.1.1')
 
   s.add_runtime_dependency('capistrano-nodenv', '~> 1.0.0')
   s.add_runtime_dependency('capistrano-bower', '~> 1.1.0')
