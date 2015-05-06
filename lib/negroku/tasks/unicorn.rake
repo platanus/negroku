@@ -83,20 +83,19 @@ namespace :negroku do
       invoke 'unicorn:restart'
     end
 
-    # Ensure the folders needed exist
-    after 'deploy:check', 'deploy:check:directories' do
-      on release_roles fetch(:unicorn_roles) do
-        execute :mkdir, '-pv', "#{shared_path}/config"
-        execute :mkdir, '-pv', "#{shared_path}/tmp/sockets"
-        execute :mkdir, '-pv', "#{shared_path}/tmp/pids"
-      end
-    end
-
     define_logs(:unicorn, {
       error: 'unicorn-error.log',
       out: 'unicorn-out.log'
     })
 
   end
+end
 
+# Ensure the folders needed exist
+task 'deploy:check:directories' do
+  on release_roles fetch(:unicorn_roles) do
+    execute :mkdir, '-pv', "#{shared_path}/config"
+    execute :mkdir, '-pv', "#{shared_path}/tmp/sockets"
+    execute :mkdir, '-pv', "#{shared_path}/tmp/pids"
+  end
 end
