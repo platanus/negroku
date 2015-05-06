@@ -1,0 +1,11 @@
+##############################################
+# Thinking Sphinx Base configuration file
+##############################################
+
+<%= fetch(:thinking_sphinx_rails_env) %>:
+  pid_file: <%= fetch(:thinking_sphinx_pid_file) %>
+  indices_location: <%= fetch(:thinking_sphinx_indices_location) %>
+  configuration_file: <%= fetch(:thinking_sphinx_configuration_file) %>
+  binlog_path: <%= fetch(:thinking_sphinx_binlog_path) %>
+  log: <%= fetch(:thinking_sphinx_log) %>
+  query_log: <%= fetch(:thinking_sphinx_query_log) %>

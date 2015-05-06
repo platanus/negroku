@@ -32,4 +32,5 @@ load_task "nginx"             if required? 'capistrano/nginx'
 load_task "unicorn"           if required? 'capistrano3/unicorn'
 load_task "delayed_job"       if required? 'capistrano/delayed-job'
 load_task "whenever"          if required? 'whenever/capistrano'
+load_task "thinking_sphinx"   if required? 'thinking_sphinx/capistrano'
 load_task "log"

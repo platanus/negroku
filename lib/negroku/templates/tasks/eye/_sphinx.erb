@@ -1,0 +1,14 @@
+  process 'sphinx' do
+    pid_file "<%= fetch(:thinking_sphinx_pid_file) %>"
+    start_command "<%= fetch(:rbenv_prefix) %> bundle exec rake ts:start"
+
+    stop_command "<%= fetch(:rbenv_prefix) %> bundle exec rake ts:stop"
+
+    # soft restart
+    restart_command "<%= fetch(:rbenv_prefix) %> bundle exec rake ts:restart"
+
+    check :cpu, :every => 30, :below => 80, :times => 3
+
+    start_timeout 100.seconds
+    restart_grace 30.seconds
+  end
