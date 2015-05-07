@@ -5,6 +5,9 @@ require 'negroku/helpers/templates'
 
 namespace :load do
   task :defaults do
+
+    set :eye_roles, [:app]
+
     ###################################
     ## eye template variables
 
