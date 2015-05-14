@@ -5,7 +5,7 @@
 namespace :load do
   task :defaults do
 
-    set :sphinx_roles, :app
+    set :thinking_sphinx_roles, :app
 
     # Local path to look for custom config template
     set :thinking_sphinx_template, -> { "config/deploy/#{fetch(:stage)}/thinking_sphinx.yml.erb" }
@@ -31,7 +31,7 @@ namespace :negroku do
 
     desc "Upload thinking sphinx configuration file"
     task :setup do
-      on release_roles fetch(:sphinx_roles) do
+      on release_roles fetch(:thinking_sphinx_roles) do
         within "#{shared_path}/config" do
           template_path = fetch(:thinking_sphinx_template)
 
@@ -48,18 +48,18 @@ namespace :negroku do
       end
     end
 
-    task :backup_config do
-      on release_roles fetch(:sphinx_roles) do
+    after 'thinking_sphinx:configure', :backup_config do
+      on release_roles fetch(:thinking_sphinx_roles) do
         within "#{shared_path}/config" do
           execute :cp, fetch(:thinking_sphinx_configuration_file), '/tmp/sphinx.conf.bak'
         end
       end
     end
     # Backup the config on every configure
-    Rake::Task['thinking_sphinx:configure'].enhance ['negroku:thinking_sphinx:backup_config']
+    # Rake::Task['thinking_sphinx:configure'].enhance ['negroku:thinking_sphinx:backup_config']
 
     task :check_config do
-      on release_roles fetch(:sphinx_roles) do
+      on release_roles fetch(:thinking_sphinx_roles) do
         within "#{shared_path}/config" do
           config_diff = capture "diff -q /tmp/sphinx.conf.bak #{fetch(:thinking_sphinx_configuration_file)}", raise_on_non_zero_exit: false
           set :thinking_sphinx_config_changed, !config_diff.empty?
@@ -92,7 +92,7 @@ end
 
 # Ensure the folders needed exist
 task 'deploy:check:directories' do
-  on release_roles fetch(:sphinx_roles) do
+  on release_roles fetch(:thinking_sphinx_roles) do
     execute :mkdir, '-pv', "#{shared_path}/db"
     execute :mkdir, '-pv', "#{shared_path}/tmp/pids"
     execute :mkdir, '-pv', "#{shared_path}/sphinx_binlog"
