@@ -5,7 +5,7 @@
 namespace :load do
   task :defaults do
 
-    set :thinking_sphinx_roles, :app
+    set :sphinx_roles, :app
 
     # Local path to look for custom config template
     set :thinking_sphinx_template, -> { "config/#{fetch(:stage)}/thinking_sphinx.yml.erb" }
@@ -90,7 +90,7 @@ end
 
 # Ensure the folders needed exist
 task 'deploy:check:directories' do
-  on release_roles fetch(:thinking_sphinx_roles) do
+  on release_roles fetch(:sphinx_roles) do
     execute :mkdir, '-pv', "#{shared_path}/db"
     execute :mkdir, '-pv', "#{shared_path}/tmp/pids"
     execute :mkdir, '-pv', "#{shared_path}/sphinx_binlog"
