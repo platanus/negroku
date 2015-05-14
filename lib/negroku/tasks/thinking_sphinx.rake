@@ -8,7 +8,9 @@ namespace :load do
     set :sphinx_roles, :app
 
     # Local path to look for custom config template
-    set :thinking_sphinx_template, -> { "config/#{fetch(:stage)}/thinking_sphinx.yml.erb" }
+    set :thinking_sphinx_template, -> { "config/deploy/#{fetch(:stage)}/thinking_sphinx.yml.erb" }
+
+    set :thinking_sphinx_env, -> { "#{fetch(:stage)}" }
 
     # Link thinking_sphinx.yml file
     set :linked_files, fetch(:linked_files, []) << 'config/thinking_sphinx.yml'
