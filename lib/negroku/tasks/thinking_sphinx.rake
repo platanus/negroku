@@ -10,7 +10,7 @@ namespace :load do
     # Local path to look for custom config template
     set :thinking_sphinx_template, -> { "config/deploy/#{fetch(:stage)}/thinking_sphinx.yml.erb" }
 
-    set :thinking_sphinx_env, -> { "#{fetch(:stage)}" }
+    set :thinking_sphinx_env, -> { fetch(:rails_env) || fetch(:stage) }
 
     # Link thinking_sphinx.yml file
     set :linked_files, fetch(:linked_files, []) << 'config/thinking_sphinx.yml'
@@ -48,16 +48,16 @@ namespace :negroku do
       end
     end
 
-    after 'thinking_sphinx:configure', :backup_config do
+    # Backup the config
+    task :backup_config do
       on release_roles fetch(:thinking_sphinx_roles) do
         within "#{shared_path}/config" do
           execute :cp, fetch(:thinking_sphinx_configuration_file), '/tmp/sphinx.conf.bak'
         end
       end
     end
-    # Backup the config on every configure
-    # Rake::Task['thinking_sphinx:configure'].enhance ['negroku:thinking_sphinx:backup_config']
 
+    # Check whether the conf changed
     task :check_config do
       on release_roles fetch(:thinking_sphinx_roles) do
         within "#{shared_path}/config" do
@@ -67,18 +67,33 @@ namespace :negroku do
       end
     end
 
+    # Backup the config on every configure
+    Rake::Task['thinking_sphinx:configure'].enhance ['negroku:thinking_sphinx:backup_config'] do
+      # Change whether the config changed or not
+      Rake::Task['negroku:thinking_sphinx:check_config'].invoke
+    end
+
+    task :rebuild do
+      on release_roles fetch(:thinking_sphinx_roles) do
+        within current_path do
+          with rails_env: fetch(:rails_env), index_only: true do
+            invoke 'thinking_sphinx:stop'
+            sleep 2
+            execute :rake, 'ts:clear'
+            execute :rake, 'ts:index'
+            invoke 'thinking_sphinx:start'
+          end
+        end
+      end
+    end
 
     # Configure and regenerate after the application is published
     after 'deploy:published', 'restart' do
       invoke 'negroku:thinking_sphinx:setup'
       invoke 'thinking_sphinx:configure'
 
-      # Change whether the config changed or not
-      invoke 'negroku:thinking_sphinx:check_config'
-
-      if fetch(:thinking_sphinx_config_changed)
-        invoke 'thinking_sphinx:regenerate'
-      end
+      # Rebuild the index
+      invoke 'negroku:thinking_sphinx:rebuild' if fetch(:thinking_sphinx_config_changed)
     end
 
     define_logs(:sphinx, {
