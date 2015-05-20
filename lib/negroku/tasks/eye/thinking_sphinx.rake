@@ -20,7 +20,7 @@ namespace :thinking_sphinx do
       # Reload or restart after the application is published
       desc "using eye"
       task cmd do
-        invoke "eye:#{cmd}", 'thinking_sphinx'
+        invoke "eye:#{cmd}", 'sphinx'
       end
     end
   end
