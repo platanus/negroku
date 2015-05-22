@@ -22,7 +22,7 @@ namespace :rbenv do
     desc "Show current environmental variables"
     task :show do
       on release_roles :app do
-        within current_path do
+        within shared_path do
           execute :rbenv, 'vars'
         end
       end
