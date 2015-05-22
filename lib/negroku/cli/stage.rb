@@ -1,3 +1,5 @@
+include Capistrano::DSL
+
 module Negroku::Stage
   extend self
 
@@ -10,7 +12,10 @@ module Negroku::Stage
     }
 
     add_stage_file config
-    Negroku::Env.bulk(config[:stage_name]) if ask_set_vars
+    if ask_set_vars
+      load deploy_config_path
+      Negroku::Env.bulk(config[:stage_name])
+    end
   end
 
   def ask_set_vars
