@@ -50,6 +50,10 @@ namespace :load do
     # Set the app server socket if nginx is being used
     set :app_server_socket, -> { fetch(:unicorn_socket) } if required? 'capistrano/nginx'
 
+    ## Eye monitoring
+    set :unicorn_master_cpu_checks, "check :cpu, :every => 30, :below => 80, :times => 3"
+    set :unicorn_master_memory_checks, "check :memory, :every => 30, :below => 150.megabytes, :times => [3,5]"
+
   end
 end
 

@@ -10,15 +10,18 @@
     # soft restart
     restart_command "kill -USR2 {PID}"
 
-    check :cpu, :every => 30, :below => 80, :times => 3
-    check :memory, :every => 30, :below => 150.megabytes, :times => [3,5]
+    # Master process checks
+    <%= fetch(:unicorn_master_cpu_checks) %>
+    <%= fetch(:unicorn_master_memory_checks) %>
 
     start_timeout 100.seconds
     restart_grace 30.seconds
 
     monitor_children do
       stop_command "kill -QUIT {PID}"
-      check :cpu, :every => 30, :below => 80, :times => 3
-      check :memory, :every => 30, :below => 150.megabytes, :times => [3,5]
+
+      # Children processes checks
+      <%= fetch(:unicorn_children_cpu_checks, fetch(:unicorn_master_cpu_checks)) %>
+      <%= fetch(:unicorn_children_memory_checks, fetch(:unicorn_master_memory_checks)) %>
     end
   end
