@@ -52,7 +52,11 @@ namespace :negroku do
     task :backup_config do
       on release_roles fetch(:thinking_sphinx_roles) do
         within "#{shared_path}/config" do
-          execute :cp, fetch(:thinking_sphinx_configuration_file), '/tmp/sphinx.conf.bak'
+          if test("[ -f #{fetch(:thinking_sphinx_configuration_file)} ]")
+            execute :cp, fetch(:thinking_sphinx_configuration_file), '/tmp/sphinx.conf.bak'
+          else
+            set :thinking_sphinx_config_changed, true
+          end
         end
       end
     end
@@ -61,8 +65,10 @@ namespace :negroku do
     task :check_config do
       on release_roles fetch(:thinking_sphinx_roles) do
         within "#{shared_path}/config" do
-          config_diff = capture "diff -q /tmp/sphinx.conf.bak #{fetch(:thinking_sphinx_configuration_file)}", raise_on_non_zero_exit: false
-          set :thinking_sphinx_config_changed, !config_diff.empty?
+          if fetch(:thinking_sphinx_config_changed, nil).nil?
+            config_diff = capture "diff -q /tmp/sphinx.conf.bak #{fetch(:thinking_sphinx_configuration_file)}", raise_on_non_zero_exit: false
+            set :thinking_sphinx_config_changed, !config_diff.empty?
+          end
         end
       end
     end
