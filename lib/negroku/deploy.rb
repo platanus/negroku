@@ -21,7 +21,6 @@ namespace :load do
 end
 
 # Load Negroku tasks
-load_task "negroku"
 load_task "env"
 load_task "rbenv"             if required? 'capistrano/rbenv'
 load_task "nodenv"            if required? 'capistrano/nodenv'
