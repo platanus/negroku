@@ -11,8 +11,6 @@ def build_template(template, destination, binding)
     File.open(destination.to_s, 'w+') do |f|
       f.write(result)
     end
-
-    puts I18n.t(:written_file, scope: :negroku, file: destination)
   else
     return StringIO.new(result)
   end

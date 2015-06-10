@@ -12,5 +12,14 @@ module Negroku::CLI
       end
     end
 
+    app.desc 'Update your negroku capfile'
+    app.command :update do |create|
+      create.action do |global_options,options,args|
+
+        Negroku::App.update
+
+      end
+    end
+
   end
 end

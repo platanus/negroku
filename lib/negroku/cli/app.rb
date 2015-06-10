@@ -13,6 +13,25 @@ module Negroku::App
 
   end
 
+  def update
+
+    puts I18n.t :updating_capfile, scope: :negroku
+
+    capfilePath = AppDirectory.root.join('Capfile')
+    capfile = File.read(capfilePath)
+
+    build_capfile
+
+    capfile_new = File.read(capfilePath)
+
+    if capfile_new != capfile
+      puts I18n.t :updated_capfile, scope: :negroku
+    else
+      puts I18n.t :no_change_capfile, scope: :negroku
+    end
+
+  end
+
 
   private
 
@@ -23,21 +42,25 @@ module Negroku::App
     data[:server_url] = ""
     data[:branch] = "master"
 
-    # Default Config
-    config ||= Negroku::Config
-
     FileUtils.mkdir_p AppDirectory.deploy
 
+    build_capfile
+
     deploy_rb = AppDirectory.config.join('deploy.rb')
-    capfile = AppDirectory.root.join('Capfile')
     build_template("negroku/deploy.rb.erb", deploy_rb, binding)
-    build_template('negroku/Capfile.erb', capfile, binding)
 
     FileUtils.mkdir_p AppDirectory.tasks
 
-
     puts I18n.t :capified, scope: :negroku
 
+  end
+
+  def build_capfile
+    # Default Config
+    config ||= Negroku::Config
+
+    capfile = AppDirectory.root.join('Capfile')
+    build_template('negroku/Capfile.erb', capfile, binding)
   end
 
   # Ask the application name
