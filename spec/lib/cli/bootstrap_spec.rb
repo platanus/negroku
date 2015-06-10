@@ -35,10 +35,14 @@ describe "bootstrap cli" do
         expect(content).to match(/set :repo_url,\s+'git.repo.url'/)
       end
 
-      it "copies the Capfile" do
+      it "generate the Capfile" do
         Negroku::Bootstrap.install
 
         expect(File).to exist("Capfile")
+        content = File.read("Capfile")
+
+        expect(content).to match(/^#require 'capistrano3\/unicorn'/)
+        expect(content).to match(/^require 'capistrano\/rbenv'/)
       end
 
     end
