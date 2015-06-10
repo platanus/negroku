@@ -1,7 +1,5 @@
 require "spec_helper"
 
-module Ask;end
-
 describe "bootstrap cli" do
 
   describe "install cmd" do
@@ -16,6 +14,8 @@ describe "bootstrap cli" do
 
         Dir.mkdir("config")
         Dir.mkdir("config/deploy")
+
+        allow(Ask).to receive(:checkbox).and_return([true, false, true])
 
         expect(Negroku::Bootstrap).to receive(:select_repo).and_return("git.repo.url")
         expect(Negroku::Bootstrap).to receive(:ask_name).and_return("NewApp")

@@ -1,10 +1,12 @@
 require "spec_helper"
 
-module Ask;end
-
 describe "stage cli" do
 
   context "add command" do
+
+    before(:each) do
+      allow_any_instance_of(Negroku::Stage).to receive(:deploy_config_path)
+    end
 
     it "fails with no stage name defined" do
       allow(Ask).to receive(:input).and_return("")
@@ -17,6 +19,7 @@ describe "stage cli" do
       allow(Negroku::Stage).to receive(:ask_domains).and_return("www")
       allow(Negroku::Stage).to receive(:ask_server_url).and_return("server_url")
       allow(Negroku::Stage).to receive(:add_stage_file)
+      allow_any_instance_of(Negroku::Stage).to receive(:load)
 
       expect(Negroku::Stage).to receive(:ask_set_vars).and_return(true)
       expect(Negroku::Env).to receive(:bulk).with("deleteme")
@@ -32,7 +35,7 @@ describe "stage cli" do
         server_url: "server.url"
       }
       FakeFS::FileSystem.clear
-      FakeFS::FileSystem.clone(File.join('lib','negroku','templates'))
+      FakeFS::FileSystem.clone(File.join('lib','negroku'))
       FakeFS.activate!
       Dir.mkdir("config")
       Dir.mkdir("config/deploy")
