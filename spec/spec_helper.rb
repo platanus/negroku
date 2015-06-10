@@ -9,7 +9,7 @@ module Capistrano
 end
 
 require 'negroku/i18n'
-require 'negroku/cli/bootstrap'
+require 'negroku/cli/app'
 require 'negroku/cli/stage'
 require 'negroku/cli/env'
 require 'negroku/cli/config'

@@ -7,7 +7,7 @@ module Negroku::CLI
     app.command :create do |create|
       create.action do |global_options,options,args|
 
-        Negroku::Bootstrap.install
+        Negroku::App.install
 
       end
     end

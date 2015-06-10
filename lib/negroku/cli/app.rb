@@ -1,4 +1,4 @@
-module Negroku::Bootstrap
+module Negroku::App
   extend self
 
   def install
