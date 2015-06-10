@@ -7,6 +7,8 @@ module Negroku::Bootstrap
     data[:application_name] = ask_name
     data[:repo_url] = select_repo
 
+    ask_features
+
     custom_capify data
 
   end
@@ -16,10 +18,13 @@ module Negroku::Bootstrap
 
   # This code was exatracted from capistrano to be used with our own templates
   # https://github.com/capistrano/capistrano/blob/68e7632c5f16823a09c324d556a208e096abee62/lib/capistrano/tasks/install.rake
-  def custom_capify(data={})
+  def custom_capify(data={}, config=nil)
     # defaults
     data[:server_url] = ""
     data[:branch] = "master"
+
+    # Default Config
+    config ||= Negroku::Config
 
     FileUtils.mkdir_p AppDirectory.deploy
 
@@ -39,6 +44,19 @@ module Negroku::Bootstrap
   def ask_name
     question = I18n.t :application_name, scope: :negroku
     Ask.input question, default: File.basename(Dir.getwd)
+  end
+
+  def ask_features
+    optional_features = Negroku::Config::attributes.select{|k,v| !v.required?}
+    default_features = optional_features.map{|k,v| v.enabled?}
+    features_names = optional_features.map{|k,v| v.name}
+
+    question = I18n.t :application_features, scope: :negroku
+    selected = Ask.checkbox question, features_names, default: default_features
+
+    optional_features.each.with_index do |(idx, feat), index|
+      Negroku::Config[feat.name].enabled = selected[index]
+    end
   end
 
   # Get git remotes from current git and ask to select one

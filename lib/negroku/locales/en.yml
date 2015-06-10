@@ -17,3 +17,4 @@ en:
     ask_domains:                  "Type the domains to use"
     ask_server_url:               "Type the server url to deploy to"
     ask_set_vars:                 "Do you want to set rbenv-vars to the server now?"
+    application_features:         "What features do you want to enable?"

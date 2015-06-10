@@ -20,6 +20,7 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency('fakefs')
 
   s.add_runtime_dependency('rake', '~> 10.1')
+  s.add_runtime_dependency('bundler', '~> 1.0')
   s.add_runtime_dependency('capistrano','~> 3.4.0')
   s.add_runtime_dependency('capistrano-rbenv', '~> 2.0.3')
   s.add_runtime_dependency('capistrano-rails', '~> 1.1.3')
@@ -36,6 +37,7 @@ spec = Gem::Specification.new do |s|
   s.add_runtime_dependency('whenever', '~> 0.9.4')
 
   s.add_runtime_dependency('gli','~> 2.12.2')
-  s.add_runtime_dependency('inquirer','~> 0.2.0')
+  s.add_runtime_dependency('inquirer','~> 0.2.1')
+  s.add_runtime_dependency('virtus', '~> 1.0.5')
   s.add_runtime_dependency('i18n')
 end

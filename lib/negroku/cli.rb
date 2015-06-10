@@ -1,6 +1,8 @@
 require 'capistrano/all'
 require 'capistrano/setup'
 require 'capistrano/deploy'
+require 'bundler'
+require 'virtus'
 
 # Load applications deploy config if it exists
 require './config/deploy' if File.exists? "./config/deploy.rb"
@@ -12,6 +14,7 @@ require 'negroku/version'
 require 'negroku/cli/bootstrap'
 require 'negroku/cli/stage'
 require 'negroku/cli/env'
+require 'negroku/cli/config'
 require 'negroku/helpers/app_directory'
 require 'negroku/helpers/templates'
 

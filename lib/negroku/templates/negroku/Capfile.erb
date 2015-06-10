@@ -1,4 +1,6 @@
 # CAPISTRANO
+negroku_version = "<%= Negroku::VERSION %>"
+
 # Load DSL and Setup Up Stages
 require 'capistrano/setup'
 
@@ -12,31 +14,31 @@ require 'capistrano-nc/nc'
 require 'capistrano/github'
 
 # Ruby
-require 'capistrano/rbenv'
-require 'capistrano/bundler'
-require 'capistrano/rails/assets'
-require 'capistrano/rails/migrations'
+<%= "#" unless config.rbenv.enabled? %>require 'capistrano/rbenv'
+<%= "#" unless config.bundler.enabled? %>require 'capistrano/bundler'
+<%= "#" unless config.rails.enabled? %>require 'capistrano/rails/assets'
+<%= "#" unless config.rails.enabled? %>require 'capistrano/rails/migrations'
 
 # Node
-require 'capistrano/nodenv'
-require 'capistrano/bower'
+<%= "#" unless config.nodenv.enabled? %>require 'capistrano/nodenv'
+<%= "#" unless config.bower.enabled? %>require 'capistrano/bower'
 
 # App server
-require 'capistrano3/unicorn'
+<%= "#" unless config.unicorn.enabled? %>require 'capistrano3/unicorn'
 
 # Static server
-require 'capistrano/nginx'
+<%= "#" unless config.nginx.enabled? %>require 'capistrano/nginx'
 
 # Tools
-#require 'capistrano/delayed-job'
-#require 'whenever/capistrano'
-#require 'thinking_sphinx/capistrano'
+<%= "#" unless config.delayed_job.enabled? %>require 'capistrano/delayed-job'
+<%= "#" unless config.whenever.enabled? %>require 'whenever/capistrano'
+<%= "#" unless config.sphinx.enabled? %>require 'thinking_sphinx/capistrano'
 
 # Eye monitoring
 require 'negroku/eye'
-require 'negroku/eye/unicorn'
-#require 'negroku/eye/delayed_job'
-#require 'negroku/eye/thinking_sphinx'
+<%= "#" unless config.unicorn.enabled? %>require 'negroku/eye/unicorn'
+<%= "#" unless config.delayed_job.enabled? %>require 'negroku/eye/delayed_job'
+<%= "#" unless config.sphinx.enabled? %>require 'negroku/eye/thinking_sphinx'
 
 # NEGROKU
 # Includes negroku defaults and tasks
