@@ -14,7 +14,7 @@ end
 
 def load_task(name, dependencies = [])
   if all_required? dependencies
-    load File.join(File.dirname(__FILE__), 'tasks', "#{name}.rake")
+    load File.join(File.dirname(__FILE__), '..', 'capistrano', 'tasks', "#{name}.rake")
   else
     fail "To load #{name} you need to include #{dependencies.join ", "}"
   end

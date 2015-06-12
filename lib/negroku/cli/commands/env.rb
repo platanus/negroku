@@ -6,7 +6,7 @@ module Negroku::CLI
     app.desc 'Sets multiple variables from rbenv-vars to a server'
     app.command :bulk do |bulk|
       bulk.action do |global_options,options,args|
-        Negroku::Env.bulk
+        Negroku::Modes::Env.bulk
       end
     end
 

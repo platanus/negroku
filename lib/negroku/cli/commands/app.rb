@@ -7,7 +7,7 @@ module Negroku::CLI
     app.command :create do |create|
       create.action do |global_options,options,args|
 
-        Negroku::App.install
+        Negroku::Modes::App.install
 
       end
     end
@@ -16,7 +16,7 @@ module Negroku::CLI
     app.command :update do |create|
       create.action do |global_options,options,args|
 
-        Negroku::App.update
+        Negroku::Modes::App.update
 
       end
     end

@@ -15,8 +15,8 @@ describe "app cli" do
 
       allow(Ask).to receive(:checkbox).and_return([true, false, true])
 
-      expect(Negroku::App).to receive(:select_repo).and_return("git.repo.url")
-      expect(Negroku::App).to receive(:ask_name).and_return("NewApp")
+      expect(Negroku::Modes::App).to receive(:select_repo).and_return("git.repo.url")
+      expect(Negroku::Modes::App).to receive(:ask_name).and_return("NewApp")
 
     end
 
@@ -25,7 +25,7 @@ describe "app cli" do
     end
 
     it "creates the deploy.rb" do
-      Negroku::App.install
+      Negroku::Modes::App.install
 
       expect(File).to exist("config/deploy.rb")
       content = File.read("config/deploy.rb")
@@ -34,7 +34,7 @@ describe "app cli" do
     end
 
     it "generate the Capfile" do
-      Negroku::App.install
+      Negroku::Modes::App.install
 
       expect(File).to exist("Capfile")
       content = File.read("Capfile")

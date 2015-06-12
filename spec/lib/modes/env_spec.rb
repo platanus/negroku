@@ -17,28 +17,28 @@ describe "env cli" do
     end
 
     it "asks for stage if not selected" do
-      expect(Negroku::Env).to receive(:select_stage)
+      expect(Negroku::Modes::Env).to receive(:select_stage)
 
-      Negroku::Env.bulk
+      Negroku::Modes::Env.bulk
     end
 
     it "use selected stage if passed" do
-      allow(Negroku::Env).to receive(:select_variables).and_return([])
-      expect(Negroku::Env).not_to receive(:select_stage)
+      allow(Negroku::Modes::Env).to receive(:select_variables).and_return([])
+      expect(Negroku::Modes::Env).not_to receive(:select_stage)
 
-      Negroku::Env.bulk "beta"
+      Negroku::Modes::Env.bulk "beta"
     end
 
     it "selects the stage and calls rbenv:vars:set with the vars" do
-      allow(Negroku::Env).to receive(:select_variables).and_return({USER: "emilio", PASSWORD: "123"})
+      allow(Negroku::Modes::Env).to receive(:select_variables).and_return({USER: "emilio", PASSWORD: "123"})
       expect(Capistrano::Application).to receive(:invoke).with("beta")
       expect(Capistrano::Application).to receive(:invoke).with("rbenv:vars:set", "USER=emilio", "PASSWORD=123")
 
-      Negroku::Env.bulk "beta"
+      Negroku::Modes::Env.bulk "beta"
     end
 
     it "returns the list of variables" do
-      expect{|b| Negroku::Env.get_variables(&b)}.to yield_control.twice
+      expect{|b| Negroku::Modes::Env.get_variables(&b)}.to yield_control.twice
     end
   end
 end

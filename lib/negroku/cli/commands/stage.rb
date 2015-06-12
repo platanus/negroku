@@ -7,7 +7,7 @@ module Negroku::CLI
     stage.command :add do |add|
       add.action do |global_options,options,args|
 
-        Negroku::Stage.add
+        Negroku::Modes::Stage.add
 
       end
     end
