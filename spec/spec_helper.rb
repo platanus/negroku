@@ -5,6 +5,7 @@ require 'fakefs/safe'
 require 'virtus'
 require 'capistrano/all'
 
+require 'negroku/versionable'
 require 'negroku/i18n'
 require 'negroku/cli/app'
 require 'negroku/cli/stage'

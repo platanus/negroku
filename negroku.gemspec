@@ -1,5 +1,6 @@
 # Ensure we require the local version and not one we might have installed already
 require File.join([File.dirname(__FILE__),'lib','negroku','version.rb'])
+
 spec = Gem::Specification.new do |s|
   s.name = 'negroku'
   s.version = Negroku::VERSION
@@ -37,6 +38,8 @@ spec = Gem::Specification.new do |s|
   s.add_runtime_dependency('whenever', '~> 0.9.4')
 
   s.add_runtime_dependency('gli','~> 2.12.2')
+  s.add_runtime_dependency('gems','~> 0.8.3')
+  s.add_runtime_dependency('semantic','~> 1.4.1')
   s.add_runtime_dependency('inquirer','~> 0.2.1')
   s.add_runtime_dependency('virtus', '~> 1.0.5')
   s.add_runtime_dependency('i18n')
