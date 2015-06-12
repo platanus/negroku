@@ -1,12 +1,9 @@
 require 'bundler/setup'
-require 'virtus'
 Bundler.setup
 
-module Ask;end
-module Capistrano
-  module Application;end
-  module DSL;end
-end
+require 'fakefs/safe'
+require 'virtus'
+require 'capistrano/all'
 
 require 'negroku/i18n'
 require 'negroku/cli/app'
@@ -16,8 +13,7 @@ require 'negroku/cli/config'
 require 'negroku/helpers/app_directory'
 require 'negroku/helpers/templates'
 
-
-require "fakefs/safe"
+require 'negroku_mocks'
 
 RSpec.configure do |config|
   # some (optional) config here

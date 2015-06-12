@@ -36,13 +36,14 @@ require 'capistrano/github'
 
 # Eye monitoring
 require 'negroku/eye'
-<%= "#" unless config.unicorn.enabled? %>require 'negroku/eye/unicorn'
-<%= "#" unless config.delayed_job.enabled? %>require 'negroku/eye/delayed_job'
-<%= "#" unless config.sphinx.enabled? %>require 'negroku/eye/thinking_sphinx'
+<%= "#" unless config.unicorn.enabled? %>require 'negroku/capistrano/eye/unicorn'
+<%= "#" unless config.delayed_job.enabled? %>require 'negroku/capistrano/eye/delayed_job'
+<%= "#" unless config.sphinx.enabled? %>require 'negroku/capistrano/eye/thinking_sphinx'
 
 # NEGROKU
-# Includes negroku defaults and tasks
-require 'negroku/deploy'
+# Includes negroku defaults, tasks and check for updates
+require 'negroku/capistrano/deploy'
+require 'negroku/capistrano/update'
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }

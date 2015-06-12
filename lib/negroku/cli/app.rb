@@ -47,7 +47,7 @@ module Negroku::App
     build_capfile
 
     deploy_rb = AppDirectory.config.join('deploy.rb')
-    build_template("negroku/deploy.rb.erb", deploy_rb, binding)
+    build_template("deploy.rb.erb", deploy_rb, binding)
 
     FileUtils.mkdir_p AppDirectory.tasks
 
@@ -60,7 +60,7 @@ module Negroku::App
     config ||= Negroku::Config
 
     capfile = AppDirectory.root.join('Capfile')
-    build_template('negroku/Capfile.erb', capfile, binding)
+    build_template('Capfile.erb', capfile, binding)
   end
 
   # Ask the application name
