@@ -1,6 +1,12 @@
+require 'inquirer'
+require 'colorize'
+require 'negroku'
+
 module Negroku::Modes
   module App
     def install
+
+      check_version
 
       data = {}
       data[:application_name] = ask_name
@@ -90,6 +96,58 @@ module Negroku::Modes
         question = I18n.t :type_repo_url, scope: :negroku
         Ask.input question
       else remote_urls[selected_idx] end
+    end
+
+
+    def check_version
+      updated = Negroku.check_version
+
+      if(updated)
+        puts I18n.t(:gem_up_to_date, scope: :negroku).colorize(mode: :bold)
+      else
+
+        puts I18n.t(:gem_new_version, scope: :negroku).colorize(mode: :bold)
+
+        puts I18n.t(:gem_latest_version, scope: :negroku, version: Negroku.latest.colorize(:green))
+        puts I18n.t(:gem_current_version, scope: :negroku, version: Negroku.version.colorize(:red))
+
+        puts "\n"
+
+        question = I18n.t(:continue_without_update, scope: :negroku)
+        continue = ::Ask.confirm(question, default: true)
+
+        exit 0 unless(continue)
+
+        return continue
+      end
+    end
+
+    def check_capfile_version
+      updated = Negroku.check_capfile_version
+
+      if(updated)
+        puts I18n.t(:capfile_up_to_date, scope: :negroku).colorize(mode: :bold)
+      else
+        puts I18n.t(:capfile_new_version, scope: :negroku).colorize(mode: :bold)
+
+        puts I18n.t(:gem_current_version, scope: :negroku, version: Negroku.version.colorize(:green))
+        puts I18n.t(:capfile_current_version, scope: :negroku, version: Negroku.capfile_version.colorize(:red))
+
+        puts "\n"
+
+        question = I18n.t(:continue_without_update, scope: :negroku)
+        continue = ::Ask.confirm(question, default: false)
+
+        exit 0 unless(continue)
+      end
+    end
+
+    def check_all_versions
+      continue = self.check_version
+
+      unless(continue)
+        self.check_capfile_version
+      end
     end
 
     extend self

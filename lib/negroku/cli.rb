@@ -16,7 +16,6 @@ require 'negroku/config'
 require 'negroku/modes/app'
 require 'negroku/modes/stage'
 require 'negroku/modes/env'
-require 'negroku/modes/update'
 require 'negroku/helpers/app_directory'
 require 'negroku/helpers/templates'
 
