@@ -10,7 +10,7 @@ module Negroku
   end
 
   def self.capfile_version
-    ::CAPFILE_VERSION ||= "0.0.0"
+    defined?(::CAPFILE_VERSION).nil? ? "0.0.0" : ::CAPFILE_VERSION
   end
 end
 

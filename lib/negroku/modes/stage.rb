@@ -45,7 +45,7 @@ module Negroku::Modes
       return branches[answer] unless branches.empty?
     end
 
-    def get_remote_branches(fetch: false)
+    def get_remote_branches(fetch=false)
       %x(git fetch) if fetch
 
       branches = []
