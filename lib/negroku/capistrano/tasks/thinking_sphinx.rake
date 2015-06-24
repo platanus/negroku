@@ -37,7 +37,7 @@ namespace :negroku do
 
           # user a build in template if the template doesn't exists in the project
           unless File.exists?(template_path)
-            template_path = "tasks/thinking_sphinx.yml.erb"
+            template_path = "capistrano/templates/thinking_sphinx.yml.erb"
           end
 
           config = build_template(template_path, nil, binding)

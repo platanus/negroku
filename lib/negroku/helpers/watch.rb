@@ -6,7 +6,7 @@ def watch_process(name, options = {})
   options[:template] ||= name.to_sym
 
   if options[:template].kind_of?(Symbol)
-    options[:template] = "tasks/eye/_#{options[:template]}.erb"
+    options[:template] = "capistrano/templates/eye/_#{options[:template]}.erb"
   end
 
   processes[name] = options

@@ -78,7 +78,7 @@ namespace :negroku do
 
           # use a build in template if the template doesn't exists in the project
           unless File.exists?(template_path)
-            template_path = "tasks/eye/application.eye.erb"
+            template_path = "capistrano/templates/eye/application.eye.erb"
           end
 
           config = build_template(template_path, nil, binding)

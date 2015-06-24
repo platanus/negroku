@@ -1,5 +1,5 @@
 # CAPISTRANO
-negroku_version = "<%= Negroku::VERSION %>"
+CAPFILE_VERSION = "<%= Negroku::VERSION %>"
 
 # Load DSL and Setup Up Stages
 require 'capistrano/setup'
@@ -35,7 +35,7 @@ require 'capistrano/github'
 <%= "#" unless config.sphinx.enabled? %>require 'thinking_sphinx/capistrano'
 
 # Eye monitoring
-require 'negroku/eye'
+require 'negroku/capistrano/eye'
 <%= "#" unless config.unicorn.enabled? %>require 'negroku/capistrano/eye/unicorn'
 <%= "#" unless config.delayed_job.enabled? %>require 'negroku/capistrano/eye/delayed_job'
 <%= "#" unless config.sphinx.enabled? %>require 'negroku/capistrano/eye/thinking_sphinx'

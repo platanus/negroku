@@ -70,7 +70,7 @@ namespace :negroku do
 
           # user a build in template if the template doesn't exists in the project
           unless File.exists?(template_path)
-            template_path = "tasks/unicorn_#{fetch(:unicorn_template_type)}.rb.erb"
+            template_path = "capistrano/templates/unicorn_#{fetch(:unicorn_template_type)}.rb.erb"
           end
 
           config = build_template(template_path, nil, binding)

@@ -27,7 +27,7 @@ def get_template_file(filename)
   if File.exists?(filename)
     templateFile = filename
   else
-    templateFile = File.expand_path("../../templates/#{filename}", __FILE__)
+    templateFile = File.expand_path("../../#{filename}", __FILE__)
   end
 
   File.read(templateFile)
