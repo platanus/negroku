@@ -15,6 +15,7 @@ module Negroku::Modes
       ask_features
 
       custom_capify data
+      install_binstubs
 
     end
 
@@ -35,6 +36,10 @@ module Negroku::Modes
         puts I18n.t :no_change_capfile, scope: :negroku
       end
 
+    end
+
+    def install_binstubs
+      `bundle binstub capistrano negroku`
     end
 
     # This code was exatracted from capistrano to be used with our own templates
