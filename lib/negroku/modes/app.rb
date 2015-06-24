@@ -103,13 +103,13 @@ module Negroku::Modes
       updated = Negroku.check_version
 
       if(updated)
-        puts I18n.t(:gem_up_to_date, scope: :negroku).colorize(mode: :bold)
+        puts I18n.t(:gem_up_to_date, scope: :negroku).colorize(:green)
       else
 
-        puts I18n.t(:gem_new_version, scope: :negroku).colorize(mode: :bold)
+        puts I18n.t(:gem_new_version, scope: :negroku).colorize(:yellow)
 
         puts I18n.t(:gem_latest_version, scope: :negroku, version: Negroku.latest.colorize(:green))
-        puts I18n.t(:gem_current_version, scope: :negroku, version: Negroku.version.colorize(:red))
+        puts I18n.t(:gem_current_version, scope: :negroku, version: Negroku.version.colorize(:yellow))
 
         puts "\n"
 
@@ -132,9 +132,9 @@ module Negroku::Modes
       updated = Negroku.check_capfile_version
 
       if(updated)
-        puts I18n.t(:capfile_up_to_date, scope: :negroku).colorize(mode: :bold)
+        puts I18n.t(:capfile_up_to_date, scope: :negroku).colorize(:green)
       else
-        puts I18n.t(:capfile_new_version, scope: :negroku).colorize(mode: :bold)
+        puts I18n.t(:capfile_new_version, scope: :negroku).colorize(:red)
 
         puts I18n.t(:gem_current_version, scope: :negroku, version: Negroku.version.colorize(:green))
         puts I18n.t(:capfile_current_version, scope: :negroku, version: Negroku.capfile_version.colorize(:red))
