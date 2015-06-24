@@ -30,7 +30,7 @@ spec = Gem::Specification.new do |s|
 
   s.add_runtime_dependency('capistrano-nodenv', '~> 1.0.1')
   s.add_runtime_dependency('capistrano-bower', '~> 1.1.0')
-  s.add_runtime_dependency('capistrano3-nginx', '~> 2.1.1')
+  s.add_runtime_dependency('capistrano3-nginx', '~> 2.1.2')
   s.add_runtime_dependency('capistrano3-unicorn', '~> 0.2.1')
   s.add_runtime_dependency('capistrano3-delayed-job', '~> 1.4.0')
   s.add_runtime_dependency('whenever', '~> 0.9.4')
