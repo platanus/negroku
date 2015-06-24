@@ -4,7 +4,12 @@ describe "app cli" do
 
   describe "install cmd" do
 
+    let(:test_version){ "2.4.2" }
+
     before(:each) do
+
+      allow(Gems).to receive(:versions).and_return([{"number" => test_version}])
+
       FakeFS::FileSystem.clear
       FakeFS::FileSystem.clone(File.join('lib','negroku','templates'))
       FakeFS::FileSystem.clone(File.join('lib','negroku','locales'))
