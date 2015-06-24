@@ -30,3 +30,5 @@ en:
     capfile_current_version:       "Your Capfile version: %{version}\n"
     continue_without_update:       "Do you want to continue without updating?"
     capfile_ask_update:            "Capfile might be out-dated, the current negroku version might have added new features to your Capfile,\ndo you want to continue without update your Capfile?"
+    gem_update_instructions:       "To update just change your %{gemfile} with the latest version and run %{cmd}"
+    capfile_update_instructions:   "To update your %{capfile} just run %{cmd}"

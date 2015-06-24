@@ -113,6 +113,12 @@ module Negroku::Modes
 
         puts "\n"
 
+        gemfile_str = "Gemfile".colorize(mode: :bold)
+        cmd_str = "bundle install".colorize(mode: :bold)
+        puts I18n.t(:gem_update_instructions, scope: :negroku, gemfile: gemfile_str, cmd: cmd_str)
+
+        puts "\n"
+
         question = I18n.t(:continue_without_update, scope: :negroku)
         continue = ::Ask.confirm(question, default: true)
 
@@ -132,6 +138,12 @@ module Negroku::Modes
 
         puts I18n.t(:gem_current_version, scope: :negroku, version: Negroku.version.colorize(:green))
         puts I18n.t(:capfile_current_version, scope: :negroku, version: Negroku.capfile_version.colorize(:red))
+
+        puts "\n"
+
+        capfile_str = "Capfile".colorize(mode: :bold)
+        cmd_str = "negroku app update".colorize(mode: :bold)
+        puts I18n.t(:capfile_update_instructions, scope: :negroku, capfile: capfile_str, cmd: cmd_str)
 
         puts "\n"
 
