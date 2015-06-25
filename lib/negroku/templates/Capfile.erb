@@ -18,6 +18,7 @@ require 'capistrano/github'
 <%= "#" unless config.bundler.enabled? %>require 'capistrano/bundler'
 <%= "#" unless config.rails.enabled? %>require 'capistrano/rails/assets'
 <%= "#" unless config.rails.enabled? %>require 'capistrano/rails/migrations'
+<%= "#" unless config.rails.enabled? %>require 'capistrano/rails/console'
 
 # Node
 <%= "#" unless config.nodenv.enabled? %>require 'capistrano/nodenv'

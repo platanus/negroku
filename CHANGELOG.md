@@ -2,6 +2,13 @@
 
 Reverse Chronological Order:
 
+## Unreleased
+
+https://github.com/platanus/negroku/compare/v2.5.1...HEAD
+
+FIX:
+- Remote rails console.
+
 ## `2.5.1`
 
 https://github.com/platanus/negroku/compare/v2.5.0...v2.5.1

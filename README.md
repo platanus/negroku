@@ -153,6 +153,10 @@ To deploy your application you just need to run capistrano task to do so.
 $ cap staging deploy  # to deploy to the staging stage
 ```
 
+## Tasks
+
+1. [Rails](docs/TASKS.md#rails)
+
 ## Contributing
 
 1. Fork it
