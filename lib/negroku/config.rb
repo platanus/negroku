@@ -54,7 +54,7 @@ class Negroku::ConfigFactory
   }
 
   attribute :whenever, Negroku::Feature, default: {
-    name: "whenever", enabled: loaded_in_bundler('whenever')
+    name: "whenever", enabled: File.exists?('config/schedule.rb')
   }
 
   # private
