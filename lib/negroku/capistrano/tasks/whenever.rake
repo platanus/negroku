@@ -9,11 +9,15 @@ namespace :load do
     # server roles matches the following list
     set :whenever_roles, [:app]
 
+    set :whenever_log, -> { "#{shared_path}/log/whenever-out.log" }
+
+    set :whenever_template, -> { "bash -lc ':job'" }
+
     # Set default jobs and log
     set :whenever_variables, -> {
       {
-        job_template: "bash -lc ':job'",
-        output: "#{shared_path}/log/whenever-out.log"
+        job_template: fetch(:whenever_template),
+        output: fetch(:whenever_log)
       }
       .map{|k,v| "#{k}=#{v}"}.join("&").prepend("\"") << "\""
     }

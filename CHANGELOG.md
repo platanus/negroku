@@ -6,6 +6,9 @@ Reverse Chronological Order:
 
 https://github.com/platanus/negroku/compare/v2.5.2...HEAD
 
+FEATURE:
+- On whenever you now can change the log and template values.
+
 FIX:
 - Whenever was always being enabled because it's a negroku dependency, now we check for the `config/schedule.rb` file
 

@@ -156,6 +156,7 @@ $ cap staging deploy  # to deploy to the staging stage
 ## Tasks
 
 1. [Rails](docs/TASKS.md#rails)
+1. [Whenever](docs/TASKS.md#whenever)
 
 ## Contributing
 
