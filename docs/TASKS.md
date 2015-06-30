@@ -20,6 +20,8 @@ cap <stage> rails:console sandbox=1
 
 ### Whenever 
 
+**Note:** By default we are not adding any path to the cron execution PATH. It's up the you to add the needed path to the PATH variable in the cron file.
+
 ##### Config
 You can change some defaults adding this variables to your `deploy.rb`
 
