@@ -17,7 +17,8 @@ namespace :load do
     set :whenever_variables, -> {
       {
         job_template: fetch(:whenever_template),
-        output: fetch(:whenever_log)
+        output: fetch(:whenever_log),
+        environment: fetch(:whenever_environment)
       }
       .map{|k,v| "#{k}=#{v}"}.join("&").prepend("\"") << "\""
     }

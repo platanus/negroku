@@ -11,6 +11,7 @@ FEATURE:
 
 FIX:
 - Whenever was always being enabled because it's a negroku dependency, now we check for the `config/schedule.rb` file
+- Whenever now honors the rails environment
 
 ## `2.5.2`
 
