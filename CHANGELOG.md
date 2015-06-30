@@ -8,6 +8,7 @@ https://github.com/platanus/negroku/compare/v2.5.1...HEAD
 
 FIX:
 - Remote rails console.
+- Delayed job detection from gemfile
 
 ## `2.5.1`
 

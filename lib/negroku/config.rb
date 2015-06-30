@@ -26,7 +26,7 @@ class Negroku::ConfigFactory
   }
 
   attribute :delayed_job, Negroku::Feature, default: {
-    name: "delayed_job", enabled: loaded_in_bundler('delayed_jobs')
+    name: "delayed_job", enabled: loaded_in_bundler('delayed_job')
   }
 
   attribute :nginx, Negroku::Feature, default: {
