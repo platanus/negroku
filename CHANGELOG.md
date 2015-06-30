@@ -4,7 +4,11 @@ Reverse Chronological Order:
 
 ## Unreleased
 
-https://github.com/platanus/negroku/compare/v2.5.2...HEAD
+https://github.com/platanus/negroku/compare/v2.5.3...HEAD
+
+## `2.5.3`
+
+https://github.com/platanus/negroku/compare/v2.5.2...v2.5.3
 
 FEATURE:
 - On whenever you now can change the log and template values.
