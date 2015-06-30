@@ -14,7 +14,7 @@ class Negroku::ConfigFactory
   include Virtus.model
 
   def self.loaded_in_bundler(name)
-    Bundler.load.dependencies.any? {|a| a.name == name}
+    Bundler.locked_gems.specs.any? {|a| a.name == name}
   end
 
   attribute :bower, Negroku::Feature, default: {
