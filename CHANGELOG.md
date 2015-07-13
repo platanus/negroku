@@ -6,6 +6,9 @@ Reverse Chronological Order:
 
 https://github.com/platanus/negroku/compare/v2.5.3...HEAD
 
+FIX:
+- Fixes negroku overriding i18n load paths
+
 ## `2.5.3`
 
 https://github.com/platanus/negroku/compare/v2.5.2...v2.5.3
