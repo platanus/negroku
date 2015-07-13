@@ -4,7 +4,11 @@ Reverse Chronological Order:
 
 ## Unreleased
 
-https://github.com/platanus/negroku/compare/v2.5.3...HEAD
+https://github.com/platanus/negroku/compare/v2.5.4...HEAD
+
+## `2.5.4`
+
+https://github.com/platanus/negroku/compare/v2.5.3...v2.5.4
 
 FIX:
 - Fixes negroku overriding i18n load paths
