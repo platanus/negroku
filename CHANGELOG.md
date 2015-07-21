@@ -4,7 +4,11 @@ Reverse Chronological Order:
 
 ## Unreleased
 
-https://github.com/platanus/negroku/compare/v2.5.4...HEAD
+https://github.com/platanus/negroku/compare/v2.5.5...HEAD
+
+## `2.5.5`
+
+https://github.com/platanus/negroku/compare/v2.5.4...v2.5.5
 
 FIX:
 - Logs helper not found when eye is disabled
