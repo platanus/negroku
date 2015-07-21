@@ -1,4 +1,4 @@
-require 'negroku/helpers/tasks'
+require 'negroku/helpers'
 
 # Base configuration
 namespace :load do
