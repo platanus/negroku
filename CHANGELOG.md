@@ -4,7 +4,11 @@ Reverse Chronological Order:
 
 ## Unreleased
 
-https://github.com/platanus/negroku/compare/v2.5.5...HEAD
+https://github.com/platanus/negroku/compare/v2.6.0...HEAD
+
+## `2.6.0`
+
+https://github.com/platanus/negroku/compare/v2.5.5...v2.6.0
 
 FEAT:
 - Adds nginx default for ssl certificates and key locations
