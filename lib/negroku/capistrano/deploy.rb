@@ -12,7 +12,7 @@ namespace :load do
 
     set :keep_releases, 5
 
-    set :linked_dirs, fetch(:linked_dirs, []) + %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+    set :linked_dirs, fetch(:linked_dirs, []) + %w{log tmp/pids tmp/cache tmp/sockets public/system}
 
     set :linked_files, fetch(:linked_files, []) + %w{}
   end

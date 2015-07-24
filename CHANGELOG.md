@@ -9,6 +9,9 @@ https://github.com/platanus/negroku/compare/v2.5.5...HEAD
 FEAT:
 - Adds nginx default for ssl certificates and key locations
 
+FIX:
+- Removes `vendor/bundle` symlink and shared folder. Bundle location is set in `.bundler/config`
+
 BREAKING CHANGES:
 - Default config for nginx ssl is
 ```
