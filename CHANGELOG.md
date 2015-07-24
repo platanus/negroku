@@ -6,6 +6,17 @@ Reverse Chronological Order:
 
 https://github.com/platanus/negroku/compare/v2.5.5...HEAD
 
+FEAT:
+- Adds nginx default for ssl certificates and key locations
+
+BREAKING CHANGES:
+- Default config for nginx ssl is
+```
+nginx_ssl_certificate_path: "#{shared_path}/ssl"
+nginx_ssl_certificate_key: "#{fetch(:application)}.key"
+nginx_ssl_certificate_key_path: "#{shared_path}/ssl"
+```
+
 ## `2.5.5`
 
 https://github.com/platanus/negroku/compare/v2.5.4...v2.5.5

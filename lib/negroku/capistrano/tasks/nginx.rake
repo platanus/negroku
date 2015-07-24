@@ -5,6 +5,10 @@
 namespace :load do
   task :defaults do
 
+    set :nginx_ssl_certificate_path,     -> { "#{shared_path}/ssl" }
+    set :nginx_ssl_certificate_key,      -> { "#{fetch(:application)}.key" }
+    set :nginx_ssl_certificate_key_path, -> { "#{shared_path}/ssl" }
+
   end
 end
 
@@ -27,3 +31,11 @@ namespace :negroku do
     end
 end
 
+# Ensure the folders needed exist
+task 'deploy:check:directories' do
+  on release_roles fetch(:nginx_roles) do
+    if fetch(:nginx_use_ssl)
+      execute :mkdir, '-pv', "#{shared_path}/ssl"
+    end
+  end
+end
