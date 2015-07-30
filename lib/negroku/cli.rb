@@ -29,9 +29,6 @@ module Negroku::CLI
     # Set th version
     version Negroku::VERSION
 
-    # Negroku commands will manage the interactive cli ui
-    default_command :negroku
-
     # Don't show the negroku commands in the help
     hide_commands_without_desc true
 

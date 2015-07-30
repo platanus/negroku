@@ -6,6 +6,9 @@ Reverse Chronological Order:
 
 https://github.com/platanus/negroku/compare/v2.6.0...HEAD
 
+FIX: 
+- Show help when no command is used
+
 ## `2.6.0`
 
 https://github.com/platanus/negroku/compare/v2.5.5...v2.6.0
