@@ -8,9 +8,17 @@ https://github.com/platanus/negroku/compare/v2.6.0...HEAD
 
 FEAT:
 - Adds support for puma as application server
+- Adds simultaneous log stream support
+  For example you can call
+  `cap production logs` to get all application logs
+  `cap production logs:nginx` to get all nginx logs
+  `cap production logs:nginx:access` to get the nginx access logs only
 
 FIX:
 - Show help when no command is used
+
+BREAKING CHANGES:
+- Log task was renamed to `logs`
 
 ## `2.6.0`
 
