@@ -126,7 +126,7 @@ $ bundle install
 
     1. Common settings for all stages `deploy.rb`
 
-        Here you can add all the settings that are common to all the stage severs. For example: 
+        Here you can add all the settings that are common to all the stage severs. For example:
 
         ```ruby
         set :unicorn_workers, 1
@@ -141,7 +141,7 @@ $ bundle install
         ```ruby
         set :branch,        "production"        # Optional, defaults to master
 
-        set :rails_env,        "production" 
+        set :rails_env,        "production"
         ```
 
 1. Commit and push the changes to the repository
@@ -154,10 +154,31 @@ To deploy your application you just need to run capistrano task to do so.
 $ cap staging deploy  # to deploy to the staging stage
 ```
 
-## Tasks
+## Supports
 
-1. [Rails](docs/TASKS.md#rails)
-1. [Whenever](docs/TASKS.md#whenever)
+### Web server
+
+  - nginx
+
+### App servers
+
+  - puma
+  - unicorn
+
+### Tools
+
+  - bower
+  - bundler
+  - delayed jobs
+  - eye process monitoring
+  - thinking sphinx
+  - [Whenever](docs/TASKS.md#whenever)
+
+### Other features
+
+  - Github deployment api
+  - Log streaming
+  - [Rails](docs/TASKS.md#rails)
 
 ## Contributing
 
