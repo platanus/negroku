@@ -177,7 +177,7 @@ $ cap staging deploy  # to deploy to the staging stage
 ### Other features
 
   - Github deployment api
-  - Log streaming
+  - [Logs](docs/TASKS.md#logs)
   - [Rails](docs/TASKS.md#rails)
 
 ## Contributing
