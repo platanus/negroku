@@ -26,6 +26,7 @@ require 'capistrano/github'
 
 # App server
 <%= "#" unless config.unicorn.enabled? %>require 'capistrano3/unicorn'
+<%= "#" unless config.puma.enabled? %>require 'capistrano/puma'
 
 # Static server
 <%= "#" unless config.nginx.enabled? %>require 'capistrano/nginx'
@@ -38,6 +39,7 @@ require 'capistrano/github'
 # Eye monitoring
 require 'negroku/capistrano/eye'
 <%= "#" unless config.unicorn.enabled? %>require 'negroku/capistrano/eye/unicorn'
+<%= "#" unless config.puma.enabled? %>require 'negroku/capistrano/eye/puma'
 <%= "#" unless config.delayed_job.enabled? %>require 'negroku/capistrano/eye/delayed_job'
 <%= "#" unless config.sphinx.enabled? %>require 'negroku/capistrano/eye/thinking_sphinx'
 

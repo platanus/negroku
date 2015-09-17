@@ -53,6 +53,10 @@ class Negroku::ConfigFactory
     name: "unicorn", enabled: loaded_in_bundler('unicorn')
   }
 
+  attribute :puma, Negroku::Feature, default: {
+    name: "puma", enabled: loaded_in_bundler('puma')
+  }
+
   attribute :whenever, Negroku::Feature, default: {
     name: "whenever", enabled: File.exists?('config/schedule.rb')
   }

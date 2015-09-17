@@ -1,0 +1,19 @@
+  process 'puma' do
+    pid_file "<%= fetch(:puma_pid) %>"
+    start_command "<%= fetch(:rbenv_prefix) %> bundle exec puma -C <%= fetch(:puma_conf) %> --daemon -e <%= fetch(:rails_env) %>"
+    stdall "<%= fetch(:puma_access_log) %>"
+
+    # stop signals:
+    # http://puma.bogomips.org/SIGNALS.html
+    stop_signals [:TERM, 10.seconds]
+
+    # soft restart
+    restart_command "kill -USR2 {PID}"
+
+    # Master process checks
+    <%= fetch(:puma_master_cpu_checks) %>
+    <%= fetch(:puma_master_memory_checks) %>
+
+    start_timeout 100.seconds
+    restart_grace 30.seconds
+  end

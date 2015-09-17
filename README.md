@@ -116,6 +116,7 @@ $ bundle install
 
     # App server
     require 'capistrano3/unicorn'
+    # require 'capistrano/puma'
 
     # Static server
     require 'capistrano/nginx'
