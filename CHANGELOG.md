@@ -4,7 +4,11 @@ Reverse Chronological Order:
 
 ## Unreleased
 
-https://github.com/platanus/negroku/compare/v2.6.0...HEAD
+https://github.com/platanus/negroku/compare/v2.7.0...HEAD
+
+## `2.7.0`
+
+https://github.com/platanus/negroku/compare/v2.6.0...v2.7.0
 
 FEAT:
 - Adds support for puma as application server
