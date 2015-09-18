@@ -108,7 +108,7 @@ FIX:
 https://github.com/platanus/negroku/compare/v2.4.0...v2.4.1
 
 FIX:
-- Fix unicorn restart bug, thanks to @nicolasmery and @amosrivera 
+- Fix unicorn restart bug, thanks to @nicolasmery and @amosrivera
 
 ## `2.4.0`
 
@@ -118,7 +118,7 @@ FEATURE
 - Unicorn: adds a way to change cpu and memory eye check for unicorn    
 
 FIXES
-- Rbenv: 
+- Rbenv:
   - `rbenv:vars:show` will work even before the firts deploy, close #96
   - Bulk environmental variables on stage creation, close #99
 

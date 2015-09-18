@@ -6,11 +6,11 @@
     * [Config](#config)
 * [Logs](#logs)
 
-### Rails 
+### Rails
 
 ##### Remote Console
 
-Negroku adds support to remotelly connect to the rails console integrating de [capistrano-rails-console][1] gem. 
+Negroku adds support to remotelly connect to the rails console integrating de [capistrano-rails-console][1] gem.
 
 ```shell
 cap <stage> rails:console
@@ -19,7 +19,7 @@ cap <stage> rails:console sandbox=1
 
 [1]: https://github.com/ydkn/capistrano-rails-console
 
-### Whenever 
+### Whenever
 
 **Note:** By default we are not adding any path to the cron execution PATH. It's up the you to add the needed path to the PATH variable in the cron file.
 
