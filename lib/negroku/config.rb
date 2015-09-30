@@ -13,8 +13,8 @@ end
 class Negroku::ConfigFactory
   include Virtus.model
 
-  def self.loaded_in_bundler(name)
-    Bundler.locked_gems.specs.any? {|a| a.name == name}
+  def self.loaded_in_bundler(*names)
+    Bundler.locked_gems.dependencies.any? { |a| names.include?(a.name) }
   end
 
   attribute :bower, Negroku::Feature, default: {
@@ -26,7 +26,8 @@ class Negroku::ConfigFactory
   }
 
   attribute :delayed_job, Negroku::Feature, default: {
-    name: "delayed_job", enabled: loaded_in_bundler('delayed_job')
+    name: 'delayed_job',
+    enabled: loaded_in_bundler('delayed_job', 'delayed_job_active_record')
   }
 
   attribute :nginx, Negroku::Feature, default: {

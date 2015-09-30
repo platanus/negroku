@@ -6,6 +6,9 @@ Reverse Chronological Order:
 
 https://github.com/platanus/negroku/compare/v2.7.0...HEAD
 
+FIX:
+- Puma was being loaded because the puma gem was being loaded by `capistrano-puma`
+
 ## `2.7.0`
 
 https://github.com/platanus/negroku/compare/v2.6.0...v2.7.0
