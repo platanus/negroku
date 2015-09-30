@@ -4,7 +4,11 @@ Reverse Chronological Order:
 
 ## Unreleased
 
-https://github.com/platanus/negroku/compare/v2.7.0...HEAD
+https://github.com/platanus/negroku/compare/v2.7.1...HEAD
+
+## `2.7.1`
+
+https://github.com/platanus/negroku/compare/v2.7.0...v2.7.1
 
 FIX:
 - Puma was being loaded because the puma gem was being loaded by `capistrano-puma`
