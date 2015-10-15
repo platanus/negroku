@@ -65,11 +65,16 @@ end
 # Adds some task on complement the capistrano3-unicorn tasks
 # This tasks are under the negroku namespace for easier identification
 namespace :negroku do
-
   namespace :eye do
-
     desc "Upload eye configuration file"
-    task :setup => 'eye:watch_process' do
+    task :setup do
+      %w[unicorn delayed_job thinking_sphinx puma].each do |task_name|
+        begin
+          Rake::Task["#{task_name}:watch_process"].invoke
+        rescue StandardError
+        end
+      end
+
       on release_roles fetch(:eye_roles) do
         within "#{shared_path}/config" do
           processes = fetch(:eye_watched_processes, {})

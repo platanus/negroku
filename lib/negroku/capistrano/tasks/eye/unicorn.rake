@@ -3,18 +3,14 @@
 #########
 
 # Watch the unicorn processes using the build in template
-namespace :eye do
-  task :watch_process do
-
-    watch_process(:unicorn);
-
-  end
-end
-
-# Override start, restart and stop unicorn tasks to so they call
-# the eye equivalents
 namespace :unicorn do
-  ['start','restart','stop'].each do |cmd|
+  task :watch_process do
+    watch_process(:unicorn)
+  end
+
+  # Override start, restart and stop unicorn tasks to so they call
+  # the eye equivalents
+  ['start', 'restart', 'stop'].each do |cmd|
     if Rake::Task.task_defined?("unicorn:#{cmd}")
       Rake::Task["unicorn:#{cmd}"].clear_actions
       # Reload or restart unicorn after the application is published
