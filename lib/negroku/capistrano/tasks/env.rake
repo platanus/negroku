@@ -6,5 +6,8 @@ namespace :env do
   task :changed do
   end
 
-  after 'env:changed', 'eye:hard_restart'
+  Rake::Task['env:changed'].enhance do
+    # Change whether the config changed or not
+    Rake::Task['eye:hard_restart'].invoke
+  end
 end

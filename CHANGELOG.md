@@ -6,6 +6,9 @@ Reverse Chronological Order:
 
 https://github.com/platanus/negroku/compare/v2.8.0...HEAD
 
+FIX:
+- `env:change` event wasn't working
+
 ## `2.8.0`
 
 https://github.com/platanus/negroku/compare/v2.7.1...2.8.0
