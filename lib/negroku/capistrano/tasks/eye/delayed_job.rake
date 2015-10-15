@@ -4,12 +4,17 @@
 
 # Watch the delayed_job processes using the build in template
 namespace :delayed_job do
+  # Remove the multi process arg
+  def delayed_job_single_args
+    delayed_job_args.gsub(/-n\s\d\s*/, "")
+  end
+
   def delayed_job_start_command
-    "#{fetch(:rbenv_prefix)} bundle exec #{delayed_job_bin} #{delayed_job_args} -i \#{i} start"
+    "#{fetch(:rbenv_prefix)} bundle exec #{delayed_job_bin} #{delayed_job_single_args} -i \#{i} start"
   end
 
   def delayed_job_stop_command
-    "#{fetch(:rbenv_prefix)} bundle exec #{delayed_job_bin} -i \#{i} stop"
+    "#{fetch(:rbenv_prefix)} bundle exec #{delayed_job_bin} #{delayed_job_single_args} -i \#{i} stop"
   end
 
   task :watch_process do
