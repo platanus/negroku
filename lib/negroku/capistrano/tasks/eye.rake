@@ -25,13 +25,14 @@ namespace :load do
   end
 end
 
-namespace :env do
-  desc 'Env variables changed'
-  task :changed do
-  end
-end
+# namespace :env do
+#   desc 'Env variables changed'
+#   task :changed do
+#   end
+# end
 
 namespace :eye do
+  WATCHED_PROCESSES = %w[unicorn delayed_job thinking_sphinx puma]
 
   desc "Loads eye config and starts monitoring"
   task :load do
@@ -60,53 +61,45 @@ namespace :eye do
       end
     end
   end
-end
 
-# Adds some task on complement the capistrano3-unicorn tasks
-# This tasks are under the negroku namespace for easier identification
-namespace :negroku do
-  namespace :eye do
-    desc "Upload eye configuration file"
-    task :setup do
-      %w[unicorn delayed_job thinking_sphinx puma].each do |task_name|
-        begin
-          Rake::Task["#{task_name}:watch_process"].invoke
-        rescue StandardError
-        end
-      end
-
-      on release_roles fetch(:eye_roles) do
-        within "#{shared_path}/config" do
-          processes = fetch(:eye_watched_processes, {})
-
-          template_path = fetch(:eye_application_template)
-
-          # use a build in template if the template doesn't exists in the project
-          unless File.exists?(template_path)
-            template_path = "capistrano/templates/eye/application.eye.erb"
-          end
-
-          config = build_template(template_path, nil, binding)
-          upload! config, '/tmp/application.eye'
-
-          execute :mv, '/tmp/application.eye', 'eye.rb'
-        end
+  desc "Upload eye configuration file"
+  task :setup do
+    WATCHED_PROCESSES.each do |task_name|
+      begin
+        Rake::Task["#{task_name}:watch_process"].invoke
+      rescue StandardError
       end
     end
 
-    before "deploy:published", "negroku:eye:setup"
-    after "negroku:eye:setup", "eye:load"
+    on release_roles fetch(:eye_roles) do
+      within "#{shared_path}/config" do
+        processes = fetch(:eye_watched_processes, {})
 
-    after 'env:changed', 'hard-restart' do
-      invoke 'eye:stop'
-      invoke 'eye:load'
-      invoke 'eye:start'
+        template_path = fetch(:eye_application_template)
+
+        # use a build in template if the template doesn't exists in the project
+        unless File.exists?(template_path)
+          template_path = "capistrano/templates/eye/application.eye.erb"
+        end
+
+        config = build_template(template_path, nil, binding)
+        upload! config, '/tmp/application.eye'
+
+        execute :mv, '/tmp/application.eye', 'eye.rb'
+      end
     end
-
-    define_logs(:eye, {
-      app: 'eye.log'
-    })
-
   end
 
+  desc "Restart application by stoping, reloading and starting"
+  task :hard_restart do
+    invoke 'eye:stop'
+    sleep 5
+    invoke 'eye:load'
+    invoke 'eye:start'
+  end
+
+  before "deploy:published", "eye:setup"
+  after "eye:setup", "eye:load"
+
+  define_logs(:eye, app: 'eye.log')
 end
