@@ -4,14 +4,18 @@ Reverse Chronological Order:
 
 ## Unreleased
 
-https://github.com/platanus/negroku/compare/v2.8.0...HEAD
+https://github.com/platanus/negroku/compare/v2.8.1...HEAD
+
+## `2.8.1`
+
+https://github.com/platanus/negroku/compare/v2.8.0...v2.8.1
 
 FIX:
 - `env:change` event wasn't working
 
 ## `2.8.0`
 
-https://github.com/platanus/negroku/compare/v2.7.1...2.8.0
+https://github.com/platanus/negroku/compare/v2.7.1...v2.8.0
 
 FEAT:
 - Adds some settings to process monitoring.
