@@ -14,6 +14,11 @@
     <%= fetch(:puma_master_cpu_checks) %>
     <%= fetch(:puma_master_memory_checks) %>
 
-    start_timeout 100.seconds
-    restart_grace 30.seconds
+    start_timeout <%= options[:start_timeout] %>.seconds
+    stop_timeout <%= options[:stop_timeout] %>.seconds
+    restart_timeout <%= options[:restart_timeout] %>.seconds
+
+    start_grace <%= options[:start_grace] %>.seconds
+    stop_grace <%= options[:stop_grace] %>.seconds
+    restart_grace <%= options[:restart_grace] %>.seconds
   end

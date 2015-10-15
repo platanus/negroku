@@ -1,13 +1,17 @@
   group 'delayed-jobs' do
     chain grace: 10.seconds
 
-    start_timeout <%= options[:start_timeout] || "30.seconds" %>
-    stop_timeout <%= options[:stop_timeout] || "40.seconds"  %>
-    restart_timeout <%= options[:restart_timeout] || "30.seconds"  %>
+    start_timeout <%= options[:start_timeout] %>.seconds
+    stop_timeout <%= options[:stop_timeout] %>.seconds
+    restart_timeout <%= options[:restart_timeout] %>.seconds
 
-    workers_count = '<%= fetch(:delayed_job_workers || 1) %>'.to_i
+    start_grace <%= options[:start_grace] %>.seconds
+    stop_grace <%= options[:stop_grace] %>.seconds
+    restart_grace <%= options[:restart_grace] %>.seconds
 
-    (0 ... workers_count.to_i).each do |i|
+    workers_count = <%= options[:workers] %>
+
+    (0 ... workers_count).each do |i|
 
     process "worker-#{i}" do
       pid_file "tmp/pids/delayed_job.#{i}.pid"
@@ -18,4 +22,3 @@
     end
 
   end
-

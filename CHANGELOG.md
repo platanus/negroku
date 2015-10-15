@@ -6,6 +6,10 @@ Reverse Chronological Order:
 
 https://github.com/platanus/negroku/compare/v2.7.1...HEAD
 
+FEAT:
+- Adds some settings to process monitoring.
+  You can config timeouts and grace times.
+
 ## `2.7.1`
 
 https://github.com/platanus/negroku/compare/v2.7.0...v2.7.1

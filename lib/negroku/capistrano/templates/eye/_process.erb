@@ -1,10 +1,13 @@
   process "<%= options[:name] %>" do
-    start_timeout <%= options[:start_timeout] || "30.seconds" %>
-    stop_timeout <%= options[:stop_timeout] || "20.seconds"  %>
-    restart_timeout <%= options[:restart_timeout] || "30.seconds"  %>
-
     pid_file "<%= options[:pid_file] %>"
     start_command "<%= options[:start_command] %>"
     stop_command "<%= options[:stop_command] %>"
-  end
 
+    start_timeout <%= options[:start_timeout] || 60 %>.seconds
+    stop_timeout <%= options[:stop_timeout] || 30 %>.seconds
+    restart_timeout <%= options[:restart_timeout] || 30 %>.seconds
+
+    start_grace <%= options[:start_grace] || 100 %>.seconds
+    stop_grace <%= options[:stop_grace] || 30 %>.seconds
+    restart_grace <%= options[:restart_grace] || 30 %>.seconds
+  end

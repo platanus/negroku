@@ -1,10 +1,57 @@
 # Tasks
 
+* [Eye](#eye)
 * [Rails](#rails)
     * [Remote Console](#remote-console)
 * [Whenever](#whenever)
     * [Config](#config)
 * [Logs](#logs)
+
+### Eye
+
+Negroku support process monitoring via the [Eye gem](https://github.com/kostya/eye). Currently adds monitoring to
+
+- unicorn
+- puma
+- thinking_sphinx
+- delayed_job
+
+Each monitor can be further customized using variables.
+
+```ruby
+set: eye_<process>_<setting>, <value>
+```
+
+The main setting that can be customized are timeouts and grace times.
+
+```ruby
+# delayed job timeouts
+set: eye_delayed_job_start_timeout, 20.seconds
+set: eye_delayed_job_stop_timeout, 1.minute
+set: eye_delayed_job_restart_timeout, 1.minute
+
+# For puma
+set: eye_puma_start_grace, 45.seconds
+set: eye_puma_stop_grace, 30.seconds
+set: eye_puma_restart_grace, 2.minutes
+```
+
+#### Monitor custom processes
+
+If you have other processes in your applicacion you can monitor them
+using the `watch_process` method in your `deploy.rb` file
+
+You'll need to setup the **start_command**, **stop_command** and **pid location**.
+
+```ruby
+watch_process(:other_process, template: :process,
+                              start_command: "process start",
+                              stop_command: "process stop",
+                              start_timeout: 50.seconds,
+                              restart_grace: 1.minutes,
+                              pid_file: "path/to/pid"
+             )
+```
 
 ### Rails
 
