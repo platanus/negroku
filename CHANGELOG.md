@@ -4,7 +4,11 @@ Reverse Chronological Order:
 
 ## Unreleased
 
-https://github.com/platanus/negroku/compare/v2.7.1...HEAD
+https://github.com/platanus/negroku/compare/v2.8.0...HEAD
+
+## `2.8.0`
+
+https://github.com/platanus/negroku/compare/v2.7.1...2.8.0
 
 FEAT:
 - Adds some settings to process monitoring.
