@@ -4,7 +4,14 @@ Reverse Chronological Order:
 
 ## Unreleased
 
-https://github.com/platanus/negroku/compare/v2.8.1...HEAD
+https://github.com/platanus/negroku/compare/v2.8.2...HEAD
+
+## `2.8.2`
+
+https://github.com/platanus/negroku/compare/v2.8.1...v2.8.2
+
+FIX: 
+- Dependency on activesupport. Now it works on rails 4.x
 
 ## `2.8.1`
 
