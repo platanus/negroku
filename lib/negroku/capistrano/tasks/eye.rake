@@ -34,6 +34,11 @@ end
 namespace :eye do
   WATCHED_PROCESSES = %w[unicorn delayed_job thinking_sphinx puma]
 
+  task :watch_process_deprecation do
+    puts "\n\nWARNING:\ttask 'eye:watch_process' is deprecated."
+    puts "\t\tPlease read the docs at https://github.com/platanus/negroku/blob/master/docs/TASKS.md#eye\n\n"
+  end
+
   desc "Loads eye config and starts monitoring"
   task :load do
     on release_roles fetch(:eye_roles) do
@@ -64,6 +69,15 @@ namespace :eye do
 
   desc "Upload eye configuration file"
   task :setup do
+    # DEPRECATE eye:watch_process
+    begin
+      Rake::Task['eye:watch_process'].enhance do
+        at_exit { Rake::Task['eye:watch_process_deprecation'].invoke if $!.nil? }
+      end
+      Rake::Task['eye:watch_process'].invoke
+    rescue StandardError
+    end
+
     WATCHED_PROCESSES.each do |task_name|
       begin
         Rake::Task["#{task_name}:watch_process"].invoke

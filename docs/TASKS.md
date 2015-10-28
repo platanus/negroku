@@ -53,6 +53,8 @@ watch_process(:other_process, template: :process,
              )
 ```
 
+**Deprecation Notice**: `eye:watch_process` task is being called before the setup. This is not longer needed and is deprecated. You should add the process `watch_process()` directly in the `deploy.rb`
+
 ### Rails
 
 ##### Remote Console

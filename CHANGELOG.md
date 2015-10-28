@@ -6,6 +6,16 @@ Reverse Chronological Order:
 
 https://github.com/platanus/negroku/compare/v2.8.2...HEAD
 
+FIX:
+- Fix regression where custom watched processes where not being configured
+  by eye. This is a known breaking change but it was removed by mistake instead of being deprecated.
+
+BREAKING CHANGES:
+- **eye:watch_process task deprecated**  
+  When adding custom processes to the eye config, don't use the `eye:watch_process` task.  
+  Just use the `watch_process` method directly in the `deploy.rb`  
+  https://github.com/platanus/negroku/blob/master/docs/TASKS.md#eye
+
 ## `2.8.2`
 
 https://github.com/platanus/negroku/compare/v2.8.1...v2.8.2
