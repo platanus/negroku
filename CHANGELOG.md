@@ -4,7 +4,11 @@ Reverse Chronological Order:
 
 ## Unreleased
 
-https://github.com/platanus/negroku/compare/v2.8.2...HEAD
+https://github.com/platanus/negroku/compare/v2.8.3...HEAD
+
+## `2.8.3`
+
+https://github.com/platanus/negroku/compare/v2.8.2...v2.8.3
 
 FIX:
 - Fix regression where custom watched processes where not being configured
