@@ -4,7 +4,11 @@ Reverse Chronological Order:
 
 ## Unreleased
 
-https://github.com/platanus/negroku/compare/v2.8.3...HEAD
+https://github.com/platanus/negroku/compare/v2.8.4...HEAD
+
+## `2.8.4`
+
+https://github.com/platanus/negroku/compare/v2.8.3...v2.8.4
 
 FEAT:
 - Processes start in a one by one, with a grace time of 20 seconds by default.
