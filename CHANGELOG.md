@@ -6,6 +6,10 @@ Reverse Chronological Order:
 
 https://github.com/platanus/negroku/compare/v2.8.3...HEAD
 
+FEAT:
+- Processes start in a one by one, with a grace time of 20 seconds by default.
+  You can use the `eye_chain_grace` variable to change it.
+
 FIX:
 - Rails log now use the rails environment to read the log from the server
 

@@ -25,6 +25,9 @@ set: eye_<process>_<setting>, <value>
 The main setting that can be customized are timeouts and grace times.
 
 ```ruby
+# chain grace time
+set: eye_chain_grace, 30.seconds
+
 # delayed job timeouts
 set: eye_delayed_job_start_timeout, 20.seconds
 set: eye_delayed_job_stop_timeout, 1.minute
