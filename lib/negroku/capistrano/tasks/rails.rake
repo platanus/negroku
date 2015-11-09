@@ -13,9 +13,7 @@ namespace :negroku do
 
   namespace :rails do
 
-    define_logs(:rails, {
-      app: 'production.log'
-    })
+    define_logs(:rails, app: fetch(:rails_env, 'production.log'))
 
   end
 

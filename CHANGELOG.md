@@ -6,6 +6,9 @@ Reverse Chronological Order:
 
 https://github.com/platanus/negroku/compare/v2.8.3...HEAD
 
+FIX:
+- Rails log now use the rails environment to read the log from the server
+
 ## `2.8.3`
 
 https://github.com/platanus/negroku/compare/v2.8.2...v2.8.3
@@ -24,7 +27,7 @@ BREAKING CHANGES:
 
 https://github.com/platanus/negroku/compare/v2.8.1...v2.8.2
 
-FIX: 
+FIX:
 - Dependency on activesupport. Now it works on rails 4.x
 
 ## `2.8.1`
