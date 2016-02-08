@@ -44,6 +44,7 @@ spec = Gem::Specification.new do |s|
   s.add_runtime_dependency('gems','~> 0.8.3')
   s.add_runtime_dependency('semantic','~> 1.4.1')
   s.add_runtime_dependency('inquirer','~> 0.2.1')
+  s.add_runtime_dependency('colorize','~> 0.7.0')
   s.add_runtime_dependency('virtus', '~> 1.0.5')
   s.add_runtime_dependency('i18n')
 end

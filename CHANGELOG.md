@@ -4,7 +4,14 @@ Reverse Chronological Order:
 
 ## Unreleased
 
-https://github.com/platanus/negroku/compare/v2.8.4...HEAD
+https://github.com/platanus/negroku/compare/v2.8.5...HEAD
+
+## `2.8.5`
+
+https://github.com/platanus/negroku/compare/v2.8.4...v2.8.5
+
+FIX:
+- Adds missing dependency to the gemspec, colorize.
 
 ## `2.8.4`
 
