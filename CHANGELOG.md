@@ -6,6 +6,10 @@ Reverse Chronological Order:
 
 https://github.com/platanus/negroku/compare/v2.8.5...HEAD
 
+FIX:
+
+- Update capistrano-rails-console gem
+
 ## `2.8.5`
 
 https://github.com/platanus/negroku/compare/v2.8.4...v2.8.5
