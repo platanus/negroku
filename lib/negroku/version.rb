@@ -1,3 +1,3 @@
 module Negroku
-  VERSION = '2.8.5'
+  VERSION = '2.8.6'
 end
