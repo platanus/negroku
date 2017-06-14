@@ -7,7 +7,11 @@ Negroku [![Stories in Ready][ready]][waffle] [![Build Status][travis-badge]][tra
 [rubygems]: http://rubygems.org/gems/negroku
 [rubygems-badge]: https://badge.fury.io/rb/negroku.svg
 
-# UNMAINTAINED
+# UNMAINTAINED NOTICE
+
+We stopped using capistrano to deploy our applicacions, so this project is not longer maintained.
+
+<hr />
 
 Negroku is an opinionated collection of recipes for capistrano.
 
