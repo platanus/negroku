@@ -7,6 +7,8 @@ Negroku [![Stories in Ready][ready]][waffle] [![Build Status][travis-badge]][tra
 [rubygems]: http://rubygems.org/gems/negroku
 [rubygems-badge]: https://badge.fury.io/rb/negroku.svg
 
+# UNMAINTAINED
+
 Negroku is an opinionated collection of recipes for capistrano.
 
 The goal is to be able to deploy **ruby applications** without the hassle of configure and define all the stuff involved in an application deployment.
